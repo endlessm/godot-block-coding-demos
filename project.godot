@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="blockcoding minigames"
-run/main_scene="res://game-01/main.tscn"
+run/main_scene="res://main-menu/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://main-menu/global.gd"
 
 [display]
 
@@ -21,9 +25,21 @@ window/size/viewport_width=960
 window/size/viewport_height=540
 window/stretch/mode="canvas_items"
 
+[editor]
+
+movie_writer/movie_file="/sysroot/home/manuq/Descargas/demo.avi"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/block_code/plugin.cfg")
+
+[input]
+
+accel={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [rendering]
 

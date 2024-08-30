@@ -1,0 +1,745 @@
+[gd_scene load_steps=38 format=3 uid="uid://2i01y1k8udj"]
+
+[ext_resource type="PackedScene" uid="uid://bj20g2u4cy81b" path="res://game-02/level.tscn" id="1_mjccm"]
+[ext_resource type="Texture2D" uid="uid://c6xa1rkfrh2s" path="res://assets/split.png" id="2_tpbhh"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_wu28m"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_yyogu"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="4_cur5m"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_sybr6"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="6_8huaw"]
+[ext_resource type="Texture2D" uid="uid://bq6eirt5xh8hn" path="res://assets/player.png" id="7_iyg2e"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="8_b4gre"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kwn3u"]
+radius = 61.2046
+
+[sub_resource type="Resource" id="Resource_wybr6"]
+script = ExtResource("4_cur5m")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_7hnrw"]
+script = ExtResource("4_cur5m")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_area_entered(area: Node2D):
+"], ["block_format", "area"], ["statement", "area"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_r5k4c"]
+script = ExtResource("3_yyogu")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_7hnrw")
+
+[sub_resource type="Resource" id="Resource_gy7rh"]
+script = ExtResource("4_cur5m")
+block_class = &"ControlBlock"
+serialized_props = [["scope", ""], ["param_input_strings_array", [{
+"condition": false
+}]]]
+
+[sub_resource type="Resource" id="Resource_fd185"]
+script = ExtResource("4_cur5m")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "player2",
+"node": ""
+}]]
+
+[sub_resource type="Resource" id="Resource_amn5s"]
+script = ExtResource("4_cur5m")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_area_entered(area: Node2D):
+"], ["block_format", "area"], ["statement", "area"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_6ol4v"]
+script = ExtResource("3_yyogu")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_amn5s")
+
+[sub_resource type="Resource" id="Resource_nbu3r"]
+script = ExtResource("3_yyogu")
+name = &"is_node_in_group"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_6ol4v")]]
+block_serialized_properties = SubResource("Resource_fd185")
+
+[sub_resource type="Resource" id="Resource_fotpr"]
+script = ExtResource("4_cur5m")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"text": "FOUND!"
+}]]
+
+[sub_resource type="Resource" id="Resource_4030w"]
+script = ExtResource("4_cur5m")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "animations",
+"method_name": "the_end"
+}]]
+
+[sub_resource type="Resource" id="Resource_twsaq"]
+script = ExtResource("3_yyogu")
+name = &"call_method_group"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_4030w")
+
+[sub_resource type="Resource" id="Resource_gefe6"]
+script = ExtResource("3_yyogu")
+name = &"print"
+position = Vector2(20, 0)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_twsaq")]]
+block_serialized_properties = SubResource("Resource_fotpr")
+
+[sub_resource type="Resource" id="Resource_n2xrg"]
+script = ExtResource("3_yyogu")
+name = &"if"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_nbu3r")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_gefe6")]]
+block_serialized_properties = SubResource("Resource_gy7rh")
+
+[sub_resource type="Resource" id="Resource_wspk2"]
+script = ExtResource("3_yyogu")
+name = &"area2d_on_entered"
+position = Vector2(150, 200)
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_r5k4c")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_n2xrg")]]
+block_serialized_properties = SubResource("Resource_wybr6")
+
+[sub_resource type="Resource" id="Resource_4mp8x"]
+script = ExtResource("5_sybr6")
+script_inherits = "Area2D"
+block_trees = Array[ExtResource("3_yyogu")]([SubResource("Resource_wspk2")])
+variables = Array[ExtResource("6_8huaw")]([])
+generated_script = "extends Area2D
+
+
+func _on_area_entered(area: Node2D):
+
+	if area.is_in_group('player2'):
+		print('FOUND!')
+		get_tree().call_group('animations', 'the_end')
+
+func _init():
+	area_entered.connect(_on_area_entered)
+"
+version = 0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_roru3"]
+radius = 61.2046
+
+[sub_resource type="Animation" id="Animation_rxbex"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PanelEnd:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PanelEnd:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BubbleLeft:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BubbleLeft:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("BubbleLeft:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.270588)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("BubbleLeft/RichTextLabel:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("BubbleRight:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("BubbleLeft/RichTextLabel2:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("BubbleRight/RichTextLabel:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("BubbleRight/RichTextLabel2:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("BubbleRight:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("BubbleRight:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_va0nt"]
+resource_name = "the-end"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelEnd:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelEnd:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.566667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_j878m"]
+resource_name = "tutorial"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(9.16667, 9.9, 17.6667, 19.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(19.1333, 19.1667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BubbleLeft:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 10.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BubbleLeft:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.133333, 0.333333),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(0.448307, 0.448307), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BubbleLeft:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.133333, 0.366667, 10.1667, 10.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.270588), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BubbleLeft/RichTextLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.433333, 4.53333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("BubbleRight:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1.06667, 3.13333, 10.7667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("BubbleLeft/RichTextLabel2:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("BubbleRight/RichTextLabel:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 3.56667, 7.36667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("BubbleRight/RichTextLabel2:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 7.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("BubbleRight:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(3.2, 3.43333, 10.1667, 10.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("BubbleRight:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(3.16667, 3.43333),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(0.471915, 0.471915), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nqsio"]
+_data = {
+"RESET": SubResource("Animation_rxbex"),
+"the-end": SubResource("Animation_va0nt"),
+"tutorial": SubResource("Animation_j878m")
+}
+
+[sub_resource type="Resource" id="Resource_ii6jq"]
+script = ExtResource("4_cur5m")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"method_name": "the_end"
+}]]
+
+[sub_resource type="Resource" id="Resource_5y54k"]
+script = ExtResource("8_b4gre")
+selected = 0
+items = ["ahead", "backwards"]
+
+[sub_resource type="Resource" id="Resource_yxtqj"]
+script = ExtResource("4_cur5m")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"animation": "the-end",
+"direction": SubResource("Resource_5y54k")
+}]]
+
+[sub_resource type="Resource" id="Resource_whdlx"]
+script = ExtResource("3_yyogu")
+name = &"animationplayer_play"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_yxtqj")
+
+[sub_resource type="Resource" id="Resource_quvdc"]
+script = ExtResource("3_yyogu")
+name = &"define_method"
+position = Vector2(100, 150)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_whdlx")]]
+block_serialized_properties = SubResource("Resource_ii6jq")
+
+[sub_resource type="Resource" id="Resource_kluh1"]
+script = ExtResource("5_sybr6")
+script_inherits = "AnimationPlayer"
+block_trees = Array[ExtResource("3_yyogu")]([SubResource("Resource_quvdc")])
+variables = Array[ExtResource("6_8huaw")]([])
+generated_script = "extends AnimationPlayer
+
+
+func the_end():
+	if \"ahead\" == \"ahead\":
+		play('the-end')
+	else:
+		play_backwards('the-end')
+
+"
+version = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gs8yl"]
+bg_color = Color(0, 0, 0, 0.92549)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Main" type="CanvasLayer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(478, 540)
+render_target_update_mode = 4
+
+[node name="Level" parent="HBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_mjccm")]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player1" index="3"]
+remote_path = NodePath("../../../Camera2D")
+
+[node name="Area2D" type="Area2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player1" index="4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player1/Area2D"]
+position = Vector2(-1, 26)
+shape = SubResource("CircleShape2D_kwn3u")
+
+[node name="BlockCode" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player1/Area2D"]
+script = ExtResource("2_wu28m")
+block_script = SubResource("Resource_4mp8x")
+
+[node name="Area2D" type="Area2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player2" index="3" groups=["player2"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player2/Area2D" groups=["player2"]]
+position = Vector2(-1, 26)
+shape = SubResource("CircleShape2D_roru3")
+
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer/SubViewport"]
+position = Vector2(1336, 1461)
+offset = Vector2(0, -40)
+limit_left = 0
+limit_top = 40
+limit_right = 3000
+limit_bottom = 3040
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer2"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(478, 540)
+render_target_update_mode = 4
+
+[node name="Level" parent="HBoxContainer/SubViewportContainer2/SubViewport" instance=ExtResource("1_mjccm")]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="HBoxContainer/SubViewportContainer2/SubViewport/Level/Player2" index="3"]
+remote_path = NodePath("../../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer2/SubViewport"]
+position = Vector2(1720, 1542)
+offset = Vector2(0, -40)
+limit_left = 0
+limit_top = 40
+limit_right = 3000
+limit_bottom = 3040
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(480, 270)
+texture = ExtResource("2_tpbhh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["animations"]]
+libraries = {
+"": SubResource("AnimationLibrary_nqsio")
+}
+autoplay = "tutorial"
+
+[node name="BlockCode" type="Node" parent="AnimationPlayer"]
+script = ExtResource("2_wu28m")
+block_script = SubResource("Resource_kluh1")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 286.0
+offset_top = 354.0
+offset_right = 667.0
+offset_bottom = 515.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gs8yl")
+
+[node name="Label" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]
+Player 1: WASD
+Player 2: Arrow keys
+[wave]
+Find each other"
+
+[node name="PanelEnd" type="Panel" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_left = 286.0
+offset_top = 354.0
+offset_right = 667.0
+offset_bottom = 515.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gs8yl")
+
+[node name="Label" type="RichTextLabel" parent="PanelEnd"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]
+
+The End
+[wave]Thanks for playing![/wave]
+[/center]
+"
+
+[node name="BubbleLeft" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.270588)
+position = Vector2(142, 100)
+texture = ExtResource("7_iyg2e")
+region_enabled = true
+region_rect = Rect2(296, 284.778, 325, 238.934)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BubbleLeft"]
+visible = false
+offset_left = -118.0
+offset_top = -85.0
+offset_right = 103.0
+offset_bottom = 33.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center][b]
+Hmm... it's 5:15 PM already and Dido hasn't arrived to the park yet."
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="BubbleLeft"]
+visible = false
+offset_left = -112.0
+offset_top = -69.0
+offset_right = 109.0
+offset_bottom = 49.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center][b]
+Hey Dido! I can't see you but you sound very close."
+
+[node name="BubbleRight" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(816, 100)
+texture = ExtResource("7_iyg2e")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(296, 284.778, 325, 238.934)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BubbleRight"]
+visible = false
+offset_left = -105.0
+offset_top = -40.0
+offset_right = 116.0
+offset_bottom = 78.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center][b]Lily?! Where are you?!"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="BubbleRight"]
+visible = false
+offset_left = -106.0
+offset_top = -51.0
+offset_right = 115.0
+offset_bottom = 67.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center][b]Yes Lily, we must be close, let's walk around."
+
+[editable path="HBoxContainer/SubViewportContainer/SubViewport/Level"]
+[editable path="HBoxContainer/SubViewportContainer2/SubViewport/Level"]

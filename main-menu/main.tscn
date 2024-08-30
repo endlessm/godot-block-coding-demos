@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmx13xe0avkwi"]
+
+[ext_resource type="Script" path="res://main-menu/main.gd" id="1_cabjd"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cabjd")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.574946, 0.306502, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Demo01Button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Speed runner"
+
+[node name="Demo02Button" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Split screen quest"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Demo01Button" to="." method="_on_demo_01_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Demo02Button" to="." method="_on_demo_02_button_pressed"]

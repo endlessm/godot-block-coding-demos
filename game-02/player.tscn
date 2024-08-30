@@ -1,0 +1,123 @@
+[gd_scene load_steps=10 format=3 uid="uid://duf85mtqcx2sw"]
+
+[ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_a1j10"]
+[ext_resource type="Texture2D" uid="uid://qlfcx8ix482v" path="res://assets/step.png" id="2_5vrji"]
+[ext_resource type="Texture2D" uid="uid://bq6eirt5xh8hn" path="res://assets/player.png" id="3_2yokc"]
+
+[sub_resource type="Curve" id="Curve_uvgas"]
+_data = [Vector2(0.00236966, 1), 0.0, 0.0, 0, 0, Vector2(0.0710901, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_q1tmd"]
+curve = SubResource("Curve_uvgas")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_itr4c"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(1, 0, 1)
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_q1tmd")
+
+[sub_resource type="Animation" id="Animation_qxh4k"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D3:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.10486, 0.847574), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(1, -7), Vector2(1, 6), Vector2(1, -7)]
+}
+
+[sub_resource type="Animation" id="Animation_p1mhq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D3:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -7)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sst5r"]
+_data = {
+"RESET": SubResource("Animation_p1mhq"),
+"walk": SubResource("Animation_qxh4k")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["affected_by_gravity"]]
+position = Vector2(0, -45)
+motion_mode = 1
+script = ExtResource("1_a1j10")
+speed = Vector2(300, 200)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(1, -7)
+texture = ExtResource("3_2yokc")
+region_enabled = true
+region_rect = Rect2(457.217, 80.7025, 128.122, 186.777)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = -1
+z_as_relative = false
+position = Vector2(10, 50)
+rotation = -1.59181
+amount = 75
+process_material = SubResource("ParticleProcessMaterial_itr4c")
+texture = ExtResource("2_5vrji")
+lifetime = 30.0
+preprocess = 0.1
+visibility_rect = Rect2(-1e+11, -1e+11, 1e+12, 1e+12)
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+z_index = -1
+z_as_relative = false
+position = Vector2(-25, 37)
+rotation = -1.59181
+amount = 75
+process_material = SubResource("ParticleProcessMaterial_itr4c")
+texture = ExtResource("2_5vrji")
+lifetime = 30.0
+visibility_rect = Rect2(-1e+11, -1e+11, 1e+12, 1e+12)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sst5r")
+}
+autoplay = "walk"
