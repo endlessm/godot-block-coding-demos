@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qlfcx8ix482v"
-path="res://.godot/imported/step.png-2f8fadffb5339b28c194a2f20b26becb.ctex"
+uid="uid://d3veajm6cnuxe"
+path="res://.godot/imported/cat-plane.png-36a55e16d399794f2bdcaa61c9d5f80b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/step.png"
-dest_files=["res://.godot/imported/step.png-2f8fadffb5339b28c194a2f20b26becb.ctex"]
+source_file="res://game-01/cat-plane.png"
+dest_files=["res://.godot/imported/cat-plane.png-36a55e16d399794f2bdcaa61c9d5f80b.ctex"]
 
 [params]
 

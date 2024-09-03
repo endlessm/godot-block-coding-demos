@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo16u7k58uup3"
-path="res://.godot/imported/clouds-01.png-f9965a31c85f0b6684d10d0fbd47c89b.ctex"
+uid="uid://bmkupx658eth0"
+path="res://.godot/imported/floor-tile.png-10fa503a79b40fc1edfe08f95fe69815.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/clouds-01.png"
-dest_files=["res://.godot/imported/clouds-01.png-f9965a31c85f0b6684d10d0fbd47c89b.ctex"]
+source_file="res://game-02/floor-tile.png"
+dest_files=["res://.godot/imported/floor-tile.png-10fa503a79b40fc1edfe08f95fe69815.ctex"]
 
 [params]
 

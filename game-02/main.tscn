@@ -1,132 +1,14 @@
-[gd_scene load_steps=38 format=3 uid="uid://2i01y1k8udj"]
+[gd_scene load_steps=22 format=3 uid="uid://2i01y1k8udj"]
 
 [ext_resource type="PackedScene" uid="uid://bj20g2u4cy81b" path="res://game-02/level.tscn" id="1_mjccm"]
-[ext_resource type="Texture2D" uid="uid://c6xa1rkfrh2s" path="res://assets/split.png" id="2_tpbhh"]
+[ext_resource type="Texture2D" uid="uid://c6xa1rkfrh2s" path="res://game-02/split.png" id="2_tpbhh"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_wu28m"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_yyogu"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="4_cur5m"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_sybr6"]
 [ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="6_8huaw"]
-[ext_resource type="Texture2D" uid="uid://bq6eirt5xh8hn" path="res://assets/player.png" id="7_iyg2e"]
+[ext_resource type="Texture2D" uid="uid://bq6eirt5xh8hn" path="res://game-02/player.png" id="7_iyg2e"]
 [ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="8_b4gre"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_kwn3u"]
-radius = 61.2046
-
-[sub_resource type="Resource" id="Resource_wybr6"]
-script = ExtResource("4_cur5m")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_7hnrw"]
-script = ExtResource("4_cur5m")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_area_entered(area: Node2D):
-"], ["block_format", "area"], ["statement", "area"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_r5k4c"]
-script = ExtResource("3_yyogu")
-name = &"parameter_block"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_7hnrw")
-
-[sub_resource type="Resource" id="Resource_gy7rh"]
-script = ExtResource("4_cur5m")
-block_class = &"ControlBlock"
-serialized_props = [["scope", ""], ["param_input_strings_array", [{
-"condition": false
-}]]]
-
-[sub_resource type="Resource" id="Resource_fd185"]
-script = ExtResource("4_cur5m")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"group": "player2",
-"node": ""
-}]]
-
-[sub_resource type="Resource" id="Resource_amn5s"]
-script = ExtResource("4_cur5m")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_area_entered(area: Node2D):
-"], ["block_format", "area"], ["statement", "area"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_6ol4v"]
-script = ExtResource("3_yyogu")
-name = &"parameter_block"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_amn5s")
-
-[sub_resource type="Resource" id="Resource_nbu3r"]
-script = ExtResource("3_yyogu")
-name = &"is_node_in_group"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_6ol4v")]]
-block_serialized_properties = SubResource("Resource_fd185")
-
-[sub_resource type="Resource" id="Resource_fotpr"]
-script = ExtResource("4_cur5m")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"text": "FOUND!"
-}]]
-
-[sub_resource type="Resource" id="Resource_4030w"]
-script = ExtResource("4_cur5m")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"group": "animations",
-"method_name": "the_end"
-}]]
-
-[sub_resource type="Resource" id="Resource_twsaq"]
-script = ExtResource("3_yyogu")
-name = &"call_method_group"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_4030w")
-
-[sub_resource type="Resource" id="Resource_gefe6"]
-script = ExtResource("3_yyogu")
-name = &"print"
-position = Vector2(20, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_twsaq")]]
-block_serialized_properties = SubResource("Resource_fotpr")
-
-[sub_resource type="Resource" id="Resource_n2xrg"]
-script = ExtResource("3_yyogu")
-name = &"if"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_nbu3r")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_gefe6")]]
-block_serialized_properties = SubResource("Resource_gy7rh")
-
-[sub_resource type="Resource" id="Resource_wspk2"]
-script = ExtResource("3_yyogu")
-name = &"area2d_on_entered"
-position = Vector2(150, 200)
-path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_r5k4c")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_n2xrg")]]
-block_serialized_properties = SubResource("Resource_wybr6")
-
-[sub_resource type="Resource" id="Resource_4mp8x"]
-script = ExtResource("5_sybr6")
-script_inherits = "Area2D"
-block_trees = Array[ExtResource("3_yyogu")]([SubResource("Resource_wspk2")])
-variables = Array[ExtResource("6_8huaw")]([])
-generated_script = "extends Area2D
-
-
-func _on_area_entered(area: Node2D):
-
-	if area.is_in_group('player2'):
-		print('FOUND!')
-		get_tree().call_group('animations', 'the_end')
-
-func _init():
-	area_entered.connect(_on_area_entered)
-"
-version = 0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_roru3"]
 radius = 61.2046
@@ -375,10 +257,10 @@ tracks/3/path = NodePath("BubbleLeft:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.133333, 0.333333),
-"transitions": PackedFloat32Array(2, 2),
+"times": PackedFloat32Array(0.133333, 0.333333, 4.56667, 4.7, 4.8),
+"transitions": PackedFloat32Array(2, 2, 1, 0.5, 2),
 "update": 0,
-"values": [Vector2(0.448307, 0.448307), Vector2(1, 1)]
+"values": [Vector2(0.448307, 0.448307), Vector2(1, 1), Vector2(1, 1), Vector2(0.448307, 0.448307), Vector2(1, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -471,10 +353,10 @@ tracks/11/path = NodePath("BubbleRight:scale")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(3.16667, 3.43333),
-"transitions": PackedFloat32Array(2, 2),
+"times": PackedFloat32Array(3.16667, 3.43333, 7.4, 7.53333, 7.63333),
+"transitions": PackedFloat32Array(2, 2, 1, 0.5, 2),
 "update": 0,
-"values": [Vector2(0.471915, 0.471915), Vector2(1, 1)]
+"values": [Vector2(0.471915, 0.471915), Vector2(1, 1), Vector2(1, 1), Vector2(0.471915, 0.471915), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nqsio"]
@@ -568,16 +450,6 @@ render_target_update_mode = 4
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player1" index="3"]
 remote_path = NodePath("../../../Camera2D")
-
-[node name="Area2D" type="Area2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player1" index="4"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player1/Area2D"]
-position = Vector2(-1, 26)
-shape = SubResource("CircleShape2D_kwn3u")
-
-[node name="BlockCode" type="Node" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player1/Area2D"]
-script = ExtResource("2_wu28m")
-block_script = SubResource("Resource_4mp8x")
 
 [node name="Area2D" type="Area2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Level/Player2" index="3" groups=["player2"]]
 

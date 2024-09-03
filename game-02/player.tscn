@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://duf85mtqcx2sw"]
+[gd_scene load_steps=11 format=3 uid="uid://duf85mtqcx2sw"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_a1j10"]
-[ext_resource type="Texture2D" uid="uid://qlfcx8ix482v" path="res://assets/step.png" id="2_5vrji"]
-[ext_resource type="Texture2D" uid="uid://bq6eirt5xh8hn" path="res://assets/player.png" id="3_2yokc"]
+[ext_resource type="Texture2D" uid="uid://qlfcx8ix482v" path="res://game-02/step.png" id="2_5vrji"]
+[ext_resource type="Texture2D" uid="uid://cdumi6pka0m6b" path="res://game-02/transparent.png" id="2_gxb3c"]
+[ext_resource type="Texture2D" uid="uid://bq6eirt5xh8hn" path="res://game-02/player.png" id="3_2yokc"]
 
 [sub_resource type="Curve" id="Curve_uvgas"]
 _data = [Vector2(0.00236966, 1), 0.0, 0.0, 0, 0, Vector2(0.0710901, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -18,6 +19,81 @@ angle_min = 1.07288e-05
 angle_max = 1.07288e-05
 gravity = Vector3(0, 0, 0)
 alpha_curve = SubResource("CurveTexture_q1tmd")
+
+[sub_resource type="Animation" id="Animation_p1mhq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D3:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, -28)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4, -102)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:skew")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
 
 [sub_resource type="Animation" id="Animation_qxh4k"]
 resource_name = "walk"
@@ -45,34 +121,55 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.333333, 0.6),
 "transitions": PackedFloat32Array(-2, -2, -2),
 "update": 0,
-"values": [Vector2(1, -7), Vector2(1, 6), Vector2(1, -7)]
+"values": [Vector2(-1, -28), Vector2(-1, -14), Vector2(-1, -28)]
 }
-
-[sub_resource type="Animation" id="Animation_p1mhq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D3:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 0.366667, 0.633333),
+"transitions": PackedFloat32Array(-2, -2, -2),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(-4, -102), Vector2(-4, -75), Vector2(-4, -102)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D3:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0666667, 0.366667, 0.633333),
+"transitions": PackedFloat32Array(-2, -2, -2),
 "update": 0,
-"values": [Vector2(1, -7)]
+"values": [-0.674899, -0.443692, -0.674899]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:skew")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sst5r"]
@@ -85,10 +182,11 @@ _data = {
 position = Vector2(0, -45)
 motion_mode = 1
 script = ExtResource("1_a1j10")
+texture = ExtResource("2_gxb3c")
 speed = Vector2(300, 200)
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
-position = Vector2(1, -7)
+position = Vector2(-1, -28)
 texture = ExtResource("3_2yokc")
 region_enabled = true
 region_rect = Rect2(457.217, 80.7025, 128.122, 186.777)
@@ -96,25 +194,23 @@ region_rect = Rect2(457.217, 80.7025, 128.122, 186.777)
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 z_index = -1
 z_as_relative = false
-position = Vector2(10, 50)
+position = Vector2(0, 30)
 rotation = -1.59181
-amount = 75
+amount = 140
 process_material = SubResource("ParticleProcessMaterial_itr4c")
 texture = ExtResource("2_5vrji")
 lifetime = 30.0
 preprocess = 0.1
 visibility_rect = Rect2(-1e+11, -1e+11, 1e+12, 1e+12)
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
-z_index = -1
-z_as_relative = false
-position = Vector2(-25, 37)
-rotation = -1.59181
-amount = 75
-process_material = SubResource("ParticleProcessMaterial_itr4c")
-texture = ExtResource("2_5vrji")
-lifetime = 30.0
-visibility_rect = Rect2(-1e+11, -1e+11, 1e+12, 1e+12)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.533333, 0, 1)
+position = Vector2(-4, -102)
+scale = Vector2(0.726588, 0.726588)
+texture = ExtResource("3_2yokc")
+offset = Vector2(25.17, 6.885)
+region_enabled = true
+region_rect = Rect2(632.127, 93.6638, 58.1069, 66.5954)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

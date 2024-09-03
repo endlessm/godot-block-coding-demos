@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.574946, 0.306502, 0, 1)
+color = Color(0.945098, 0.352941, 0.133333, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -38,6 +38,7 @@ theme_override_constants/margin_bottom = 30
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center]Block Coding Demos"
 fit_content = true
@@ -57,6 +58,14 @@ text = "Speed runner"
 layout_mode = 2
 text = "Split screen quest"
 
+[node name="Demo03Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Demo 03"
+
+[node name="Demo04Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Demo 04"
+
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 
@@ -68,3 +77,5 @@ fit_content = true
 
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo01Button" to="." method="_on_demo_01_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo02Button" to="." method="_on_demo_02_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo03Button" to="." method="_on_demo_03_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo04Button" to="." method="_on_demo_04_button_pressed"]

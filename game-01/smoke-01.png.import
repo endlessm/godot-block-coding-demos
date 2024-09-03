@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgq65kqtng8q"
-path="res://.godot/imported/propeller-01.png-d4c052963539335d0de5cf395d72228f.ctex"
+uid="uid://depftaxuqu0sm"
+path="res://.godot/imported/smoke-01.png-4a05d580c8cb98c2a0d063b39df1ad2f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/propeller-01.png"
-dest_files=["res://.godot/imported/propeller-01.png-d4c052963539335d0de5cf395d72228f.ctex"]
+source_file="res://game-01/smoke-01.png"
+dest_files=["res://.godot/imported/smoke-01.png-4a05d580c8cb98c2a0d063b39df1ad2f.ctex"]
 
 [params]
 

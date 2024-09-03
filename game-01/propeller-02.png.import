@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6xa1rkfrh2s"
-path="res://.godot/imported/split.png-61a87dd504140769fe8ff3d4819836cb.ctex"
+uid="uid://bhdcreipdklwy"
+path="res://.godot/imported/propeller-02.png-6839b7189692c744ab05b398eaf588f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/split.png"
-dest_files=["res://.godot/imported/split.png-61a87dd504140769fe8ff3d4819836cb.ctex"]
+source_file="res://game-01/propeller-02.png"
+dest_files=["res://.godot/imported/propeller-02.png-6839b7189692c744ab05b398eaf588f4.ctex"]
 
 [params]
 
