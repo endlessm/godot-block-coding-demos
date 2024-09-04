@@ -1,0 +1,134 @@
+[gd_scene load_steps=18 format=3 uid="uid://xb5tlrj2jtm4"]
+
+[ext_resource type="Texture2D" uid="uid://bsv3ck2pcunke" path="res://game-03/spikes.png" id="1_ia0v6"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_ehbmj"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_36a0g"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="4_uj4i6"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_154pw"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="6_ncqus"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_saonr"]
+size = Vector2(220, 37)
+
+[sub_resource type="Resource" id="Resource_dq5d7"]
+script = ExtResource("4_uj4i6")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_vyq6w"]
+script = ExtResource("4_uj4i6")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
+"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_206fo"]
+script = ExtResource("3_36a0g")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_vyq6w")
+
+[sub_resource type="Resource" id="Resource_82dcc"]
+script = ExtResource("4_uj4i6")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "player",
+"method_name": "get_hurt"
+}]]
+
+[sub_resource type="Resource" id="Resource_0ww0v"]
+script = ExtResource("3_36a0g")
+name = &"call_method_group"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_82dcc")
+
+[sub_resource type="Resource" id="Resource_vsffd"]
+script = ExtResource("3_36a0g")
+name = &"area2d_on_entered"
+position = Vector2(125, 100)
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_206fo")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_0ww0v")]]
+block_serialized_properties = SubResource("Resource_dq5d7")
+
+[sub_resource type="Resource" id="Resource_gq0sl"]
+script = ExtResource("5_154pw")
+script_inherits = "Area2D"
+block_trees = Array[ExtResource("3_36a0g")]([SubResource("Resource_vsffd")])
+variables = Array[ExtResource("6_ncqus")]([])
+generated_script = "extends Area2D
+
+
+func _on_body_entered(body: Node2D):
+
+	get_tree().call_group('player', 'get_hurt')
+
+func _init():
+	body_entered.connect(_on_body_entered)
+"
+version = 0
+
+[sub_resource type="Animation" id="Animation_3wpux"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1033, 226)]
+}
+
+[sub_resource type="Animation" id="Animation_qf84k"]
+resource_name = "default"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.3, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1033, 226), Vector2(1033, 186), Vector2(1033, 186), Vector2(1033, 226)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tia1i"]
+_data = {
+"RESET": SubResource("Animation_3wpux"),
+"default": SubResource("Animation_qf84k")
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(1033, 226)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(-32, 54.5)
+shape = SubResource("RectangleShape2D_saonr")
+
+[node name="TextureRect" type="TextureRect" parent="Area2D2"]
+texture_filter = 3
+offset_left = -155.0
+offset_top = -9.0
+offset_right = 84.0
+offset_bottom = 71.0
+texture = ExtResource("1_ia0v6")
+stretch_mode = 1
+
+[node name="BlockCode" type="Node" parent="Area2D2"]
+script = ExtResource("2_ehbmj")
+block_script = SubResource("Resource_gq0sl")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." groups=["spike-animations"]]
+root_node = NodePath("../Area2D2")
+libraries = {
+"": SubResource("AnimationLibrary_tia1i")
+}
+autoplay = "default"
