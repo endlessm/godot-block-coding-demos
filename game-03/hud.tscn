@@ -1,0 +1,228 @@
+[gd_scene load_steps=24 format=3 uid="uid://jt80gv02u4f2"]
+
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_prn0q"]
+[ext_resource type="Texture2D" uid="uid://d3um1i1lgu153" path="res://game-03/assets/heart.png" id="2_yyptq"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_20bx3"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="4_3m1gp"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="4_nfuy1"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_7xgsx"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="6_c4shd"]
+
+[sub_resource type="Resource" id="Resource_0c2ko"]
+script = ExtResource("4_nfuy1")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_34vn7"]
+script = ExtResource("4_nfuy1")
+block_class = &"ControlBlock"
+serialized_props = [["scope", ""], ["param_input_strings_array", [{
+"condition": false
+}]]]
+
+[sub_resource type="Resource" id="Resource_j01m8"]
+script = ExtResource("4_3m1gp")
+selected = 0
+items = ["pressed", "just_pressed", "just_released"]
+
+[sub_resource type="Resource" id="Resource_o86oe"]
+script = ExtResource("4_3m1gp")
+selected = 21
+items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_skip_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction", "accel"]
+
+[sub_resource type="Resource" id="Resource_tkyxk"]
+script = ExtResource("4_nfuy1")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"action": SubResource("Resource_j01m8"),
+"action_name": SubResource("Resource_o86oe")
+}]]
+
+[sub_resource type="Resource" id="Resource_qe7yp"]
+script = ExtResource("3_20bx3")
+name = &"is_input_actioned"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_tkyxk")
+
+[sub_resource type="Resource" id="Resource_4yl32"]
+script = ExtResource("4_nfuy1")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_65qgs"]
+script = ExtResource("3_20bx3")
+name = &"queue_free"
+position = Vector2(20, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_4yl32")
+
+[sub_resource type="Resource" id="Resource_8rljp"]
+script = ExtResource("3_20bx3")
+name = &"if"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_qe7yp")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_65qgs")]]
+block_serialized_properties = SubResource("Resource_34vn7")
+
+[sub_resource type="Resource" id="Resource_1qfo4"]
+script = ExtResource("3_20bx3")
+name = &"process"
+position = Vector2(100, 50)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_8rljp")]]
+block_serialized_properties = SubResource("Resource_0c2ko")
+
+[sub_resource type="Resource" id="Resource_3wjj1"]
+script = ExtResource("5_7xgsx")
+script_inherits = "Label"
+block_trees = Array[ExtResource("3_20bx3")]([SubResource("Resource_1qfo4")])
+variables = Array[ExtResource("6_c4shd")]([])
+generated_script = "extends Label
+
+
+func _process(delta):
+	if Input.is_action_pressed(\"ui_text_newline\"):
+		queue_free()
+
+"
+version = 0
+
+[sub_resource type="Resource" id="Resource_kf0lb"]
+script = ExtResource("4_nfuy1")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"method_name": "show_win"
+}]]
+
+[sub_resource type="Resource" id="Resource_0s6e2"]
+script = ExtResource("4_nfuy1")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"value": true
+}]]
+
+[sub_resource type="Resource" id="Resource_7bjqq"]
+script = ExtResource("3_20bx3")
+name = &"CanvasItem_set_visible"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_0s6e2")
+
+[sub_resource type="Resource" id="Resource_yjxxf"]
+script = ExtResource("3_20bx3")
+name = &"define_method"
+position = Vector2(125, 75)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_7bjqq")]]
+block_serialized_properties = SubResource("Resource_kf0lb")
+
+[sub_resource type="Resource" id="Resource_edxs8"]
+script = ExtResource("5_7xgsx")
+script_inherits = "Label"
+block_trees = Array[ExtResource("3_20bx3")]([SubResource("Resource_yjxxf")])
+variables = Array[ExtResource("6_c4shd")]([])
+generated_script = "extends Label
+
+
+func show_win():
+	visible = true
+
+"
+version = 0
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Start" type="Label" parent="."]
+unique_name_in_owner = true
+top_level = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 156.0
+offset_top = -223.0
+offset_right = 575.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Press Enter
+to Start"
+horizontal_alignment = 1
+
+[node name="BlockCode" type="Node" parent="Start"]
+script = ExtResource("2_prn0q")
+block_script = SubResource("Resource_3wjj1")
+
+[node name="WinEnding" type="Label" parent="." groups=["HUD"]]
+unique_name_in_owner = true
+visible = false
+top_level = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -81.0
+offset_right = 210.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "You Win!"
+horizontal_alignment = 1
+
+[node name="BlockCode" type="Node" parent="WinEnding"]
+script = ExtResource("2_prn0q")
+block_script = SubResource("Resource_edxs8")
+
+[node name="LoseEnding" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+top_level = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -81.0
+offset_right = 210.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "You Lose!"
+horizontal_alignment = 1
+
+[node name="CollectedCoins" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 64.0
+offset_top = 126.0
+offset_right = 306.0
+offset_bottom = 214.0
+theme_override_font_sizes/font_size = 64
+text = "Coins: 0"
+
+[node name="TimeLeft" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 64.0
+offset_top = 40.0
+offset_right = 306.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 64
+text = "0"
+
+[node name="Lives" type="TextureRect" parent="."]
+unique_name_in_owner = true
+offset_left = 60.0
+offset_top = 220.0
+offset_right = 124.0
+offset_bottom = 284.0
+texture = ExtResource("2_yyptq")
+expand_mode = 1
+stretch_mode = 1

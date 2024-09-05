@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://coq6d3u6wnvs2"]
+
+[ext_resource type="TileSet" uid="uid://bmkax0b814rmy" path="res://game-03/spaces/tileset-a.tres" id="1_3rwtc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4vtk"]
+size = Vector2(256, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2vn2"]
+size = Vector2(256, 128)
+
+[sub_resource type="Animation" id="Animation_6232f"]
+resource_name = "shake"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(5, 4), Vector2(-2, 4), Vector2(-5, -4), Vector2(4, 5), Vector2(-4, 4), Vector2(2, -3), Vector2(-1, 0), Vector2(5, 2), Vector2(3, -2), Vector2(2, -3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cwxfq"]
+_data = {
+"shake": SubResource("Animation_6232f")
+}
+
+[node name="Platform" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 0
+mass = 1000.0
+freeze = true
+
+[node name="Area2D" type="Area2D" parent="RigidBody2D"]
+
+[node name="AreaCollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Area2D"]
+unique_name_in_owner = true
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_i4vtk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+unique_name_in_owner = true
+position = Vector2(0, 64)
+shape = SubResource("RectangleShape2D_o2vn2")
+metadata/_edit_group_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RigidBody2D"]
+unique_name_in_owner = true
+root_node = NodePath("")
+libraries = {
+"": SubResource("AnimationLibrary_cwxfq")
+}
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 10, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 1, 0, 0, 0)
+tile_set = ExtResource("1_3rwtc")
+
+[connection signal="body_entered" from="RigidBody2D" to="." method="_on_rigid_body_2d_body_entered"]
+[connection signal="body_entered" from="RigidBody2D/Area2D" to="." method="_on_area_2d_body_entered"]
