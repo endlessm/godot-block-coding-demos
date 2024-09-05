@@ -60,7 +60,7 @@ text = "Split screen quest"
 
 [node name="Demo03Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Demo 03"
+text = "Platformer"
 
 [node name="Demo04Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
