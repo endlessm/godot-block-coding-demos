@@ -165,5 +165,3 @@ shape = SubResource("CircleShape2D_5w0o8")
 [node name="BlockCode" type="Node" parent="."]
 script = ExtResource("2_dpb0t")
 block_script = SubResource("Resource_mvgeb")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

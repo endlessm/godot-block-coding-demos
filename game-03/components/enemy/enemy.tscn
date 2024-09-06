@@ -190,5 +190,3 @@ shape = SubResource("RectangleShape2D_cepcq")
 [node name="BlockCode" type="Node" parent="Hitbox"]
 script = ExtResource("2_kload")
 block_script = SubResource("Resource_01y8v")
-
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
