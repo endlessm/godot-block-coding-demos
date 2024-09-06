@@ -4,8 +4,11 @@ extends CharacterBody2D
 
 const BlockDefinition = preload("res://addons/block_code/code_generation/block_definition.gd")
 const BlocksCatalog = preload("res://addons/block_code/code_generation/blocks_catalog.gd")
+const OptionData = preload("res://addons/block_code/code_generation/option_data.gd")
 const Types = preload("res://addons/block_code/types/types.gd")
 
+## A texture can be provided for simple setup. If provided, the character will have a collision box
+## that matches the size of the texture.
 @export var texture: Texture2D:
 	set = _set_texture
 
@@ -44,8 +47,28 @@ func _set_texture(new_texture):
 
 
 func _texture_updated():
+	if not texture:
+		if sprite:
+			sprite.queue_free()
+			sprite = null
+		if collision:
+			collision.queue_free()
+			collision = null
+		return
+
+	if not sprite:
+		sprite = Sprite2D.new()
+		sprite.name = &"Sprite2D"
+		add_child(sprite)
+
+	if not collision:
+		collision = CollisionShape2D.new()
+		collision.name = &"CollisionShape2D"
+		collision.shape = RectangleShape2D.new()
+		add_child(collision)
+
 	sprite.texture = texture
-	collision.shape.size = Vector2(100, 100) if texture == null else texture.get_size()
+	collision.shape.size = texture.get_size()
 
 
 ## Nodes in the "affected_by_gravity" group will receive gravity changes:
@@ -59,27 +82,7 @@ func _ready():
 
 func simple_setup():
 	add_to_group("affected_by_gravity", true)
-
-	sprite = Sprite2D.new()
-	sprite.name = &"Sprite2D"
-	add_child(sprite)
-
-	collision = CollisionShape2D.new()
-	collision.name = &"CollisionShape2D"
-	collision.shape = RectangleShape2D.new()
-	add_child(collision)
-
 	_texture_updated()
-
-
-func _exit_tree():
-	if collision:
-		collision.queue_free()
-		collision = null
-
-	if sprite:
-		sprite.queue_free()
-		sprite = null
 
 
 func get_custom_class():
@@ -129,6 +132,13 @@ static func setup_custom_blocks():
 	block_definition.category = "Input"
 	block_definition.type = Types.BlockType.STATEMENT
 	block_definition.display_template = "Move with {player: OPTION} buttons as {kind: OPTION}"
+	block_definition.description = """Move the character using the “Player 1” or “Player 2” controls as configured in Godot.
+
+“Top-down” enables the character to move in both x (vertical) and y (horizontal) dimensions, as if the camera is above the character, looking down. No gravity is added.
+
+“Platformer” enables the character to move as if the camera is looking from the side, like a side-scroller. Gravity is applied on the x (vertical) axis, making the character fall down until they collide.
+
+“Spaceship” uses the left/right controls to turn the character and up/down controls to go forward or backward."""
 	# TODO: delta here is assumed to be the parameter name of
 	# the _process or _physics_process method:
 	block_definition.code_template = 'move_with_player_buttons("{player}", "{kind}", delta)'
