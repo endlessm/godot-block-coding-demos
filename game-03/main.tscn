@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://dhcpt1kt8cs0g"]
+[gd_scene load_steps=49 format=4 uid="uid://dhcpt1kt8cs0g"]
 
 [ext_resource type="PackedScene" uid="uid://8st4scqt06l8" path="res://game-03/components/player/player.tscn" id="2_7yl00"]
 [ext_resource type="PackedScene" uid="uid://jnrusvm3gric" path="res://game-03/spaces/background.tscn" id="2_tb5a2"]
@@ -15,6 +15,106 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="14_mnm16"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="15_hikyw"]
 [ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="16_xrfo1"]
+
+[sub_resource type="Resource" id="Resource_4ygxb"]
+script = ExtResource("14_mnm16")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_plaoc"]
+script = ExtResource("14_mnm16")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
+"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_81mb5"]
+script = ExtResource("13_ff376")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_plaoc")
+
+[sub_resource type="Resource" id="Resource_0wukk"]
+script = ExtResource("14_mnm16")
+block_class = &"ControlBlock"
+serialized_props = [["scope", ""], ["param_input_strings_array", [{
+"condition": false
+}]]]
+
+[sub_resource type="Resource" id="Resource_pbb73"]
+script = ExtResource("14_mnm16")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "player",
+"node": ""
+}]]
+
+[sub_resource type="Resource" id="Resource_ufo1k"]
+script = ExtResource("14_mnm16")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
+"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_wn521"]
+script = ExtResource("13_ff376")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_ufo1k")
+
+[sub_resource type="Resource" id="Resource_v8wj7"]
+script = ExtResource("13_ff376")
+name = &"is_node_in_group"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_wn521")]]
+block_serialized_properties = SubResource("Resource_pbb73")
+
+[sub_resource type="Resource" id="Resource_jecpj"]
+script = ExtResource("14_mnm16")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "HUD",
+"method_name": "decrease_a_life"
+}]]
+
+[sub_resource type="Resource" id="Resource_5tklo"]
+script = ExtResource("13_ff376")
+name = &"call_method_group"
+position = Vector2(20, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_jecpj")
+
+[sub_resource type="Resource" id="Resource_3cwju"]
+script = ExtResource("13_ff376")
+name = &"if"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_v8wj7")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_5tklo")]]
+block_serialized_properties = SubResource("Resource_0wukk")
+
+[sub_resource type="Resource" id="Resource_ipxdd"]
+script = ExtResource("13_ff376")
+name = &"area2d_on_entered"
+position = Vector2(150, 100)
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_81mb5")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_3cwju")]]
+block_serialized_properties = SubResource("Resource_4ygxb")
+
+[sub_resource type="Resource" id="Resource_u1tgx"]
+script = ExtResource("15_hikyw")
+script_inherits = "Area2D"
+block_trees = Array[ExtResource("13_ff376")]([SubResource("Resource_ipxdd")])
+variables = Array[ExtResource("16_xrfo1")]([])
+generated_script = "extends Area2D
+
+
+func _on_body_entered(body: Node2D):
+
+	if body.is_in_group('player'):
+		get_tree().call_group('HUD', 'decrease_a_life')
+
+func _init():
+	body_entered.connect(_on_body_entered)
+"
+version = 0
 
 [sub_resource type="Resource" id="Resource_j1vfn"]
 script = ExtResource("14_mnm16")
@@ -176,6 +276,10 @@ transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
 
 [node name="Dangerzone" parent="." instance=ExtResource("4_2mg6t")]
 position = Vector2(3072, 1216)
+
+[node name="BlockCode" type="Node" parent="Dangerzone"]
+script = ExtResource("12_2m5e8")
+block_script = SubResource("Resource_u1tgx")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("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AAAeAAUAAAAAAAEAAAAfAAYAAAAAAAEAAAAeAAcAAAAAAAEAAAAcAAcAAAAAAAAAAAAdAAcAAAAAAAAAAAAeAAYAAAAAAAAAAAAfAAcAAAAAAAAAAAAgAAcAAAAAAAAAAAAhAAcAAAAAAAAAAAAhAAYAAAAAAAAAAAAhAAUAAAAAAAAAAAAhAAQAAAAAAAAAAAAgAAQAAAAAAAAAAAAfAAQAAAAAAAAAAAAfAAUAAAAAAAAAAAAgAAUAAAAAAAAAAAAgAAYAAAAAAAAAAAAjAAgAAAAAAAAAAAAkAAgAAAAAAAAAAAAlAAgAAAAAAAAAAAAmAAgAAAAAAAAAAAAnAAgAAAAAAAAAAAAnAAcAAAAAAAAAAAAnAAYAAAAAAAAAAAAnAAUAAAAAAAAAAAAnAAQAAAAAAAAAAAAnAAMAAAAAAAAAAAAnAAIAAAAAAAAAAAAnAAEAAAAAAAAAAAAnAAAAAAAAAAAAAAAnAP//AAAAAAAAAAAnAP7/AAAAAAAAAAAnAP3/AAAAAAAAAAAnAPz/AAAAAAAAAAAnAPv/AAAAAAAAAAAnAPr/AAAAAAAAAAAnAPn/AAAAAAAAAAAnAPj/AAAAAAAAAAAmAPj/AAAAAAAAAAAmAPf/AAAAAAAAAAAnAPf/AAAAAAAAAAAlAPf/AAAAAAEAAAAkAPf/AAAAAAAAAAAjAPf/AAAAAAAAAAAjAPj/AAAAAAAAAAAjAPn/AAAAAAAAAAAjAPr/AAAAAAAAAAAjAPv/AAAAAAAAAAAjAPz/AAAAAAAAAAAjAP3/AAAAAAAAAAAjAP7/AAAAAAAAAAAjAP//AAAAAAAAAAAjAAAAAAAAAAAAAAAjAAEAAAAAAAAAAAAjAAIAAAAAAAAAAAAjAAMAAAAAAAAAAAAjAAQAAAAAAAAAAAAjAAUAAAAAAAAAAAAkAAUAAAAAAAAAAAAkAAYAAAAAAAEAAAAkAAcAAAAAAAAAAAAjAAcAAAAAAAAAAAAjAAYAAAAAAAAAAAAlAAcAAAAAAAAAAAAmAAcAAAAAAAAAAAAmAAYAAAAAAAAAAAAmAAUAAAAAAAAAAAAmAAQAAAAAAAAAAAAmAAMAAAAAAAAAAAAmAAIAAAAAAAAAAAAmAAEAAAAAAAAAAAAmAAAAAAAAAAAAAAAmAP//AAAAAAAAAAAmAP7/AAAAAAAAAAAmAP3/AAAAAAAAAAAmAPz/AAAAAAAAAAAmAPv/AAAAAAAAAAAmAPr/AAAAAAEAAAAmAPn/AAAAAAAAAAAlAPn/AAAAAAAAAAAlAPj/AAAAAAAAAAAkAPj/AAAAAAAAAAAkAPn/AAAAAAEAAAAkAPr/AAAAAAAAAAAkAPv/AAAAAAEAAAAkAPz/AAAAAAAAAAAkAP3/AAAAAAAAAAAkAAMAAAAAAAAAAAAkAAQAAAAAAAAAAAAkAAIAAAAAAAEAAAAkAAEAAAAAAAAAAAAkAAAAAAAAAAAAAAAkAP//AAAAAAEAAAAkAP7/AAAAAAAAAAAlAPz/AAAAAAAAAAAlAPv/AAAAAAAAAAAlAPr/AAAAAAAAAAAlAP3/AAAAAAEAAAAlAP7/AAAAAAAAAAAlAP//AAAAAAAAAAAlAAAAAAAAAAAAAAAlAAEAAAAAAAEAAAAlAAIAAAAAAAAAAAAlAAMAAAAAAAAAAAAlAAQAAAAAAAEAAAAlAAUAAAAAAAAAAAAlAAYAAAAAAAAAAAAiAPb/AAAKAAEAAAAjAPb/AAAAAAAAAAAkAPb/AAAAAAAAAAAlAPb/AAAAAAAAAAAmAPb/AAAAAAAAAAAnAPb/AAAAAAAAAAA=")
