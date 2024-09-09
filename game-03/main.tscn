@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=4 uid="uid://dhcpt1kt8cs0g"]
+[gd_scene load_steps=88 format=4 uid="uid://dhcpt1kt8cs0g"]
 
 [ext_resource type="PackedScene" uid="uid://8st4scqt06l8" path="res://game-03/components/player/player.tscn" id="2_7yl00"]
 [ext_resource type="PackedScene" uid="uid://jnrusvm3gric" path="res://game-03/spaces/background.tscn" id="2_tb5a2"]
@@ -166,12 +166,12 @@ position = Vector2(0, 0)
 path_child_pairs = []
 block_serialized_properties = SubResource("Resource_ymgtk")
 
-[sub_resource type="Resource" id="Resource_n1pcx"]
+[sub_resource type="Resource" id="Resource_at8h3"]
 script = ExtResource("10_uky1v")
 selected = 0
 items = ["player_1", "player_2"]
 
-[sub_resource type="Resource" id="Resource_tlksy"]
+[sub_resource type="Resource" id="Resource_1iqif"]
 script = ExtResource("10_uky1v")
 selected = 1
 items = ["top-down", "platformer", "spaceship"]
@@ -180,8 +180,8 @@ items = ["top-down", "platformer", "spaceship"]
 script = ExtResource("14_mnm16")
 block_class = &"StatementBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
-"kind": SubResource("Resource_tlksy"),
-"player": SubResource("Resource_n1pcx")
+"kind": SubResource("Resource_1iqif"),
+"player": SubResource("Resource_at8h3")
 }]]
 
 [sub_resource type="Resource" id="Resource_i0e5e"]
@@ -233,6 +233,34 @@ position = Vector2(525, 100)
 path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_o31td")]]
 block_serialized_properties = SubResource("Resource_cptx6")
 
+[sub_resource type="Resource" id="Resource_1wwj8"]
+script = ExtResource("14_mnm16")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"method_name": "reset_player"
+}]]
+
+[sub_resource type="Resource" id="Resource_fl8ok"]
+script = ExtResource("14_mnm16")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"value": Vector2(512, 448)
+}]]
+
+[sub_resource type="Resource" id="Resource_7i5np"]
+script = ExtResource("13_ff376")
+name = &"Node2D_set_position"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_fl8ok")
+
+[sub_resource type="Resource" id="Resource_u1c2e"]
+script = ExtResource("13_ff376")
+name = &"define_method"
+position = Vector2(525, 225)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_7i5np")]]
+block_serialized_properties = SubResource("Resource_1wwj8")
+
 [sub_resource type="Resource" id="Resource_6snwf"]
 script = ExtResource("16_xrfo1")
 var_name = "is_playing"
@@ -241,7 +269,7 @@ var_type = 1
 [sub_resource type="Resource" id="Resource_n6btv"]
 script = ExtResource("15_hikyw")
 script_inherits = "SimpleCharacter"
-block_trees = Array[ExtResource("13_ff376")]([SubResource("Resource_ja4vy"), SubResource("Resource_y2t4w"), SubResource("Resource_o8ua4")])
+block_trees = Array[ExtResource("13_ff376")]([SubResource("Resource_ja4vy"), SubResource("Resource_y2t4w"), SubResource("Resource_o8ua4"), SubResource("Resource_u1c2e")])
 variables = Array[ExtResource("16_xrfo1")]([SubResource("Resource_6snwf")])
 generated_script = "extends SimpleCharacter
 
@@ -257,6 +285,9 @@ func _physics_process(delta):
 
 func start_game():
 	is_playing = true
+
+func reset_player():
+	position = Vector2(512, 448)
 
 "
 version = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://jt80gv02u4f2"]
+[gd_scene load_steps=40 format=3 uid="uid://jt80gv02u4f2"]
 
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_prn0q"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_20bx3"]
@@ -175,11 +175,26 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 "score": -1
 }]]
 
+[sub_resource type="Resource" id="Resource_uik7g"]
+script = ExtResource("4_nfuy1")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "player",
+"method_name": "reset_player"
+}]]
+
+[sub_resource type="Resource" id="Resource_y5pnh"]
+script = ExtResource("3_20bx3")
+name = &"call_method_group"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_uik7g")
+
 [sub_resource type="Resource" id="Resource_xljvp"]
 script = ExtResource("3_20bx3")
 name = &"simplescoring_change_score_player_2"
 position = Vector2(0, 0)
-path_child_pairs = []
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_y5pnh")]]
 block_serialized_properties = SubResource("Resource_mlcno")
 
 [sub_resource type="Resource" id="Resource_p5fry"]
@@ -234,6 +249,7 @@ var coins: int
 
 func decrease_a_life():
 	score_right += -1
+	get_tree().call_group('player', 'reset_player')
 
 func collect_a_coin():
 	score_left += 1
