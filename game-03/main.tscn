@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://dhcpt1kt8cs0g"]
+[gd_scene load_steps=51 format=4 uid="uid://dhcpt1kt8cs0g"]
 
 [ext_resource type="PackedScene" uid="uid://8st4scqt06l8" path="res://game-03/components/player/player.tscn" id="2_7yl00"]
 [ext_resource type="PackedScene" uid="uid://jnrusvm3gric" path="res://game-03/spaces/background.tscn" id="2_tb5a2"]
@@ -203,13 +203,13 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 [sub_resource type="Resource" id="Resource_niy10"]
 script = ExtResource("14_mnm16")
 block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(-18, -17)], ["scope", "func _on_body_entered(body: Node2D):
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
 "], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
 
 [sub_resource type="Resource" id="Resource_8onky"]
 script = ExtResource("13_ff376")
 name = &"parameter_block"
-position = Vector2(-18, -17)
+position = Vector2(0, 0)
 path_child_pairs = []
 block_serialized_properties = SubResource("Resource_niy10")
 
@@ -219,6 +219,14 @@ name = &"is_node_in_group"
 position = Vector2(0, 0)
 path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_8onky")]]
 block_serialized_properties = SubResource("Resource_rksis")
+
+[sub_resource type="Resource" id="Resource_l3dtu"]
+script = ExtResource("14_mnm16")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "flag",
+"method_name": "raise_flag"
+}]]
 
 [sub_resource type="Resource" id="Resource_8rrig"]
 script = ExtResource("14_mnm16")
@@ -231,15 +239,22 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 [sub_resource type="Resource" id="Resource_ywk5l"]
 script = ExtResource("13_ff376")
 name = &"call_method_group"
-position = Vector2(20, 0)
+position = Vector2(0, 0)
 path_child_pairs = []
 block_serialized_properties = SubResource("Resource_8rrig")
+
+[sub_resource type="Resource" id="Resource_n0qh3"]
+script = ExtResource("13_ff376")
+name = &"call_method_group"
+position = Vector2(20, 0)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_ywk5l")]]
+block_serialized_properties = SubResource("Resource_l3dtu")
 
 [sub_resource type="Resource" id="Resource_bufge"]
 script = ExtResource("13_ff376")
 name = &"if"
 position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_idurv")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_ywk5l")]]
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_idurv")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_n0qh3")]]
 block_serialized_properties = SubResource("Resource_ydy3h")
 
 [sub_resource type="Resource" id="Resource_u24rf"]
@@ -260,6 +275,7 @@ generated_script = "extends Area2D
 func _on_body_entered(body: Node2D):
 
 	if body.is_in_group('player'):
+		get_tree().call_group('flag', 'raise_flag')
 		get_tree().call_group('HUD', 'show_win')
 
 func _init():
