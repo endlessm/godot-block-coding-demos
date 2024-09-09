@@ -1,32 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://8st4scqt06l8"]
+[gd_scene load_steps=4 format=3 uid="uid://8st4scqt06l8"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_vu6uw"]
 [ext_resource type="SpriteFrames" uid="uid://bo581k1esb50n" path="res://game-03/components/player/spriteframes-red.tres" id="2_msaml"]
-[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_6x4bl"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_7grvh"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="5_gq7w5"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="6_uod2a"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="7_ujk4y"]
-
-[sub_resource type="Resource" id="Resource_b0aen"]
-script = ExtResource("5_gq7w5")
-block_class = &"EntryBlock"
-serialized_props = [["color", Color(0.92549, 0.231373, 0.34902, 1)], ["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_1h6wi"]
-script = ExtResource("4_7grvh")
-name = &"ready"
-position = Vector2(54, 47)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_b0aen")
-
-[sub_resource type="Resource" id="Resource_8te3x"]
-script = ExtResource("6_uod2a")
-script_inherits = "AnimatedSprite2D"
-block_trees = Array[ExtResource("4_7grvh")]([SubResource("Resource_1h6wi")])
-variables = Array[ExtResource("7_ujk4y")]([])
-generated_script = "extends AnimatedSprite2D"
-version = 0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2etyl"]
 radius = 31.0
@@ -42,10 +17,6 @@ unique_name_in_owner = true
 sprite_frames = ExtResource("2_msaml")
 animation = &"walk"
 autoplay = "walk"
-
-[node name="BlockCode" type="Node" parent="AnimatedSprite2D"]
-script = ExtResource("3_6x4bl")
-block_script = SubResource("Resource_8te3x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 18)

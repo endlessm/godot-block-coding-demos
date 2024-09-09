@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=4 uid="uid://dhcpt1kt8cs0g"]
+[gd_scene load_steps=84 format=4 uid="uid://dhcpt1kt8cs0g"]
 
 [ext_resource type="PackedScene" uid="uid://8st4scqt06l8" path="res://game-03/components/player/player.tscn" id="2_7yl00"]
 [ext_resource type="PackedScene" uid="uid://jnrusvm3gric" path="res://game-03/spaces/background.tscn" id="2_tb5a2"]
@@ -116,53 +116,147 @@ func _init():
 "
 version = 0
 
+[sub_resource type="Resource" id="Resource_is8cm"]
+script = ExtResource("14_mnm16")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_qbvyj"]
+script = ExtResource("14_mnm16")
+block_class = &"StatementBlock"
+serialized_props = [["block_name", &"set_var_is_playing"], ["label", "StatementBlock"], ["color", Color(1, 0.560784, 0.0313726, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Set is_playing to {value: BOOL}"], ["statement", "is_playing = {value}"], ["defaults", {}], ["param_input_strings", {
+"value": false
+}]]
+
+[sub_resource type="Resource" id="Resource_sgq6c"]
+script = ExtResource("13_ff376")
+name = &"set_var_is_playing"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_qbvyj")
+
+[sub_resource type="Resource" id="Resource_ja4vy"]
+script = ExtResource("13_ff376")
+name = &"ready"
+position = Vector2(200, 100)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_sgq6c")]]
+block_serialized_properties = SubResource("Resource_is8cm")
+
 [sub_resource type="Resource" id="Resource_j1vfn"]
 script = ExtResource("14_mnm16")
 block_class = &"EntryBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {}]]
 
-[sub_resource type="Resource" id="Resource_twlj8"]
-script = ExtResource("10_uky1v")
-selected = 1
-items = ["top-down", "platformer", "spaceship"]
+[sub_resource type="Resource" id="Resource_k3tqo"]
+script = ExtResource("14_mnm16")
+block_class = &"ControlBlock"
+serialized_props = [["scope", ""], ["param_input_strings_array", [{
+"condition": false
+}]]]
 
-[sub_resource type="Resource" id="Resource_54ty7"]
+[sub_resource type="Resource" id="Resource_ymgtk"]
+script = ExtResource("14_mnm16")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"get_var_is_playing"], ["label", "Param"], ["color", Color(1, 0.560784, 0.0313726, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "is_playing"], ["statement", "is_playing"], ["defaults", {}], ["variant_type", 1], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_i137g"]
+script = ExtResource("13_ff376")
+name = &"get_var_is_playing"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_ymgtk")
+
+[sub_resource type="Resource" id="Resource_n1pcx"]
 script = ExtResource("10_uky1v")
 selected = 0
 items = ["player_1", "player_2"]
+
+[sub_resource type="Resource" id="Resource_tlksy"]
+script = ExtResource("10_uky1v")
+selected = 1
+items = ["top-down", "platformer", "spaceship"]
 
 [sub_resource type="Resource" id="Resource_fg1xx"]
 script = ExtResource("14_mnm16")
 block_class = &"StatementBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
-"kind": SubResource("Resource_twlj8"),
-"player": SubResource("Resource_54ty7")
+"kind": SubResource("Resource_tlksy"),
+"player": SubResource("Resource_n1pcx")
 }]]
 
 [sub_resource type="Resource" id="Resource_i0e5e"]
 script = ExtResource("13_ff376")
 name = &"simplecharacter_move"
-position = Vector2(0, 0)
+position = Vector2(20, 0)
 path_child_pairs = []
 block_serialized_properties = SubResource("Resource_fg1xx")
+
+[sub_resource type="Resource" id="Resource_faqmv"]
+script = ExtResource("13_ff376")
+name = &"if"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_i137g")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_i0e5e")]]
+block_serialized_properties = SubResource("Resource_k3tqo")
 
 [sub_resource type="Resource" id="Resource_y2t4w"]
 script = ExtResource("13_ff376")
 name = &"physics_process"
-position = Vector2(200, 100)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_i0e5e")]]
+position = Vector2(200, 250)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_faqmv")]]
 block_serialized_properties = SubResource("Resource_j1vfn")
+
+[sub_resource type="Resource" id="Resource_cptx6"]
+script = ExtResource("14_mnm16")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"method_name": "start_game"
+}]]
+
+[sub_resource type="Resource" id="Resource_nusx7"]
+script = ExtResource("14_mnm16")
+block_class = &"StatementBlock"
+serialized_props = [["block_name", &"set_var_is_playing"], ["label", "StatementBlock"], ["color", Color(1, 0.560784, 0.0313726, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Set is_playing to {value: BOOL}"], ["statement", "is_playing = {value}"], ["defaults", {}], ["param_input_strings", {
+"value": true
+}]]
+
+[sub_resource type="Resource" id="Resource_o31td"]
+script = ExtResource("13_ff376")
+name = &"set_var_is_playing"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_nusx7")
+
+[sub_resource type="Resource" id="Resource_o8ua4"]
+script = ExtResource("13_ff376")
+name = &"define_method"
+position = Vector2(525, 100)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_o31td")]]
+block_serialized_properties = SubResource("Resource_cptx6")
+
+[sub_resource type="Resource" id="Resource_6snwf"]
+script = ExtResource("16_xrfo1")
+var_name = "is_playing"
+var_type = 1
 
 [sub_resource type="Resource" id="Resource_n6btv"]
 script = ExtResource("15_hikyw")
 script_inherits = "SimpleCharacter"
-block_trees = Array[ExtResource("13_ff376")]([SubResource("Resource_y2t4w")])
-variables = Array[ExtResource("16_xrfo1")]([])
+block_trees = Array[ExtResource("13_ff376")]([SubResource("Resource_ja4vy"), SubResource("Resource_y2t4w"), SubResource("Resource_o8ua4")])
+variables = Array[ExtResource("16_xrfo1")]([SubResource("Resource_6snwf")])
 generated_script = "extends SimpleCharacter
 
+var is_playing: bool
+
+
+func _ready():
+	is_playing = false
 
 func _physics_process(delta):
-	move_with_player_buttons(\"player_1\", \"platformer\", delta)
+	if is_playing:
+		move_with_player_buttons(\"player_1\", \"platformer\", delta)
+
+func start_game():
+	is_playing = true
 
 "
 version = 0
@@ -553,7 +647,7 @@ position = Vector2(1216, -128)
 position = Vector2(1472, 256)
 
 [node name="Player" parent="." instance=ExtResource("2_7yl00")]
-position = Vector2(512, 576)
+position = Vector2(512, 448)
 collision_layer = 1
 collision_mask = 7
 speed = Vector2(250, 600)
