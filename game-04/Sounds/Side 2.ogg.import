@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://vllaennawpnq"
+path="res://.godot/imported/Side 2.ogg-d5e889091dac0dd795d7fb5765173094.oggvorbisstr"
+
+[deps]
+
+source_file="res://game-04/Sounds/Side 2.ogg"
+dest_files=["res://.godot/imported/Side 2.ogg-d5e889091dac0dd795d7fb5765173094.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

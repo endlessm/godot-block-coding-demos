@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dv2q1pcf3cuek"
-path="res://.godot/imported/pin.svg-701d5e4d45f1ec405eb116fdd46fb3a7.ctex"
+path="res://.godot/imported/pin.svg-5d6128392fd5e486d745dea0a740bf1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game-04/pin.svg"
-dest_files=["res://.godot/imported/pin.svg-701d5e4d45f1ec405eb116fdd46fb3a7.ctex"]
+source_file="res://game-04/Images/pin.svg"
+dest_files=["res://.godot/imported/pin.svg-5d6128392fd5e486d745dea0a740bf1d.ctex"]
 
 [params]
 

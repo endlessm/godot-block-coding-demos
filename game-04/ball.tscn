@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://crjhuj7jjpqkg"]
+[gd_scene load_steps=4 format=3 uid="uid://crjhuj7jjpqkg"]
 
-[ext_resource type="Texture2D" uid="uid://cj2s2swo2jwvh" path="res://game-04/ball.svg" id="1_56jee"]
+[ext_resource type="Texture2D" uid="uid://cj2s2swo2jwvh" path="res://game-04/Images/ball.svg" id="1_56jee"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fg4es"]
+bounce = 0.67
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lvia1"]
 radius = 15.0
 
-[node name="Ball" type="RigidBody2D"]
+[node name="Ball" type="RigidBody2D" groups=["Ball"]]
+mass = 0.003
+physics_material_override = SubResource("PhysicsMaterial_fg4es")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_lvia1")

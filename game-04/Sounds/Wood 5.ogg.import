@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://coak6lwjs3tfn"
+path="res://.godot/imported/Wood 5.ogg-ca8e7dfd12394963d7a316fcdc876aec.oggvorbisstr"
+
+[deps]
+
+source_file="res://game-04/Sounds/Wood 5.ogg"
+dest_files=["res://.godot/imported/Wood 5.ogg-ca8e7dfd12394963d7a316fcdc876aec.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

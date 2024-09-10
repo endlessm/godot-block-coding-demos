@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4wh31l7g4n6a"]
+[gd_scene load_steps=7 format=3 uid="uid://b4wh31l7g4n6a"]
 
 [ext_resource type="PackedScene" uid="uid://crjhuj7jjpqkg" path="res://game-04/ball.tscn" id="1_afi7h"]
 [ext_resource type="PackedScene" uid="uid://q8ko63dmnn0r" path="res://game-04/pin.tscn" id="1_m56sh"]
-[ext_resource type="Texture2D" uid="uid://dmnyl2fkfvck4" path="res://game-04/wall.svg" id="1_sperd"]
+[ext_resource type="Texture2D" uid="uid://dmnyl2fkfvck4" path="res://game-04/Images/wall.svg" id="1_sperd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vu04m"]
 size = Vector2(240, 540)
@@ -12,9 +12,6 @@ size = Vector2(480, 60)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0q0kr"]
 normal = Vector2(0, 1)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xwydp"]
-bounce = 0.5
 
 [node name="Main" type="Node2D"]
 
@@ -207,4 +204,3 @@ scale = Vector2(0.25, 0.25)
 
 [node name="Ball" parent="." instance=ExtResource("1_afi7h")]
 position = Vector2(285, 30)
-physics_material_override = SubResource("PhysicsMaterial_xwydp")
