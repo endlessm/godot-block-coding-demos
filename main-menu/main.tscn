@@ -66,6 +66,10 @@ text = "Platformer"
 layout_mode = 2
 text = "Demo 04"
 
+[node name="Demo05Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Space ship"
+
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 
@@ -79,3 +83,4 @@ fit_content = true
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo02Button" to="." method="_on_demo_02_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo03Button" to="." method="_on_demo_03_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo04Button" to="." method="_on_demo_04_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo05Button" to="." method="_on_demo_05_button_pressed"]
