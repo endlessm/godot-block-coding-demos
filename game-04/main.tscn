@@ -1,3 +1,42 @@
-[gd_scene format=3 uid="uid://b4wh31l7g4n6a"]
+[gd_scene load_steps=6 format=3 uid="uid://b4wh31l7g4n6a"]
+
+[ext_resource type="PackedScene" uid="uid://crjhuj7jjpqkg" path="res://game-04/ball.tscn" id="1_afi7h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vu04m"]
+size = Vector2(240, 540)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ntibl"]
+size = Vector2(480, 60)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0q0kr"]
+normal = Vector2(0, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xwydp"]
+bounce = 0.5
 
 [node name="Main" type="Node2D"]
+
+[node name="Pin" type="StaticBody2D" parent="."]
+
+[node name="BounceCollision" type="CollisionShape2D" parent="Pin"]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="Left Wall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(120, 270)
+shape = SubResource("RectangleShape2D_vu04m")
+
+[node name="Right Wall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(840, 270)
+shape = SubResource("RectangleShape2D_vu04m")
+
+[node name="Floor" type="CollisionShape2D" parent="Walls"]
+position = Vector2(480, 510)
+shape = SubResource("RectangleShape2D_ntibl")
+
+[node name="Ceiling" type="CollisionShape2D" parent="Walls"]
+shape = SubResource("WorldBoundaryShape2D_0q0kr")
+
+[node name="Ball" parent="." instance=ExtResource("1_afi7h")]
+position = Vector2(480, 60)
+physics_material_override = SubResource("PhysicsMaterial_xwydp")
