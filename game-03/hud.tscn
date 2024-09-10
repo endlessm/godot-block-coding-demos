@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://jt80gv02u4f2"]
+[gd_scene load_steps=38 format=3 uid="uid://jt80gv02u4f2"]
 
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_prn0q"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_20bx3"]
@@ -118,25 +118,11 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 "value": true
 }]]
 
-[sub_resource type="Resource" id="Resource_0xuqh"]
-script = ExtResource("4_nfuy1")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"text": "Win"
-}]]
-
-[sub_resource type="Resource" id="Resource_4k3s8"]
-script = ExtResource("3_20bx3")
-name = &"print"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_0xuqh")
-
 [sub_resource type="Resource" id="Resource_7bjqq"]
 script = ExtResource("3_20bx3")
 name = &"CanvasItem_set_visible"
 position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_4k3s8")]]
+path_child_pairs = []
 block_serialized_properties = SubResource("Resource_0s6e2")
 
 [sub_resource type="Resource" id="Resource_yjxxf"]
@@ -156,7 +142,6 @@ generated_script = "extends Label
 
 func show_win():
 	visible = true
-	print('Win')
 
 "
 version = 0
