@@ -1,0 +1,156 @@
+[gd_scene load_steps=25 format=3 uid="uid://8st4scqt06l8"]
+
+[ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_vu6uw"]
+[ext_resource type="SpriteFrames" uid="uid://bo581k1esb50n" path="res://game-03/components/player/spriteframes-red.tres" id="2_msaml"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_x0qit"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_mcw5b"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="5_mhb5n"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="6_eqqyd"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="7_uyqn1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2etyl"]
+radius = 31.0
+height = 92.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v66"]
+size = Vector2(62, 20)
+
+[sub_resource type="Resource" id="Resource_gm35k"]
+script = ExtResource("5_mhb5n")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_ta5ex"]
+script = ExtResource("5_mhb5n")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
+"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_eoxvq"]
+script = ExtResource("4_mcw5b")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_ta5ex")
+
+[sub_resource type="Resource" id="Resource_i4rmi"]
+script = ExtResource("5_mhb5n")
+block_class = &"ControlBlock"
+serialized_props = [["scope", ""], ["param_input_strings_array", [{
+"condition": false
+}]]]
+
+[sub_resource type="Resource" id="Resource_fo7i4"]
+script = ExtResource("5_mhb5n")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "enemy",
+"node": ""
+}]]
+
+[sub_resource type="Resource" id="Resource_sbkqv"]
+script = ExtResource("5_mhb5n")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
+"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_8douo"]
+script = ExtResource("4_mcw5b")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_sbkqv")
+
+[sub_resource type="Resource" id="Resource_pmytx"]
+script = ExtResource("4_mcw5b")
+name = &"is_node_in_group"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_8douo")]]
+block_serialized_properties = SubResource("Resource_fo7i4")
+
+[sub_resource type="Resource" id="Resource_rn4eb"]
+script = ExtResource("5_mhb5n")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"method_name": "vanish_enemy",
+"node": ""
+}]]
+
+[sub_resource type="Resource" id="Resource_xhgr6"]
+script = ExtResource("5_mhb5n")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
+"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_ktgid"]
+script = ExtResource("4_mcw5b")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_xhgr6")
+
+[sub_resource type="Resource" id="Resource_f4h4g"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+position = Vector2(20, 0)
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput33/SnapPoint"), SubResource("Resource_ktgid")]]
+block_serialized_properties = SubResource("Resource_rn4eb")
+
+[sub_resource type="Resource" id="Resource_10iba"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_pmytx")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_f4h4g")]]
+block_serialized_properties = SubResource("Resource_i4rmi")
+
+[sub_resource type="Resource" id="Resource_sxoca"]
+script = ExtResource("4_mcw5b")
+name = &"area2d_on_entered"
+position = Vector2(75, 75)
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_eoxvq")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_10iba")]]
+block_serialized_properties = SubResource("Resource_gm35k")
+
+[sub_resource type="Resource" id="Resource_piwq0"]
+script = ExtResource("6_eqqyd")
+script_inherits = "Area2D"
+block_trees = Array[ExtResource("4_mcw5b")]([SubResource("Resource_sxoca")])
+variables = Array[ExtResource("7_uyqn1")]([])
+generated_script = "extends Area2D
+
+
+func _on_body_entered(body: Node2D):
+
+	if body.is_in_group('enemy'):
+		body.call('vanish_enemy')
+
+func _init():
+	body_entered.connect(_on_body_entered)
+"
+version = 0
+
+[node name="Player" type="CharacterBody2D" groups=["affected_by_gravity", "player"]]
+collision_layer = 3
+collision_mask = 5
+script = ExtResource("1_vu6uw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = ExtResource("2_msaml")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18)
+shape = SubResource("CapsuleShape2D_2etyl")
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, 54)
+shape = SubResource("RectangleShape2D_a8v66")
+
+[node name="BlockCode" type="Node" parent="HitArea"]
+script = ExtResource("3_x0qit")
+block_script = SubResource("Resource_piwq0")
