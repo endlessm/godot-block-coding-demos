@@ -207,16 +207,6 @@ sprite_frames = SubResource("SpriteFrames_2xpc5")
 animation = &"walk"
 autoplay = "walk"
 
-[node name="LeftRay" type="RayCast2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(-37, -3)
-collision_mask = 5
-
-[node name="RightRay" type="RayCast2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(37, -3)
-collision_mask = 5
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 20)
 shape = SubResource("CapsuleShape2D_gf3rr")

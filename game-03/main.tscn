@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=4 uid="uid://dhcpt1kt8cs0g"]
+[gd_scene load_steps=97 format=4 uid="uid://dhcpt1kt8cs0g"]
 
 [ext_resource type="PackedScene" uid="uid://8st4scqt06l8" path="res://game-03/components/player/player.tscn" id="2_7yl00"]
 [ext_resource type="PackedScene" uid="uid://jnrusvm3gric" path="res://game-03/spaces/background.tscn" id="2_tb5a2"]
@@ -166,15 +166,15 @@ position = Vector2(0, 0)
 path_child_pairs = []
 block_serialized_properties = SubResource("Resource_ymgtk")
 
-[sub_resource type="Resource" id="Resource_at8h3"]
-script = ExtResource("10_uky1v")
-selected = 0
-items = ["player_1", "player_2"]
-
 [sub_resource type="Resource" id="Resource_1iqif"]
 script = ExtResource("10_uky1v")
 selected = 1
 items = ["top-down", "platformer", "spaceship"]
+
+[sub_resource type="Resource" id="Resource_at8h3"]
+script = ExtResource("10_uky1v")
+selected = 0
+items = ["player_1", "player_2"]
 
 [sub_resource type="Resource" id="Resource_fg1xx"]
 script = ExtResource("14_mnm16")
@@ -291,6 +291,120 @@ func reset_player():
 
 "
 version = 0
+
+[sub_resource type="Animation" id="Animation_vx310"]
+resource_name = "move"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1392, 704), Vector2(1808, 704)]
+}
+
+[sub_resource type="Animation" id="Animation_lnnao"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1392, 704)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v1bf0"]
+_data = {
+"RESET": SubResource("Animation_lnnao"),
+"move": SubResource("Animation_vx310")
+}
+
+[sub_resource type="Animation" id="Animation_cufbp"]
+resource_name = "move"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1840, 576), Vector2(2656, 576)]
+}
+
+[sub_resource type="Animation" id="Animation_d4caq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1840, 576)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p3ba6"]
+_data = {
+"RESET": SubResource("Animation_d4caq"),
+"move": SubResource("Animation_cufbp")
+}
+
+[sub_resource type="Animation" id="Animation_bf5hd"]
+resource_name = "move"
+length = 5.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4320, 960), Vector2(2720, 960)]
+}
+
+[sub_resource type="Animation" id="Animation_c8b28"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4320, 960)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a3s0g"]
+_data = {
+"RESET": SubResource("Animation_c8b28"),
+"move": SubResource("Animation_bf5hd")
+}
 
 [sub_resource type="Resource" id="Resource_tpmb8"]
 script = ExtResource("14_mnm16")
@@ -696,13 +810,31 @@ block_script = SubResource("Resource_n6btv")
 [node name="HUD" parent="." groups=["HUD"] instance=ExtResource("6_mp7wy")]
 
 [node name="Enemy" parent="." instance=ExtResource("9_l6smt")]
-position = Vector2(1600, 704)
+position = Vector2(1392, 704)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
+libraries = {
+"": SubResource("AnimationLibrary_v1bf0")
+}
+autoplay = "move"
 
 [node name="Enemy2" parent="." instance=ExtResource("9_l6smt")]
-position = Vector2(1920, 576)
+position = Vector2(1840, 576)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy2"]
+libraries = {
+"": SubResource("AnimationLibrary_p3ba6")
+}
+autoplay = "move"
 
 [node name="Enemy3" parent="." instance=ExtResource("9_l6smt")]
-position = Vector2(4096, 960)
+position = Vector2(4320, 960)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy3"]
+libraries = {
+"": SubResource("AnimationLibrary_a3s0g")
+}
+autoplay = "move"
 
 [node name="Flag" parent="." groups=["HUD"] instance=ExtResource("12_dkbog")]
 position = Vector2(4192, 320)
