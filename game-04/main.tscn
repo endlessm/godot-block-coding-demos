@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4wh31l7g4n6a"]
+[gd_scene load_steps=8 format=3 uid="uid://b4wh31l7g4n6a"]
 
 [ext_resource type="PackedScene" uid="uid://crjhuj7jjpqkg" path="res://game-04/ball.tscn" id="1_afi7h"]
+[ext_resource type="PackedScene" uid="uid://q8ko63dmnn0r" path="res://game-04/pin.tscn" id="1_m56sh"]
+[ext_resource type="Texture2D" uid="uid://dmnyl2fkfvck4" path="res://game-04/wall.svg" id="1_sperd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vu04m"]
 size = Vector2(240, 540)
@@ -16,27 +18,193 @@ bounce = 0.5
 
 [node name="Main" type="Node2D"]
 
-[node name="Pin" type="StaticBody2D" parent="."]
-
-[node name="BounceCollision" type="CollisionShape2D" parent="Pin"]
-
 [node name="Walls" type="StaticBody2D" parent="."]
 
 [node name="Left Wall" type="CollisionShape2D" parent="Walls"]
 position = Vector2(120, 270)
 shape = SubResource("RectangleShape2D_vu04m")
 
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Left Wall"]
+texture_repeat = 2
+scale = Vector2(4, 9)
+texture = ExtResource("1_sperd")
+
 [node name="Right Wall" type="CollisionShape2D" parent="Walls"]
 position = Vector2(840, 270)
 shape = SubResource("RectangleShape2D_vu04m")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Right Wall"]
+texture_repeat = 2
+scale = Vector2(4, 9)
+texture = ExtResource("1_sperd")
 
 [node name="Floor" type="CollisionShape2D" parent="Walls"]
 position = Vector2(480, 510)
 shape = SubResource("RectangleShape2D_ntibl")
 
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Floor"]
+texture_repeat = 2
+position = Vector2(0, -1.90735e-05)
+scale = Vector2(8, 1)
+texture = ExtResource("1_sperd")
+
 [node name="Ceiling" type="CollisionShape2D" parent="Walls"]
 shape = SubResource("WorldBoundaryShape2D_0q0kr")
 
+[node name="Pins" type="Node2D" parent="."]
+
+[node name="Pin" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(270, 90)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin2" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(330, 90)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin3" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(390, 90)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin4" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(450, 90)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin5" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(510, 90)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin6" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(570, 90)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin7" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(630, 90)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin25" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(300, 150)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin26" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(360, 150)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin27" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(420, 150)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin28" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(480, 150)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin29" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(540, 150)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin30" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(600, 150)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin31" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(660, 150)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin32" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(300, 270)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin33" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(360, 270)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin34" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(420, 270)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin35" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(480, 270)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin36" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(540, 270)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin37" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(600, 270)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin38" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(660, 270)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin8" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(690, 90)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin9" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(270, 210)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin10" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(330, 210)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin11" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(390, 210)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin12" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(450, 210)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin13" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(510, 210)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin14" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(570, 210)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin15" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(630, 210)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin16" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(690, 210)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin17" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(270, 330)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin18" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(330, 330)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin19" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(390, 330)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin20" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(450, 330)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin21" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(510, 330)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin22" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(570, 330)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin23" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(630, 330)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin24" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(690, 330)
+scale = Vector2(0.25, 0.25)
+
 [node name="Ball" parent="." instance=ExtResource("1_afi7h")]
-position = Vector2(480, 60)
+position = Vector2(285, 30)
 physics_material_override = SubResource("PhysicsMaterial_xwydp")

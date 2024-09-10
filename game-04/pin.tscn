@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://q8ko63dmnn0r"]
+
+[ext_resource type="Texture2D" uid="uid://dv2q1pcf3cuek" path="res://game-04/pin.svg" id="1_krluw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v1gnx"]
+radius = 15.0
+
+[node name="Pin" type="StaticBody2D"]
+
+[node name="BounceCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_v1gnx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_krluw")
