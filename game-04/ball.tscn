@@ -9,7 +9,6 @@ bounce = 0.67
 radius = 15.0
 
 [node name="Ball" type="RigidBody2D" groups=["Ball"]]
-mass = 0.003
 physics_material_override = SubResource("PhysicsMaterial_fg4es")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
