@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://b4wh31l7g4n6a"]
+[gd_scene load_steps=124 format=3 uid="uid://b4wh31l7g4n6a"]
 
 [ext_resource type="PackedScene" uid="uid://crjhuj7jjpqkg" path="res://game-04/ball.tscn" id="1_afi7h"]
 [ext_resource type="PackedScene" uid="uid://q8ko63dmnn0r" path="res://game-04/pin.tscn" id="1_m56sh"]
@@ -9,13 +9,6 @@
 [ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="7_ipmj4"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="8_wkl7e"]
 [ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="9_rblu1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vu04m"]
-size = Vector2(240, 540)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0q0kr"]
-normal = Vector2(0, 1)
-distance = -60.0
 
 [sub_resource type="Resource" id="Resource_sp4t8"]
 script = ExtResource("6_8anhq")
@@ -282,6 +275,13 @@ version = 0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ysgdm"]
 size = Vector2(242.5, 602.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vu04m"]
+size = Vector2(240, 540)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0q0kr"]
+normal = Vector2(0, 1)
+distance = -60.0
+
 [sub_resource type="Resource" id="Resource_8entp"]
 script = ExtResource("6_8anhq")
 block_class = &"EntryBlock"
@@ -294,12 +294,12 @@ serialized_props = [["scope", ""], ["param_input_strings_array", [{
 "condition": false
 }]]]
 
-[sub_resource type="Resource" id="Resource_j5qdt"]
+[sub_resource type="Resource" id="Resource_0ojr0"]
 script = ExtResource("7_ipmj4")
 selected = 0
 items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_skip_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction", "accel", "bump_(pachinko)"]
 
-[sub_resource type="Resource" id="Resource_wi8pt"]
+[sub_resource type="Resource" id="Resource_26djo"]
 script = ExtResource("7_ipmj4")
 selected = 2
 items = ["pressed", "just_pressed", "just_released"]
@@ -308,8 +308,8 @@ items = ["pressed", "just_pressed", "just_released"]
 script = ExtResource("6_8anhq")
 block_class = &"ParameterBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
-"action": SubResource("Resource_wi8pt"),
-"action_name": SubResource("Resource_j5qdt")
+"action": SubResource("Resource_26djo"),
+"action_name": SubResource("Resource_0ojr0")
 }]]
 
 [sub_resource type="Resource" id="Resource_08p7y"]
@@ -356,11 +356,27 @@ position = Vector2(0, 0)
 path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_p5gwt")]]
 block_serialized_properties = SubResource("Resource_lkrh2")
 
+[sub_resource type="Resource" id="Resource_6pcad"]
+script = ExtResource("6_8anhq")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"db": 0.0,
+"name": "Bump",
+"pitch": 1.0
+}]]
+
+[sub_resource type="Resource" id="Resource_4dp7k"]
+script = ExtResource("5_16m7n")
+name = &"play_sound"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_6pcad")
+
 [sub_resource type="Resource" id="Resource_n7hv8"]
 script = ExtResource("5_16m7n")
 name = &"RigidBody2D_change_linear_velocity"
 position = Vector2(20, 0)
-path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_do5oi")]]
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_do5oi")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_4dp7k")]]
 block_serialized_properties = SubResource("Resource_ggh88")
 
 [sub_resource type="Resource" id="Resource_6nwbh"]
@@ -405,11 +421,25 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 "position": Vector2(480, 0)
 }]]
 
+[sub_resource type="Resource" id="Resource_yk6r6"]
+script = ExtResource("6_8anhq")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"value": Vector2(0, 0)
+}]]
+
+[sub_resource type="Resource" id="Resource_hsolc"]
+script = ExtResource("5_16m7n")
+name = &"RigidBody2D_set_linear_velocity"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_yk6r6")
+
 [sub_resource type="Resource" id="Resource_e03dn"]
 script = ExtResource("5_16m7n")
 name = &"rigidbody2d_physics_position"
 position = Vector2(0, 0)
-path_child_pairs = []
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_hsolc")]]
 block_serialized_properties = SubResource("Resource_pcnxl")
 
 [sub_resource type="Resource" id="Resource_5sd7r"]
@@ -433,6 +463,33 @@ position = Vector2(875, 0)
 path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_qrqu0")]]
 block_serialized_properties = SubResource("Resource_8iyb2")
 
+[sub_resource type="Resource" id="Resource_6a420"]
+script = ExtResource("6_8anhq")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_0qncb"]
+script = ExtResource("6_8anhq")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"file_path": "res://game-04/Sounds/Bump.ogg",
+"name": "Bump"
+}]]
+
+[sub_resource type="Resource" id="Resource_xu5p1"]
+script = ExtResource("5_16m7n")
+name = &"load_sound"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_0qncb")
+
+[sub_resource type="Resource" id="Resource_p6p2n"]
+script = ExtResource("5_16m7n")
+name = &"ready"
+position = Vector2(0, -125)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_xu5p1")]]
+block_serialized_properties = SubResource("Resource_6a420")
+
 [sub_resource type="Resource" id="Resource_uxjpn"]
 script = ExtResource("9_rblu1")
 var_name = "BallDropped"
@@ -441,7 +498,7 @@ var_type = 1
 [sub_resource type="Resource" id="Resource_f2fav"]
 script = ExtResource("8_wkl7e")
 script_inherits = "RigidBody2D"
-block_trees = Array[ExtResource("5_16m7n")]([SubResource("Resource_n2mh2"), SubResource("Resource_acoej")])
+block_trees = Array[ExtResource("5_16m7n")]([SubResource("Resource_n2mh2"), SubResource("Resource_acoej"), SubResource("Resource_p6p2n")])
 variables = Array[ExtResource("9_rblu1")]([SubResource("Resource_uxjpn")])
 generated_script = "extends RigidBody2D
 
@@ -451,6 +508,10 @@ var BallDropped: bool
 func _process(delta):
 	if Input.is_action_just_released(\"ui_accept\"):
 		linear_velocity += Vector2(float(randi_range(-200, 200)), -100)
+		var __sound_node_1 = get_node('Bump')
+		__sound_node_1.volume_db = 0
+		__sound_node_1.pitch_scale = 1
+		__sound_node_1.play()
 
 func Reset():
 	print('Ball: Resetting!')
@@ -460,6 +521,13 @@ func Reset():
 		PhysicsServer2D.BODY_STATE_TRANSFORM,
 		Transform2D.IDENTITY.translated(Vector2(480, 0))
 	)
+	linear_velocity = Vector2(0, 0)
+
+func _ready():
+	var __sound_1 = AudioStreamPlayer.new()
+	__sound_1.name = 'Bump'
+	__sound_1.set_stream(load('res://game-04/Sounds/Bump.ogg'))
+	add_child(__sound_1)
 
 "
 version = 0
@@ -479,22 +547,22 @@ serialized_props = [["scope", ""], ["param_input_strings_array", [{
 "condition": false
 }]]]
 
-[sub_resource type="Resource" id="Resource_cf6pa"]
-script = ExtResource("7_ipmj4")
-selected = 0
-items = ["pressed", "just_pressed", "just_released"]
-
-[sub_resource type="Resource" id="Resource_7cing"]
+[sub_resource type="Resource" id="Resource_lu8or"]
 script = ExtResource("7_ipmj4")
 selected = 0
 items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_skip_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction", "accel"]
+
+[sub_resource type="Resource" id="Resource_au1p7"]
+script = ExtResource("7_ipmj4")
+selected = 0
+items = ["pressed", "just_pressed", "just_released"]
 
 [sub_resource type="Resource" id="Resource_haq26"]
 script = ExtResource("6_8anhq")
 block_class = &"ParameterBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
-"action": SubResource("Resource_cf6pa"),
-"action_name": SubResource("Resource_7cing")
+"action": SubResource("Resource_au1p7"),
+"action_name": SubResource("Resource_lu8or")
 }]]
 
 [sub_resource type="Resource" id="Resource_fctjb"]
@@ -508,7 +576,7 @@ block_serialized_properties = SubResource("Resource_haq26")
 script = ExtResource("6_8anhq")
 block_class = &"StatementBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
-"text": "I'm free!"
+"text": "StartingBarrier: Freeing"
 }]]
 
 [sub_resource type="Resource" id="Resource_e6x8k"]
@@ -554,7 +622,7 @@ generated_script = "extends StaticBody2D
 
 func _process(delta):
 	if Input.is_action_pressed(\"ui_accept\"):
-		print('I\\'m free!')
+		print('StartingBarrier: Freeing')
 		queue_free()
 
 "
@@ -678,32 +746,134 @@ version = 0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_m4fpc"]
 distance = -540.0
 
+[sub_resource type="Resource" id="Resource_11jmc"]
+script = ExtResource("6_8anhq")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_udhu0"]
+script = ExtResource("6_8anhq")
+block_class = &"ControlBlock"
+serialized_props = [["scope", ""], ["param_input_strings_array", [{
+"condition": false
+}]]]
+
+[sub_resource type="Resource" id="Resource_eoaky"]
+script = ExtResource("7_ipmj4")
+selected = 0
+items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_skip_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction", "accel", "bump_(pachinko)"]
+
+[sub_resource type="Resource" id="Resource_73qah"]
+script = ExtResource("7_ipmj4")
+selected = 2
+items = ["pressed", "just_pressed", "just_released"]
+
+[sub_resource type="Resource" id="Resource_u1cbk"]
+script = ExtResource("6_8anhq")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"action": SubResource("Resource_73qah"),
+"action_name": SubResource("Resource_eoaky")
+}]]
+
+[sub_resource type="Resource" id="Resource_8va6m"]
+script = ExtResource("5_16m7n")
+name = &"is_input_actioned"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_u1cbk")
+
+[sub_resource type="Resource" id="Resource_li0af"]
+script = ExtResource("6_8anhq")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"value": Vector2(100, 0)
+}]]
+
+[sub_resource type="Resource" id="Resource_w4dgq"]
+script = ExtResource("6_8anhq")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"x": null,
+"y": null
+}]]
+
+[sub_resource type="Resource" id="Resource_1q5ke"]
+script = ExtResource("6_8anhq")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"from": -10,
+"to": 10
+}]]
+
+[sub_resource type="Resource" id="Resource_ejfbp"]
+script = ExtResource("5_16m7n")
+name = &"randi_range"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_1q5ke")
+
+[sub_resource type="Resource" id="Resource_t55rw"]
+script = ExtResource("6_8anhq")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"from": -10,
+"to": 10
+}]]
+
+[sub_resource type="Resource" id="Resource_pdrku"]
+script = ExtResource("5_16m7n")
+name = &"randi_range"
+position = Vector2(-76, -22)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_t55rw")
+
+[sub_resource type="Resource" id="Resource_fkxlk"]
+script = ExtResource("5_16m7n")
+name = &"vector2"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_ejfbp")], [NodePath("MarginContainer/HBoxContainer/ParameterInput21/SnapPoint"), SubResource("Resource_pdrku")]]
+block_serialized_properties = SubResource("Resource_w4dgq")
+
+[sub_resource type="Resource" id="Resource_oeujv"]
+script = ExtResource("5_16m7n")
+name = &"Node2D_set_position"
+position = Vector2(20, 0)
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_fkxlk")]]
+block_serialized_properties = SubResource("Resource_li0af")
+
+[sub_resource type="Resource" id="Resource_00lqe"]
+script = ExtResource("5_16m7n")
+name = &"if"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_8va6m")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_oeujv")]]
+block_serialized_properties = SubResource("Resource_udhu0")
+
+[sub_resource type="Resource" id="Resource_rjodi"]
+script = ExtResource("5_16m7n")
+name = &"process"
+position = Vector2(50, 50)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_00lqe")]]
+block_serialized_properties = SubResource("Resource_11jmc")
+
+[sub_resource type="Resource" id="Resource_n6gnx"]
+script = ExtResource("8_wkl7e")
+script_inherits = "Node2D"
+block_trees = Array[ExtResource("5_16m7n")]([SubResource("Resource_rjodi")])
+variables = Array[ExtResource("9_rblu1")]([])
+generated_script = "extends Node2D
+
+
+func _process(delta):
+	if Input.is_action_just_released(\"ui_accept\"):
+		position = Vector2(float(randi_range(-10, 10)), float(randi_range(-10, 10)))
+
+"
+version = 0
+
 [node name="Main" type="Node2D"]
 
 [node name="Walls" type="StaticBody2D" parent="."]
-
-[node name="Left Wall" type="CollisionShape2D" parent="Walls"]
-position = Vector2(120, 270)
-shape = SubResource("RectangleShape2D_vu04m")
-
-[node name="Sprite2D" type="Sprite2D" parent="Walls/Left Wall"]
-texture_repeat = 2
-position = Vector2(0, -30)
-scale = Vector2(4, 10)
-texture = ExtResource("1_sperd")
-
-[node name="Right Wall" type="CollisionShape2D" parent="Walls"]
-position = Vector2(840, 270)
-shape = SubResource("RectangleShape2D_vu04m")
-
-[node name="Sprite2D" type="Sprite2D" parent="Walls/Right Wall"]
-texture_repeat = 2
-position = Vector2(0, -30)
-scale = Vector2(4, 10)
-texture = ExtResource("1_sperd")
-
-[node name="Ceiling" type="CollisionShape2D" parent="Walls"]
-shape = SubResource("WorldBoundaryShape2D_0q0kr")
 
 [node name="SoundArea" type="Area2D" parent="Walls"]
 collision_layer = 2
@@ -719,6 +889,29 @@ shape = SubResource("RectangleShape2D_ysgdm")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/SoundArea"]
 position = Vector2(840, 240)
 shape = SubResource("RectangleShape2D_ysgdm")
+
+[node name="Left Wall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(120, 270)
+shape = SubResource("RectangleShape2D_vu04m")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Left Wall"]
+texture_repeat = 2
+position = Vector2(-30, 0)
+scale = Vector2(5, 11)
+texture = ExtResource("1_sperd")
+
+[node name="Right Wall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(840, 270)
+shape = SubResource("RectangleShape2D_vu04m")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/Right Wall"]
+texture_repeat = 2
+position = Vector2(30, 0)
+scale = Vector2(5, 11)
+texture = ExtResource("1_sperd")
+
+[node name="Ceiling" type="CollisionShape2D" parent="Walls"]
+shape = SubResource("WorldBoundaryShape2D_0q0kr")
 
 [node name="Pins" type="Node2D" parent="."]
 
@@ -891,7 +1084,7 @@ shape = SubResource("WorldBoundaryShape2D_jwl2r")
 script = ExtResource("4_54tis")
 block_script = SubResource("Resource_iqmq3")
 
-[node name="LoseArea" type="Area2D" parent="." groups=["Lose"]]
+[node name="LoseArea" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="LoseArea" type="Node" parent="LoseArea"]
@@ -900,3 +1093,7 @@ block_script = SubResource("Resource_crxoy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LoseArea"]
 shape = SubResource("WorldBoundaryShape2D_m4fpc")
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("4_54tis")
+block_script = SubResource("Resource_n6gnx")
