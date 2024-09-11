@@ -220,7 +220,7 @@ block_serialized_properties = SubResource("Resource_y65b0")
 [sub_resource type="Resource" id="Resource_g3s5b"]
 script = ExtResource("3_vuinq")
 name = &"area2d_on_entered"
-position = Vector2(575, 50)
+position = Vector2(50, 325)
 path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_1mt8y")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_6gc6v")]]
 block_serialized_properties = SubResource("Resource_c6g8w")
 
