@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://q8ko63dmnn0r"]
+[gd_scene load_steps=41 format=3 uid="uid://q8ko63dmnn0r"]
 
 [ext_resource type="Texture2D" uid="uid://dv2q1pcf3cuek" path="res://game-04/Images/pin.svg" id="1_krluw"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_24vdh"]
@@ -58,71 +58,11 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 "name": "5"
 }]]
 
-[sub_resource type="Resource" id="Resource_5kix4"]
-script = ExtResource("4_moeft")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"file_path": "res://game-04/Sounds/Rim 1.ogg",
-"name": "6"
-}]]
-
-[sub_resource type="Resource" id="Resource_pd6lr"]
-script = ExtResource("4_moeft")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"file_path": "res://game-04/Sounds/Rim 2.ogg",
-"name": "7"
-}]]
-
-[sub_resource type="Resource" id="Resource_8fw5y"]
-script = ExtResource("4_moeft")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"file_path": "res://game-04/Sounds/Rim 3.ogg",
-"name": "8"
-}]]
-
-[sub_resource type="Resource" id="Resource_1ltgh"]
-script = ExtResource("4_moeft")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"file_path": "res://game-04/Sounds/Rim 4.ogg",
-"name": "9"
-}]]
-
-[sub_resource type="Resource" id="Resource_rkkdy"]
-script = ExtResource("3_vuinq")
-name = &"load_sound"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_1ltgh")
-
-[sub_resource type="Resource" id="Resource_87lh0"]
-script = ExtResource("3_vuinq")
-name = &"load_sound"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_rkkdy")]]
-block_serialized_properties = SubResource("Resource_8fw5y")
-
-[sub_resource type="Resource" id="Resource_2fp7i"]
-script = ExtResource("3_vuinq")
-name = &"load_sound"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_87lh0")]]
-block_serialized_properties = SubResource("Resource_pd6lr")
-
-[sub_resource type="Resource" id="Resource_ko5mb"]
-script = ExtResource("3_vuinq")
-name = &"load_sound"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_2fp7i")]]
-block_serialized_properties = SubResource("Resource_5kix4")
-
 [sub_resource type="Resource" id="Resource_43mgf"]
 script = ExtResource("3_vuinq")
 name = &"load_sound"
 position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_ko5mb")]]
+path_child_pairs = []
 block_serialized_properties = SubResource("Resource_7jp3i")
 
 [sub_resource type="Resource" id="Resource_el3f7"]
@@ -225,7 +165,7 @@ script = ExtResource("4_moeft")
 block_class = &"ParameterBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
 "from": 1,
-"to": 9
+"to": 5
 }]]
 
 [sub_resource type="Resource" id="Resource_8jrgs"]
@@ -320,27 +260,11 @@ func _ready():
 	__sound_5.name = '5'
 	__sound_5.set_stream(load('res://game-04/Sounds/Muted 5.ogg'))
 	add_child(__sound_5)
-	var __sound_6 = AudioStreamPlayer.new()
-	__sound_6.name = '6'
-	__sound_6.set_stream(load('res://game-04/Sounds/Rim 1.ogg'))
-	add_child(__sound_6)
-	var __sound_7 = AudioStreamPlayer.new()
-	__sound_7.name = '7'
-	__sound_7.set_stream(load('res://game-04/Sounds/Rim 2.ogg'))
-	add_child(__sound_7)
-	var __sound_8 = AudioStreamPlayer.new()
-	__sound_8.name = '8'
-	__sound_8.set_stream(load('res://game-04/Sounds/Rim 3.ogg'))
-	add_child(__sound_8)
-	var __sound_9 = AudioStreamPlayer.new()
-	__sound_9.name = '9'
-	__sound_9.set_stream(load('res://game-04/Sounds/Rim 4.ogg'))
-	add_child(__sound_9)
 
 func _on_body_entered(body: Node2D):
 
 	if body.is_in_group('Ball'):
-		PinSound = randi_range(1, 9)
+		PinSound = randi_range(1, 5)
 		var __sound_node_1 = get_node(str(PinSound))
 		__sound_node_1.volume_db = 0
 		__sound_node_1.pitch_scale = 1
