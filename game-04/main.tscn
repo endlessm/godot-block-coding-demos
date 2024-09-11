@@ -758,12 +758,12 @@ serialized_props = [["scope", ""], ["param_input_strings_array", [{
 "condition": false
 }]]]
 
-[sub_resource type="Resource" id="Resource_eoaky"]
+[sub_resource type="Resource" id="Resource_mps63"]
 script = ExtResource("7_ipmj4")
 selected = 0
 items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_skip_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction", "accel", "bump_(pachinko)"]
 
-[sub_resource type="Resource" id="Resource_73qah"]
+[sub_resource type="Resource" id="Resource_qylt5"]
 script = ExtResource("7_ipmj4")
 selected = 2
 items = ["pressed", "just_pressed", "just_released"]
@@ -772,8 +772,8 @@ items = ["pressed", "just_pressed", "just_released"]
 script = ExtResource("6_8anhq")
 block_class = &"ParameterBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
-"action": SubResource("Resource_73qah"),
-"action_name": SubResource("Resource_eoaky")
+"action": SubResource("Resource_qylt5"),
+"action_name": SubResource("Resource_mps63")
 }]]
 
 [sub_resource type="Resource" id="Resource_8va6m"]
@@ -802,8 +802,8 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 script = ExtResource("6_8anhq")
 block_class = &"ParameterBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
-"from": -10,
-"to": 10
+"from": -5,
+"to": 5
 }]]
 
 [sub_resource type="Resource" id="Resource_ejfbp"]
@@ -817,14 +817,14 @@ block_serialized_properties = SubResource("Resource_1q5ke")
 script = ExtResource("6_8anhq")
 block_class = &"ParameterBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
-"from": -10,
-"to": 10
+"from": -5,
+"to": 5
 }]]
 
 [sub_resource type="Resource" id="Resource_pdrku"]
 script = ExtResource("5_16m7n")
 name = &"randi_range"
-position = Vector2(-76, -22)
+position = Vector2(0, 0)
 path_child_pairs = []
 block_serialized_properties = SubResource("Resource_t55rw")
 
@@ -866,7 +866,7 @@ generated_script = "extends Node2D
 
 func _process(delta):
 	if Input.is_action_just_released(\"ui_accept\"):
-		position = Vector2(float(randi_range(-10, 10)), float(randi_range(-10, 10)))
+		position = Vector2(float(randi_range(-5, 5)), float(randi_range(-5, 5)))
 
 "
 version = 0
@@ -916,155 +916,259 @@ shape = SubResource("WorldBoundaryShape2D_0q0kr")
 [node name="Pins" type="Node2D" parent="."]
 
 [node name="Pin" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(270, 90)
+position = Vector2(255, 60)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin2" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(330, 90)
+position = Vector2(315, 60)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin3" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(390, 90)
+position = Vector2(375, 60)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin4" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(450, 90)
+position = Vector2(435, 60)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin5" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(510, 90)
+position = Vector2(495, 60)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin6" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(570, 90)
+position = Vector2(555, 60)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin7" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(630, 90)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin25" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(300, 150)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin26" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(360, 150)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin27" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(420, 150)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin28" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(480, 150)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin29" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(540, 150)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin30" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(600, 150)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin31" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(660, 150)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin32" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(300, 270)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin33" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(360, 270)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin34" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(420, 270)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin35" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(480, 270)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin36" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(540, 270)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin37" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(600, 270)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin38" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(660, 270)
+position = Vector2(615, 60)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin8" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(690, 90)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin9" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(270, 210)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin10" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(330, 210)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin11" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(390, 210)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin12" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(450, 210)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin13" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(510, 210)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin14" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(570, 210)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin15" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(630, 210)
-scale = Vector2(0.25, 0.25)
-
-[node name="Pin16" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(690, 210)
+position = Vector2(675, 60)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin17" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(270, 330)
+position = Vector2(255, 180)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin18" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(330, 330)
+position = Vector2(315, 180)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin19" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(390, 330)
+position = Vector2(375, 180)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin20" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(450, 330)
+position = Vector2(435, 180)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin21" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(510, 330)
+position = Vector2(495, 180)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin22" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(570, 330)
+position = Vector2(555, 180)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin23" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(630, 330)
+position = Vector2(615, 180)
 scale = Vector2(0.25, 0.25)
 
 [node name="Pin24" parent="Pins" instance=ExtResource("1_m56sh")]
-position = Vector2(690, 330)
+position = Vector2(675, 180)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin9" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(285, 120)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin10" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(345, 120)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin11" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(405, 120)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin12" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(465, 120)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin13" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(525, 120)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin14" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(585, 120)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin15" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(645, 120)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin16" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(705, 120)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin25" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(285, 240)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin26" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(345, 240)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin27" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(405, 240)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin28" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(465, 240)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin29" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(525, 240)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin30" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(585, 240)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin31" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(645, 240)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin32" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(705, 240)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin33" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(255, 300)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin34" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(315, 300)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin35" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(375, 300)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin36" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(435, 300)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin37" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(495, 300)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin38" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(555, 300)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin39" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(615, 300)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin40" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(675, 300)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin41" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(255, 420)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin42" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(315, 420)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin43" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(375, 420)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin44" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(435, 420)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin45" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(495, 420)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin46" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(555, 420)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin47" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(615, 420)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin48" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(675, 420)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin49" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(285, 360)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin50" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(345, 360)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin51" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(405, 360)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin52" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(465, 360)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin53" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(525, 360)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin54" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(585, 360)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin55" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(645, 360)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin56" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(705, 360)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin57" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(285, 480)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin58" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(345, 480)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin59" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(405, 480)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin60" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(465, 480)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin61" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(525, 480)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin62" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(585, 480)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin63" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(645, 480)
+scale = Vector2(0.25, 0.25)
+
+[node name="Pin64" parent="Pins" instance=ExtResource("1_m56sh")]
+position = Vector2(705, 480)
 scale = Vector2(0.25, 0.25)
 
 [node name="Ball" parent="." instance=ExtResource("1_afi7h")]
@@ -1097,3 +1201,31 @@ shape = SubResource("WorldBoundaryShape2D_m4fpc")
 [node name="BlockCode" type="Node" parent="."]
 script = ExtResource("4_54tis")
 block_script = SubResource("Resource_n6gnx")
+
+[node name="BumpsLabel" type="Label" parent="."]
+offset_left = 735.0
+offset_top = 450.0
+offset_right = 945.0
+offset_bottom = 473.0
+text = "Bumps"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 735.0
+offset_top = 30.0
+offset_right = 945.0
+offset_bottom = 53.0
+text = "Score"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Instructions" type="RichTextLabel" parent="."]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 225.0
+offset_bottom = 525.0
+bbcode_enabled = true
+text = "[b]Space:[/b] drop ball/bump (but be careful!)
+
+[b]Esc:[/b] return to menu"
