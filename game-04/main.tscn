@@ -1,4 +1,4 @@
-[gd_scene load_steps=213 format=3 uid="uid://b4wh31l7g4n6a"]
+[gd_scene load_steps=166 format=3 uid="uid://b4wh31l7g4n6a"]
 
 [ext_resource type="PackedScene" uid="uid://crjhuj7jjpqkg" path="res://game-04/ball.tscn" id="1_afi7h"]
 [ext_resource type="PackedScene" uid="uid://q8ko63dmnn0r" path="res://game-04/pin.tscn" id="1_m56sh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="5_16m7n"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="6_8anhq"]
 [ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="7_ipmj4"]
+[ext_resource type="Texture2D" uid="uid://va6vbooexk" path="res://game-04/Images/goal.svg" id="8_r3ewt"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="8_wkl7e"]
 [ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="9_rblu1"]
 
@@ -526,86 +527,26 @@ script = ExtResource("6_8anhq")
 block_class = &"EntryBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {}]]
 
-[sub_resource type="Resource" id="Resource_etwva"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"file_path": "res://game-04/Sounds/Wood 1.ogg",
-"name": "1"
-}]]
-
-[sub_resource type="Resource" id="Resource_72y2y"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"file_path": "res://game-04/Sounds/Wood 2.ogg",
-"name": "2"
-}]]
-
 [sub_resource type="Resource" id="Resource_lkpl6"]
 script = ExtResource("6_8anhq")
 block_class = &"StatementBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
 "file_path": "res://game-04/Sounds/Wood 3.ogg",
-"name": "3"
+"name": "Wall"
 }]]
-
-[sub_resource type="Resource" id="Resource_kheof"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"file_path": "res://game-04/Sounds/Wood 4.ogg",
-"name": "4"
-}]]
-
-[sub_resource type="Resource" id="Resource_0rhk7"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"file_path": "res://game-04/Sounds/Wood 5.ogg",
-"name": "5"
-}]]
-
-[sub_resource type="Resource" id="Resource_e8w4b"]
-script = ExtResource("5_16m7n")
-name = &"load_sound"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_0rhk7")
-
-[sub_resource type="Resource" id="Resource_dg8tn"]
-script = ExtResource("5_16m7n")
-name = &"load_sound"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_e8w4b")]]
-block_serialized_properties = SubResource("Resource_kheof")
 
 [sub_resource type="Resource" id="Resource_meapu"]
 script = ExtResource("5_16m7n")
 name = &"load_sound"
 position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_dg8tn")]]
+path_child_pairs = []
 block_serialized_properties = SubResource("Resource_lkpl6")
-
-[sub_resource type="Resource" id="Resource_yf36e"]
-script = ExtResource("5_16m7n")
-name = &"load_sound"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_meapu")]]
-block_serialized_properties = SubResource("Resource_72y2y")
-
-[sub_resource type="Resource" id="Resource_f1xuk"]
-script = ExtResource("5_16m7n")
-name = &"load_sound"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_yf36e")]]
-block_serialized_properties = SubResource("Resource_etwva")
 
 [sub_resource type="Resource" id="Resource_sd2o2"]
 script = ExtResource("5_16m7n")
 name = &"ready"
 position = Vector2(50, 50)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_f1xuk")]]
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_meapu")]]
 block_serialized_properties = SubResource("Resource_sp4t8")
 
 [sub_resource type="Resource" id="Resource_lpauq"]
@@ -661,74 +602,33 @@ position = Vector2(0, 0)
 path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_143y5")]]
 block_serialized_properties = SubResource("Resource_si3vk")
 
-[sub_resource type="Resource" id="Resource_jcfcu"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["block_name", &"set_var_HitSound"], ["label", "StatementBlock"], ["color", Color(1, 0.560784, 0.0313726, 1)], ["block_type", 2], ["position", Vector2(20, 0)], ["scope", ""], ["block_format", "Set HitSound to {value: INT}"], ["statement", "HitSound = {value}"], ["defaults", {}], ["param_input_strings", {
-"value": null
-}]]
-
-[sub_resource type="Resource" id="Resource_0wwb5"]
-script = ExtResource("6_8anhq")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"from": 1,
-"to": 5
-}]]
-
-[sub_resource type="Resource" id="Resource_v7cx2"]
-script = ExtResource("5_16m7n")
-name = &"randi_range"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_0wwb5")
-
 [sub_resource type="Resource" id="Resource_cdqvc"]
 script = ExtResource("6_8anhq")
 block_class = &"StatementBlock"
 serialized_props = [["scope", ""], ["param_input_strings", {
 "db": 0.0,
-"name": "hit",
+"name": "Wall",
 "pitch": 1.0
 }]]
-
-[sub_resource type="Resource" id="Resource_endan"]
-script = ExtResource("6_8anhq")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"get_var_HitSound"], ["label", "Param"], ["color", Color(1, 0.560784, 0.0313726, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "HitSound"], ["statement", "HitSound"], ["defaults", {}], ["variant_type", 2], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_rnq1e"]
-script = ExtResource("5_16m7n")
-name = &"get_var_HitSound"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_endan")
 
 [sub_resource type="Resource" id="Resource_qvi0r"]
 script = ExtResource("5_16m7n")
 name = &"play_sound"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_rnq1e")]]
-block_serialized_properties = SubResource("Resource_cdqvc")
-
-[sub_resource type="Resource" id="Resource_fdyhe"]
-script = ExtResource("5_16m7n")
-name = &"set_var_HitSound"
 position = Vector2(20, 0)
-path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_v7cx2")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_qvi0r")]]
-block_serialized_properties = SubResource("Resource_jcfcu")
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_cdqvc")
 
 [sub_resource type="Resource" id="Resource_qcbad"]
 script = ExtResource("5_16m7n")
 name = &"if"
 position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_fgsbn")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_fdyhe")]]
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_fgsbn")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_qvi0r")]]
 block_serialized_properties = SubResource("Resource_plxab")
 
 [sub_resource type="Resource" id="Resource_ttuuu"]
 script = ExtResource("5_16m7n")
 name = &"area2d_on_entered"
-position = Vector2(575, 50)
+position = Vector2(50, 175)
 path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_tjg41")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_qcbad")]]
 block_serialized_properties = SubResource("Resource_lpauq")
 
@@ -749,31 +649,14 @@ var HitSound: int
 
 func _ready():
 	var __sound_1 = AudioStreamPlayer.new()
-	__sound_1.name = '1'
-	__sound_1.set_stream(load('res://game-04/Sounds/Wood 1.ogg'))
+	__sound_1.name = 'Wall'
+	__sound_1.set_stream(load('res://game-04/Sounds/Wood 3.ogg'))
 	add_child(__sound_1)
-	var __sound_2 = AudioStreamPlayer.new()
-	__sound_2.name = '2'
-	__sound_2.set_stream(load('res://game-04/Sounds/Wood 2.ogg'))
-	add_child(__sound_2)
-	var __sound_3 = AudioStreamPlayer.new()
-	__sound_3.name = '3'
-	__sound_3.set_stream(load('res://game-04/Sounds/Wood 3.ogg'))
-	add_child(__sound_3)
-	var __sound_4 = AudioStreamPlayer.new()
-	__sound_4.name = '4'
-	__sound_4.set_stream(load('res://game-04/Sounds/Wood 4.ogg'))
-	add_child(__sound_4)
-	var __sound_5 = AudioStreamPlayer.new()
-	__sound_5.name = '5'
-	__sound_5.set_stream(load('res://game-04/Sounds/Wood 5.ogg'))
-	add_child(__sound_5)
 
 func _on_body_entered(body: Node2D):
 
 	if body.is_in_group('Ball'):
-		HitSound = randi_range(1, 5)
-		var __sound_node_1 = get_node(str(HitSound))
+		var __sound_node_1 = get_node('Wall')
 		__sound_node_1.volume_db = 0
 		__sound_node_1.pitch_scale = 1
 		__sound_node_1.play()
@@ -798,133 +681,8 @@ distance = 240.0
 normal = Vector2(-1, 0)
 distance = -720.0
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jwl2r"]
-distance = -45.0
-
-[sub_resource type="Resource" id="Resource_h3acs"]
-script = ExtResource("6_8anhq")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_1ded8"]
-script = ExtResource("6_8anhq")
-block_class = &"ControlBlock"
-serialized_props = [["scope", ""], ["param_input_strings_array", [{
-"condition": false
-}]]]
-
-[sub_resource type="Resource" id="Resource_1t58i"]
-script = ExtResource("7_ipmj4")
-selected = 0
-items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_skip_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction", "accel"]
-
-[sub_resource type="Resource" id="Resource_w6fvl"]
-script = ExtResource("7_ipmj4")
-selected = 0
-items = ["pressed", "just_pressed", "just_released"]
-
-[sub_resource type="Resource" id="Resource_haq26"]
-script = ExtResource("6_8anhq")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"action": SubResource("Resource_w6fvl"),
-"action_name": SubResource("Resource_1t58i")
-}]]
-
-[sub_resource type="Resource" id="Resource_fctjb"]
-script = ExtResource("5_16m7n")
-name = &"is_input_actioned"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_haq26")
-
-[sub_resource type="Resource" id="Resource_p1gn4"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"group": "Ball",
-"method_name": "Reset"
-}]]
-
-[sub_resource type="Resource" id="Resource_oy2mw"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"group": "Viewport",
-"method_name": "ResetViewport"
-}]]
-
-[sub_resource type="Resource" id="Resource_6uyns"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"text": "StartingBarrier: Freeing"
-}]]
-
-[sub_resource type="Resource" id="Resource_e6x8k"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_f2t8c"]
-script = ExtResource("5_16m7n")
-name = &"queue_free"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_e6x8k")
-
-[sub_resource type="Resource" id="Resource_remma"]
-script = ExtResource("5_16m7n")
-name = &"print"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_f2t8c")]]
-block_serialized_properties = SubResource("Resource_6uyns")
-
-[sub_resource type="Resource" id="Resource_mt76g"]
-script = ExtResource("5_16m7n")
-name = &"call_method_group"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_remma")]]
-block_serialized_properties = SubResource("Resource_oy2mw")
-
-[sub_resource type="Resource" id="Resource_gkj1e"]
-script = ExtResource("5_16m7n")
-name = &"call_method_group"
-position = Vector2(20, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_mt76g")]]
-block_serialized_properties = SubResource("Resource_p1gn4")
-
-[sub_resource type="Resource" id="Resource_t7rgs"]
-script = ExtResource("5_16m7n")
-name = &"if"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_fctjb")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_gkj1e")]]
-block_serialized_properties = SubResource("Resource_1ded8")
-
-[sub_resource type="Resource" id="Resource_umsg2"]
-script = ExtResource("5_16m7n")
-name = &"process"
-position = Vector2(50, 50)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_t7rgs")]]
-block_serialized_properties = SubResource("Resource_h3acs")
-
-[sub_resource type="Resource" id="Resource_iqmq3"]
-script = ExtResource("8_wkl7e")
-script_inherits = "StaticBody2D"
-block_trees = Array[ExtResource("5_16m7n")]([SubResource("Resource_umsg2")])
-variables = Array[ExtResource("9_rblu1")]([])
-generated_script = "extends StaticBody2D
-
-
-func _process(delta):
-	if Input.is_action_pressed(\"ui_accept\"):
-		get_tree().call_group('Ball', 'Reset')
-		get_tree().call_group('Viewport', 'ResetViewport')
-		print('StartingBarrier: Freeing')
-		queue_free()
-
-"
-version = 0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mgdhw"]
+size = Vector2(120, 30)
 
 [sub_resource type="Resource" id="Resource_7rnxy"]
 script = ExtResource("6_8anhq")
@@ -1066,6 +824,36 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 "position": Vector2(480, 0)
 }]]
 
+[sub_resource type="Resource" id="Resource_7gb12"]
+script = ExtResource("6_8anhq")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"x": null,
+"y": 0.0
+}]]
+
+[sub_resource type="Resource" id="Resource_lmua5"]
+script = ExtResource("6_8anhq")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"from": 270,
+"to": 690
+}]]
+
+[sub_resource type="Resource" id="Resource_8nosn"]
+script = ExtResource("5_16m7n")
+name = &"randi_range"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_lmua5")
+
+[sub_resource type="Resource" id="Resource_p8qek"]
+script = ExtResource("5_16m7n")
+name = &"vector2"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_8nosn")]]
+block_serialized_properties = SubResource("Resource_7gb12")
+
 [sub_resource type="Resource" id="Resource_yk6r6"]
 script = ExtResource("6_8anhq")
 block_class = &"StatementBlock"
@@ -1080,11 +868,26 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 "value": 0.0
 }]]
 
+[sub_resource type="Resource" id="Resource_3xmpk"]
+script = ExtResource("6_8anhq")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"from": -1.0,
+"to": 1.0
+}]]
+
+[sub_resource type="Resource" id="Resource_fyk3j"]
+script = ExtResource("5_16m7n")
+name = &"randf_range"
+position = Vector2(-122, -20)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_3xmpk")
+
 [sub_resource type="Resource" id="Resource_torhd"]
 script = ExtResource("5_16m7n")
 name = &"RigidBody2D_set_angular_velocity"
 position = Vector2(0, 0)
-path_child_pairs = []
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_fyk3j")]]
 block_serialized_properties = SubResource("Resource_h4rx3")
 
 [sub_resource type="Resource" id="Resource_hsolc"]
@@ -1098,7 +901,7 @@ block_serialized_properties = SubResource("Resource_yk6r6")
 script = ExtResource("5_16m7n")
 name = &"rigidbody2d_physics_position"
 position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_hsolc")]]
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_p8qek")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_hsolc")]]
 block_serialized_properties = SubResource("Resource_pcnxl")
 
 [sub_resource type="Resource" id="Resource_qrqu0"]
@@ -1167,7 +970,7 @@ block_serialized_properties = SubResource("Resource_xt6n2")
 [sub_resource type="Resource" id="Resource_702d7"]
 script = ExtResource("5_16m7n")
 name = &"define_method"
-position = Vector2(-25, 200)
+position = Vector2(-25, 250)
 path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_dgbwg")]]
 block_serialized_properties = SubResource("Resource_exhpq")
 
@@ -1223,7 +1026,7 @@ block_serialized_properties = SubResource("Resource_8dob1")
 [sub_resource type="Resource" id="Resource_xy646"]
 script = ExtResource("5_16m7n")
 name = &"define_method"
-position = Vector2(-25, 375)
+position = Vector2(-25, 450)
 path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_kk4n0")]]
 block_serialized_properties = SubResource("Resource_6qv0r")
 
@@ -1247,10 +1050,10 @@ func Reset():
 	PhysicsServer2D.body_set_state(
 		get_rid(),
 		PhysicsServer2D.BODY_STATE_TRANSFORM,
-		Transform2D.IDENTITY.translated(Vector2(480, 0))
+		Transform2D.IDENTITY.translated(Vector2(float(randi_range(270, 690)), 0))
 	)
 	linear_velocity = Vector2(0, 0)
-	angular_velocity = 0
+	angular_velocity = randf_range(-1, 1)
 
 func BumpLeft():
 	print('Ball: Bump left!')
@@ -1277,25 +1080,11 @@ serialized_props = [["scope", ""], ["param_input_strings", {
 "value": false
 }]]
 
-[sub_resource type="Resource" id="Resource_ojcdb"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["block_name", &"set_var_FrameCount"], ["label", "StatementBlock"], ["color", Color(1, 0.560784, 0.0313726, 1)], ["block_type", 2], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "Set FrameCount to {value: INT}"], ["statement", "FrameCount = {value}"], ["defaults", {}], ["param_input_strings", {
-"value": 0
-}]]
-
-[sub_resource type="Resource" id="Resource_2ae1p"]
-script = ExtResource("5_16m7n")
-name = &"set_var_FrameCount"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_ojcdb")
-
 [sub_resource type="Resource" id="Resource_3piml"]
 script = ExtResource("5_16m7n")
 name = &"CanvasItem_set_visible"
 position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_2ae1p")]]
+path_child_pairs = []
 block_serialized_properties = SubResource("Resource_7yn1v")
 
 [sub_resource type="Resource" id="Resource_sb1wd"]
@@ -1361,147 +1150,6 @@ position = Vector2(-25, 150)
 path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_u8fwb")]]
 block_serialized_properties = SubResource("Resource_dkqb0")
 
-[sub_resource type="Resource" id="Resource_pi4do"]
-script = ExtResource("6_8anhq")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_tkok3"]
-script = ExtResource("6_8anhq")
-block_class = &"ControlBlock"
-serialized_props = [["scope", ""], ["param_input_strings_array", [{
-"condition": false
-}]]]
-
-[sub_resource type="Resource" id="Resource_xb3f4"]
-script = ExtResource("6_8anhq")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"bool1": false,
-"bool2": false
-}]]
-
-[sub_resource type="Resource" id="Resource_vl6av"]
-script = ExtResource("6_8anhq")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_mbpyx"]
-script = ExtResource("5_16m7n")
-name = &"CanvasItem_get_visible"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_vl6av")
-
-[sub_resource type="Resource" id="Resource_x6mls"]
-script = ExtResource("7_ipmj4")
-selected = 4
-items = ["==", ">", "<", ">=", "<=", "!="]
-
-[sub_resource type="Resource" id="Resource_sse6g"]
-script = ExtResource("6_8anhq")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"float1": 1.0,
-"float2": 1e+06,
-"op": SubResource("Resource_x6mls")
-}]]
-
-[sub_resource type="Resource" id="Resource_y77sd"]
-script = ExtResource("6_8anhq")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"get_var_FrameCount"], ["label", "Param"], ["color", Color(1, 0.560784, 0.0313726, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "FrameCount"], ["statement", "FrameCount"], ["defaults", {}], ["variant_type", 2], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_omc4m"]
-script = ExtResource("5_16m7n")
-name = &"get_var_FrameCount"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_y77sd")
-
-[sub_resource type="Resource" id="Resource_eladk"]
-script = ExtResource("5_16m7n")
-name = &"compare"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_omc4m")]]
-block_serialized_properties = SubResource("Resource_sse6g")
-
-[sub_resource type="Resource" id="Resource_1k8it"]
-script = ExtResource("5_16m7n")
-name = &"and"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_mbpyx")], [NodePath("MarginContainer/HBoxContainer/ParameterInput13/SnapPoint"), SubResource("Resource_eladk")]]
-block_serialized_properties = SubResource("Resource_xb3f4")
-
-[sub_resource type="Resource" id="Resource_38ijo"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["block_name", &"set_var_FrameCount"], ["label", "StatementBlock"], ["color", Color(1, 0.560784, 0.0313726, 1)], ["block_type", 2], ["position", Vector2(20, 0)], ["scope", ""], ["block_format", "Set FrameCount to {value: INT}"], ["statement", "FrameCount = {value}"], ["defaults", {}], ["param_input_strings", {
-"value": null
-}]]
-
-[sub_resource type="Resource" id="Resource_6h6p2"]
-script = ExtResource("6_8anhq")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"a": 1.0,
-"b": 1.0
-}]]
-
-[sub_resource type="Resource" id="Resource_npx3g"]
-script = ExtResource("6_8anhq")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"get_var_FrameCount"], ["label", "Param"], ["color", Color(1, 0.560784, 0.0313726, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", ""], ["block_format", "FrameCount"], ["statement", "FrameCount"], ["defaults", {}], ["variant_type", 2], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_o2vsl"]
-script = ExtResource("5_16m7n")
-name = &"get_var_FrameCount"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_npx3g")
-
-[sub_resource type="Resource" id="Resource_to5xp"]
-script = ExtResource("5_16m7n")
-name = &"add"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_o2vsl")]]
-block_serialized_properties = SubResource("Resource_6h6p2")
-
-[sub_resource type="Resource" id="Resource_uvugx"]
-script = ExtResource("5_16m7n")
-name = &"set_var_FrameCount"
-position = Vector2(20, 0)
-path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_to5xp")]]
-block_serialized_properties = SubResource("Resource_38ijo")
-
-[sub_resource type="Resource" id="Resource_876uh"]
-script = ExtResource("6_8anhq")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"value": false
-}]]
-
-[sub_resource type="Resource" id="Resource_jpopo"]
-script = ExtResource("5_16m7n")
-name = &"CanvasItem_set_visible"
-position = Vector2(-54.4469, -23.1424)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_876uh")
-
-[sub_resource type="Resource" id="Resource_6gsh7"]
-script = ExtResource("5_16m7n")
-name = &"while"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_1k8it")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_uvugx")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_jpopo")]]
-block_serialized_properties = SubResource("Resource_tkok3")
-
-[sub_resource type="Resource" id="Resource_d027m"]
-script = ExtResource("5_16m7n")
-name = &"physics_process"
-position = Vector2(225, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_6gsh7")]]
-block_serialized_properties = SubResource("Resource_pi4do")
-
 [sub_resource type="Resource" id="Resource_ghng7"]
 script = ExtResource("9_rblu1")
 var_name = "FrameCount"
@@ -1510,7 +1158,7 @@ var_type = 2
 [sub_resource type="Resource" id="Resource_dd2h5"]
 script = ExtResource("8_wkl7e")
 script_inherits = "Label"
-block_trees = Array[ExtResource("5_16m7n")]([SubResource("Resource_sb1wd"), SubResource("Resource_yjd2a"), SubResource("Resource_d027m")])
+block_trees = Array[ExtResource("5_16m7n")]([SubResource("Resource_sb1wd"), SubResource("Resource_yjd2a")])
 variables = Array[ExtResource("9_rblu1")]([SubResource("Resource_ghng7")])
 generated_script = "extends Label
 
@@ -1519,17 +1167,11 @@ var FrameCount: int
 
 func _ready():
 	visible = false
-	FrameCount = 0
 
 func Bump():
 	visible = true
 	print('BumpLabel: Bump!')
 	FrameCount = 0
-
-func _physics_process(delta):
-	while visible and float(FrameCount) <= 1000000:
-		FrameCount = int(float(FrameCount) + 1)
-	visible = false
 
 "
 version = 0
@@ -1578,15 +1220,15 @@ position = Vector2(870, 270)
 scale = Vector2(5, 11)
 texture = ExtResource("1_sperd")
 
-[node name="StartingBarrier" type="StaticBody2D" parent="."]
+[node name="ScoreArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StartingBarrier"]
-position = Vector2(0, -30)
-shape = SubResource("WorldBoundaryShape2D_jwl2r")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
+position = Vector2(480, 540)
+shape = SubResource("RectangleShape2D_mgdhw")
 
-[node name="BlockCode" type="Node" parent="StartingBarrier"]
-script = ExtResource("4_54tis")
-block_script = SubResource("Resource_iqmq3")
+[node name="Sprite2D" type="Sprite2D" parent="ScoreArea/CollisionShape2D"]
+scale = Vector2(2, 0.5)
+texture = ExtResource("8_r3ewt")
 
 [node name="LoseArea" type="Area2D" parent="."]
 collision_layer = 2
