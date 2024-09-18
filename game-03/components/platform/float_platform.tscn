@@ -108,6 +108,7 @@ freeze_mode = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(0, 56)
 shape = SubResource("RectangleShape2D_5opsn")
+one_way_collision = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="RigidBody2D"]
 tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0)
