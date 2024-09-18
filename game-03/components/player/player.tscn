@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://8st4scqt06l8"]
+[gd_scene load_steps=122 format=3 uid="uid://8st4scqt06l8"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_vu6uw"]
 [ext_resource type="SpriteFrames" uid="uid://bo581k1esb50n" path="res://game-03/components/player/spriteframes-red.tres" id="2_msaml"]
@@ -8,6 +8,515 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="6_c3puh"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="6_eqqyd"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="7_ubegq"]
+[ext_resource type="Texture2D" uid="uid://de3owpoc205t0" path="res://game-03/assets/player-red.png" id="9_d5cr6"]
+
+[sub_resource type="Animation" id="Animation_mnmxn"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_82d58"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_1w8at"]
+resource_name = "walk_right"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_8cvul"]
+resource_name = "jump_up"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_ux0x5"]
+resource_name = "walk_left"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ud1om"]
+resource_name = "jump_down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_7m0y0"]
+resource_name = "hit"
+length = 0.2
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_371pm"]
+_data = {
+"RESET": SubResource("Animation_82d58"),
+"hit": SubResource("Animation_7m0y0"),
+"idle": SubResource("Animation_mnmxn"),
+"jump_down": SubResource("Animation_ud1om"),
+"jump_up": SubResource("Animation_8cvul"),
+"walk_left": SubResource("Animation_ux0x5"),
+"walk_right": SubResource("Animation_1w8at")
+}
+
+[sub_resource type="Resource" id="Resource_t14ct"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_5qu8g"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_t14ct"),
+"float2": 0.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_s8ff2"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 0
+}
+
+[sub_resource type="Resource" id="Resource_fhl7k"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "idle",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_c158m"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_s8ff2"), SubResource("Resource_fhl7k")])
+arguments = {
+"condition": SubResource("Resource_5qu8g")
+}
+
+[sub_resource type="Resource" id="Resource_h8x7w"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_c158m")])
+arguments = {
+"method_name": &"be_idle"
+}
+
+[sub_resource type="Resource" id="Resource_0u11q"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_h8x7w")
+canvas_position = Vector2(425, 50)
+
+[sub_resource type="Resource" id="Resource_wpg5w"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_o2udd"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_wpg5w"),
+"float2": 1.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_f5r4o"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 1
+}
+
+[sub_resource type="Resource" id="Resource_lgxs5"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "walk_right",
+"direction": "forward",
+"wait_mode": "in the background"
+}
+
+[sub_resource type="Resource" id="Resource_b3jpk"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_f5r4o"), SubResource("Resource_lgxs5")])
+arguments = {
+"condition": SubResource("Resource_o2udd")
+}
+
+[sub_resource type="Resource" id="Resource_n5doc"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_b3jpk")])
+arguments = {
+"method_name": &"walk_right"
+}
+
+[sub_resource type="Resource" id="Resource_oj2g3"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_n5doc")
+canvas_position = Vector2(425, 300)
+
+[sub_resource type="Resource" id="Resource_yiktq"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_ns5h3"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_yiktq"),
+"float2": 2.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_ta3rb"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 2
+}
+
+[sub_resource type="Resource" id="Resource_ksnel"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "walk_left",
+"direction": "forward",
+"wait_mode": "in the background"
+}
+
+[sub_resource type="Resource" id="Resource_663vv"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_ta3rb"), SubResource("Resource_ksnel")])
+arguments = {
+"condition": SubResource("Resource_ns5h3")
+}
+
+[sub_resource type="Resource" id="Resource_q57ov"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_663vv")])
+arguments = {
+"method_name": &"walk_left"
+}
+
+[sub_resource type="Resource" id="Resource_eykla"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_q57ov")
+canvas_position = Vector2(425, 550)
+
+[sub_resource type="Resource" id="Resource_ke4vu"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_p7q4o"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_ke4vu"),
+"float2": 4.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_44x1w"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 4
+}
+
+[sub_resource type="Resource" id="Resource_sesbo"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "jump_down",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_xgtuc"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_44x1w"), SubResource("Resource_sesbo")])
+arguments = {
+"condition": SubResource("Resource_p7q4o")
+}
+
+[sub_resource type="Resource" id="Resource_mk3yh"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_xgtuc")])
+arguments = {
+"method_name": &"jump_down"
+}
+
+[sub_resource type="Resource" id="Resource_w4jdg"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_mk3yh")
+canvas_position = Vector2(0, 400)
+
+[sub_resource type="Resource" id="Resource_5nfx7"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_ehrd2"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_5nfx7"),
+"float2": 3.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_7k7u7"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 3
+}
+
+[sub_resource type="Resource" id="Resource_n7236"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "jump_up",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_hrtov"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_7k7u7"), SubResource("Resource_n7236")])
+arguments = {
+"condition": SubResource("Resource_ehrd2")
+}
+
+[sub_resource type="Resource" id="Resource_qlnyl"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_hrtov")])
+arguments = {
+"method_name": &"jump_up"
+}
+
+[sub_resource type="Resource" id="Resource_t7cxt"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_qlnyl")
+canvas_position = Vector2(0, 150)
+
+[sub_resource type="Resource" id="Resource_yrkm6"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 0
+}
+
+[sub_resource type="Resource" id="Resource_oqvf3"]
+script = ExtResource("4_mcw5b")
+name = &"ready"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_yrkm6")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_u6miu"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_oqvf3")
+canvas_position = Vector2(0, 50)
+
+[sub_resource type="Resource" id="Resource_n6pf8"]
+script = ExtResource("7_ubegq")
+var_name = "move_state"
+var_type = 2
+
+[sub_resource type="Resource" id="Resource_xi3ry"]
+script = ExtResource("6_eqqyd")
+script_inherits = "AnimationPlayer"
+block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_0u11q"), SubResource("Resource_oj2g3"), SubResource("Resource_eykla"), SubResource("Resource_w4jdg"), SubResource("Resource_t7cxt"), SubResource("Resource_u6miu")])
+variables = Array[ExtResource("7_ubegq")]([SubResource("Resource_n6pf8")])
+generated_script = "extends AnimationPlayer
+
+var move_state: int
+
+
+func be_idle():
+	if ((move_state) != 0):
+		move_state = 0
+		if 'forward' == \"forward\":
+			play('idle')
+		else:
+			play_backwards('idle')
+		if 'until done' == \"until done\":
+			await animation_finished
+
+
+func walk_right():
+	if ((move_state) != 1):
+		move_state = 1
+		if 'forward' == \"forward\":
+			play('walk_right')
+		else:
+			play_backwards('walk_right')
+		if 'in the background' == \"until done\":
+			await animation_finished
+
+
+func walk_left():
+	if ((move_state) != 2):
+		move_state = 2
+		if 'forward' == \"forward\":
+			play('walk_left')
+		else:
+			play_backwards('walk_left')
+		if 'in the background' == \"until done\":
+			await animation_finished
+
+
+func jump_down():
+	if ((move_state) != 4):
+		move_state = 4
+		if 'forward' == \"forward\":
+			play('jump_down')
+		else:
+			play_backwards('jump_down')
+		if 'until done' == \"until done\":
+			await animation_finished
+
+
+func jump_up():
+	if ((move_state) != 3):
+		move_state = 3
+		if 'forward' == \"forward\":
+			play('jump_up')
+		else:
+			play_backwards('jump_up')
+		if 'until done' == \"until done\":
+			await animation_finished
+
+
+func _ready():
+	move_state = 0
+
+"
+version = 0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2etyl"]
 radius = 31.0
@@ -80,7 +589,7 @@ func _on_body_entered(something: Node2D):
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_trfc2"]
+[sub_resource type="Resource" id="Resource_bnqq7"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_is_playing"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -88,18 +597,47 @@ arguments = {
 "value": false
 }
 
-[sub_resource type="Resource" id="Resource_c0md2"]
+[sub_resource type="Resource" id="Resource_6ouhu"]
 script = ExtResource("4_mcw5b")
 name = &"ready"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_trfc2")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_bnqq7")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_h5v1x"]
+[sub_resource type="Resource" id="Resource_wj81h"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_c0md2")
+root = SubResource("Resource_6ouhu")
 canvas_position = Vector2(25, 0)
 
-[sub_resource type="Resource" id="Resource_bevbu"]
+[sub_resource type="Resource" id="Resource_d0of3"]
+script = ExtResource("6_c3puh")
+name = &"vector2"
+arguments = {
+"x": 512.0,
+"y": 448.0
+}
+
+[sub_resource type="Resource" id="Resource_chjaj"]
+script = ExtResource("4_mcw5b")
+name = &"Node2D_set_position"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": SubResource("Resource_d0of3")
+}
+
+[sub_resource type="Resource" id="Resource_msncr"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_chjaj")])
+arguments = {
+"method_name": &"reset_player"
+}
+
+[sub_resource type="Resource" id="Resource_0kpne"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_msncr")
+canvas_position = Vector2(300, 0)
+
+[sub_resource type="Resource" id="Resource_xtl27"]
 script = ExtResource("6_c3puh")
 name = &"is_input_actioned"
 arguments = {
@@ -107,7 +645,7 @@ arguments = {
 "action_name": &"ui_accept"
 }
 
-[sub_resource type="Resource" id="Resource_a7c2p"]
+[sub_resource type="Resource" id="Resource_ok26b"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_is_playing"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -115,20 +653,20 @@ arguments = {
 "value": true
 }
 
-[sub_resource type="Resource" id="Resource_uxd45"]
+[sub_resource type="Resource" id="Resource_04hva"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_a7c2p")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_ok26b")])
 arguments = {
-"condition": SubResource("Resource_bevbu")
+"condition": SubResource("Resource_xtl27")
 }
 
-[sub_resource type="Resource" id="Resource_od7al"]
+[sub_resource type="Resource" id="Resource_fb885"]
 script = ExtResource("6_c3puh")
 name = &"get_var_is_playing"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_fl8xs"]
+[sub_resource type="Resource" id="Resource_xty8j"]
 script = ExtResource("4_mcw5b")
 name = &"simplecharacter_move"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -137,53 +675,297 @@ arguments = {
 "player": "player_1"
 }
 
-[sub_resource type="Resource" id="Resource_arucb"]
+[sub_resource type="Resource" id="Resource_idvlw"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_fl8xs")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_xty8j")])
 arguments = {
-"condition": SubResource("Resource_od7al")
+"condition": SubResource("Resource_fb885")
 }
 
-[sub_resource type="Resource" id="Resource_duuek"]
-script = ExtResource("4_mcw5b")
-name = &"process"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_uxd45"), SubResource("Resource_arucb")])
+[sub_resource type="Resource" id="Resource_ixvx2"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_yyacy"]
-script = ExtResource("4_ckbst")
-root = SubResource("Resource_duuek")
-canvas_position = Vector2(25, 125)
-
-[sub_resource type="Resource" id="Resource_3tm57"]
+[sub_resource type="Resource" id="Resource_v5l8t"]
 script = ExtResource("6_c3puh")
-name = &"vector2"
+name = &"vector2_x"
 arguments = {
-"x": 512.0,
-"y": 448.0
+"vector2": SubResource("Resource_ixvx2")
 }
 
-[sub_resource type="Resource" id="Resource_nlm8u"]
+[sub_resource type="Resource" id="Resource_gjcr2"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_v5l8t"),
+"float2": 0.0,
+"op": "=="
+}
+
+[sub_resource type="Resource" id="Resource_adbqv"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_xdd3i"]
+script = ExtResource("6_c3puh")
+name = &"vector2_y"
+arguments = {
+"vector2": SubResource("Resource_adbqv")
+}
+
+[sub_resource type="Resource" id="Resource_iyd2h"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_xdd3i"),
+"float2": 0.0,
+"op": "=="
+}
+
+[sub_resource type="Resource" id="Resource_7nobj"]
+script = ExtResource("6_c3puh")
+name = &"and"
+arguments = {
+"bool1": SubResource("Resource_gjcr2"),
+"bool2": SubResource("Resource_iyd2h")
+}
+
+[sub_resource type="Resource" id="Resource_lj7ca"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_sk5yq"]
 script = ExtResource("4_mcw5b")
-name = &"Node2D_set_position"
+name = &"call_method_node"
 children = Array[ExtResource("4_mcw5b")]([])
 arguments = {
-"value": SubResource("Resource_3tm57")
+"method_name": "be_idle",
+"node": SubResource("Resource_lj7ca")
 }
 
-[sub_resource type="Resource" id="Resource_d4xw0"]
+[sub_resource type="Resource" id="Resource_ktttq"]
 script = ExtResource("4_mcw5b")
-name = &"define_method"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_nlm8u")])
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_sk5yq")])
 arguments = {
-"method_name": &"reset_player"
+"condition": SubResource("Resource_7nobj")
 }
 
-[sub_resource type="Resource" id="Resource_bu8p3"]
+[sub_resource type="Resource" id="Resource_pi7rt"]
+script = ExtResource("6_c3puh")
+name = &"characterbody2d_is_on_floor"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_dyyso"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_jmcuo"]
+script = ExtResource("6_c3puh")
+name = &"vector2_x"
+arguments = {
+"vector2": SubResource("Resource_dyyso")
+}
+
+[sub_resource type="Resource" id="Resource_hypg1"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_jmcuo"),
+"float2": 0.0,
+"op": ">"
+}
+
+[sub_resource type="Resource" id="Resource_h41cv"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_dlgu1"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "walk_right",
+"node": SubResource("Resource_h41cv")
+}
+
+[sub_resource type="Resource" id="Resource_7yegi"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_dlgu1")])
+arguments = {
+"condition": SubResource("Resource_hypg1")
+}
+
+[sub_resource type="Resource" id="Resource_yi3xo"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_0mq5c"]
+script = ExtResource("6_c3puh")
+name = &"vector2_x"
+arguments = {
+"vector2": SubResource("Resource_yi3xo")
+}
+
+[sub_resource type="Resource" id="Resource_kcxpl"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_0mq5c"),
+"float2": 0.0,
+"op": "<"
+}
+
+[sub_resource type="Resource" id="Resource_0p73i"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_5sp2j"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "walk_left",
+"node": SubResource("Resource_0p73i")
+}
+
+[sub_resource type="Resource" id="Resource_ceqx6"]
+script = ExtResource("4_mcw5b")
+name = &"else_if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_5sp2j")])
+arguments = {
+"condition": SubResource("Resource_kcxpl")
+}
+
+[sub_resource type="Resource" id="Resource_gqx56"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_7yegi"), SubResource("Resource_ceqx6")])
+arguments = {
+"condition": SubResource("Resource_pi7rt")
+}
+
+[sub_resource type="Resource" id="Resource_7tewe"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_6mrv0"]
+script = ExtResource("6_c3puh")
+name = &"vector2_y"
+arguments = {
+"vector2": SubResource("Resource_7tewe")
+}
+
+[sub_resource type="Resource" id="Resource_lpeqv"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_6mrv0"),
+"float2": 0.0,
+"op": "<"
+}
+
+[sub_resource type="Resource" id="Resource_7mevj"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_hr8se"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "jump_up",
+"node": SubResource("Resource_7mevj")
+}
+
+[sub_resource type="Resource" id="Resource_mbyxh"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_hr8se")])
+arguments = {
+"condition": SubResource("Resource_lpeqv")
+}
+
+[sub_resource type="Resource" id="Resource_kmelg"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_q730o"]
+script = ExtResource("6_c3puh")
+name = &"vector2_y"
+arguments = {
+"vector2": SubResource("Resource_kmelg")
+}
+
+[sub_resource type="Resource" id="Resource_qevic"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_q730o"),
+"float2": 0.0,
+"op": ">"
+}
+
+[sub_resource type="Resource" id="Resource_pis0e"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_yu0sf"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "jump_down",
+"node": SubResource("Resource_pis0e")
+}
+
+[sub_resource type="Resource" id="Resource_0ebwn"]
+script = ExtResource("4_mcw5b")
+name = &"else_if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_yu0sf")])
+arguments = {
+"condition": SubResource("Resource_qevic")
+}
+
+[sub_resource type="Resource" id="Resource_v1ifc"]
+script = ExtResource("4_mcw5b")
+name = &"else"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_mbyxh"), SubResource("Resource_0ebwn")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_lm6nm"]
+script = ExtResource("4_mcw5b")
+name = &"process"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_04hva"), SubResource("Resource_idvlw"), SubResource("Resource_ktttq"), SubResource("Resource_gqx56"), SubResource("Resource_v1ifc")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_70rhs"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_d4xw0")
-canvas_position = Vector2(300, 0)
+root = SubResource("Resource_lm6nm")
+canvas_position = Vector2(25, 100)
 
 [sub_resource type="Resource" id="Resource_hsh3i"]
 script = ExtResource("7_ubegq")
@@ -193,7 +975,7 @@ var_type = 1
 [sub_resource type="Resource" id="Resource_ahm1y"]
 script = ExtResource("6_eqqyd")
 script_inherits = "SimpleCharacter"
-block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_h5v1x"), SubResource("Resource_yyacy"), SubResource("Resource_bu8p3")])
+block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_wj81h"), SubResource("Resource_0kpne"), SubResource("Resource_70rhs")])
 variables = Array[ExtResource("7_ubegq")]([SubResource("Resource_hsh3i")])
 generated_script = "extends SimpleCharacter
 
@@ -203,14 +985,26 @@ var is_playing: bool
 func _ready():
 	is_playing = false
 
+func reset_player():
+	position = (Vector2(512, 448))
+
 func _process(delta):
 	if (Input.is_action_pressed('ui_accept')):
 		is_playing = true
 	if (is_playing):
 		move_with_player_buttons('player_1', 'platformer', delta)
-
-func reset_player():
-	position = (Vector2(512, 448))
+	if ((((velocity).x) == 0) and (((velocity).y) == 0)):
+		(get_node(\"AnimationPlayer\")).call('be_idle')
+	if (is_on_floor()):
+		if (((velocity).x) > 0):
+			(get_node(\"AnimationPlayer\")).call('walk_right')
+		elif (((velocity).x) < 0):
+			(get_node(\"AnimationPlayer\")).call('walk_left')
+	else:
+		if (((velocity).y) < 0):
+			(get_node(\"AnimationPlayer\")).call('jump_up')
+		elif (((velocity).y) > 0):
+			(get_node(\"AnimationPlayer\")).call('jump_down')
 
 "
 version = 0
@@ -222,12 +1016,30 @@ script = ExtResource("1_vu6uw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+visible = false
 sprite_frames = ExtResource("2_msaml")
-animation = &"walk_right"
+animation = &"hit"
 autoplay = "walk_right"
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("9_d5cr6")
+hframes = 6
+vframes = 3
+region_enabled = true
+region_rect = Rect2(-11, 0, 889, 448)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_371pm")
+}
+autoplay = "idle"
+
+[node name="BlockCode" type="Node" parent="AnimationPlayer"]
+script = ExtResource("3_x0qit")
+block_script = SubResource("Resource_xi3ry")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 18)
+position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_2etyl")
 
 [node name="HitArea" type="Area2D" parent="."]
@@ -235,7 +1047,7 @@ collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
-position = Vector2(0, 54)
+position = Vector2(0, 43)
 shape = SubResource("RectangleShape2D_a8v66")
 
 [node name="BlockCode" type="Node" parent="HitArea"]
