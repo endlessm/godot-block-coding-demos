@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ie23s0vkcs0r"
+path="res://.godot/imported/Rim 4.ogg-c1494d1dab05e850e058624407ee44b5.oggvorbisstr"
+
+[deps]
+
+source_file="res://game-04/Sounds/Rim 4.ogg"
+dest_files=["res://.godot/imported/Rim 4.ogg-c1494d1dab05e850e058624407ee44b5.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -64,7 +64,7 @@ text = "Platformer"
 
 [node name="Demo04Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Demo 04"
+text = "Pachinko (Physics)"
 
 [node name="Demo05Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2

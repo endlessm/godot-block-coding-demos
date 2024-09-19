@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dp1r71i4x8kqg"
+path="res://.godot/imported/Rattle 3.ogg-2ed1df6e740c2f9520bcfcee21026552.oggvorbisstr"
+
+[deps]
+
+source_file="res://game-04/Sounds/Rattle 3.ogg"
+dest_files=["res://.godot/imported/Rattle 3.ogg-2ed1df6e740c2f9520bcfcee21026552.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
