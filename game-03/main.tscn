@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://dhcpt1kt8cs0g"]
+[gd_scene load_steps=88 format=4 uid="uid://dhcpt1kt8cs0g"]
 
 [ext_resource type="PackedScene" uid="uid://8st4scqt06l8" path="res://game-03/components/player/player.tscn" id="2_7yl00"]
 [ext_resource type="PackedScene" uid="uid://jnrusvm3gric" path="res://game-03/spaces/background.tscn" id="2_tb5a2"]
@@ -80,7 +80,7 @@ func _on_body_entered(body: Node2D):
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_giews"]
+[sub_resource type="Resource" id="Resource_2tda6"]
 script = ExtResource("13_ff376")
 name = &"set_var_is_playing"
 children = Array[ExtResource("13_ff376")]([])
@@ -88,18 +88,18 @@ arguments = {
 "value": false
 }
 
-[sub_resource type="Resource" id="Resource_yth51"]
+[sub_resource type="Resource" id="Resource_c8vfq"]
 script = ExtResource("13_ff376")
 name = &"ready"
-children = Array[ExtResource("13_ff376")]([SubResource("Resource_giews")])
+children = Array[ExtResource("13_ff376")]([SubResource("Resource_2tda6")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_5hfsq"]
+[sub_resource type="Resource" id="Resource_7nd84"]
 script = ExtResource("4_11brd")
-root = SubResource("Resource_yth51")
+root = SubResource("Resource_c8vfq")
 canvas_position = Vector2(25, 0)
 
-[sub_resource type="Resource" id="Resource_dxwwd"]
+[sub_resource type="Resource" id="Resource_e30fg"]
 script = ExtResource("13_ff376")
 name = &"set_var_is_playing"
 children = Array[ExtResource("13_ff376")]([])
@@ -107,20 +107,20 @@ arguments = {
 "value": true
 }
 
-[sub_resource type="Resource" id="Resource_lhcmf"]
+[sub_resource type="Resource" id="Resource_oqlog"]
 script = ExtResource("13_ff376")
 name = &"define_method"
-children = Array[ExtResource("13_ff376")]([SubResource("Resource_dxwwd")])
+children = Array[ExtResource("13_ff376")]([SubResource("Resource_e30fg")])
 arguments = {
 "method_name": &"start_game"
 }
 
-[sub_resource type="Resource" id="Resource_dcgxv"]
+[sub_resource type="Resource" id="Resource_0vvq3"]
 script = ExtResource("4_11brd")
-root = SubResource("Resource_lhcmf")
+root = SubResource("Resource_oqlog")
 canvas_position = Vector2(25, 125)
 
-[sub_resource type="Resource" id="Resource_3hfpg"]
+[sub_resource type="Resource" id="Resource_404hv"]
 script = ExtResource("13_ff376")
 name = &"Node2D_set_position"
 children = Array[ExtResource("13_ff376")]([])
@@ -128,66 +128,129 @@ arguments = {
 "value": Vector2(512, 448)
 }
 
-[sub_resource type="Resource" id="Resource_44lqf"]
+[sub_resource type="Resource" id="Resource_73cr4"]
 script = ExtResource("13_ff376")
 name = &"define_method"
-children = Array[ExtResource("13_ff376")]([SubResource("Resource_3hfpg")])
+children = Array[ExtResource("13_ff376")]([SubResource("Resource_404hv")])
 arguments = {
 "method_name": &"reset_player"
 }
 
-[sub_resource type="Resource" id="Resource_75dfa"]
+[sub_resource type="Resource" id="Resource_vxj21"]
 script = ExtResource("4_11brd")
-root = SubResource("Resource_44lqf")
+root = SubResource("Resource_73cr4")
 canvas_position = Vector2(25, 250)
 
-[sub_resource type="Resource" id="Resource_iw3mt"]
+[sub_resource type="Resource" id="Resource_rc4uw"]
 script = ExtResource("6_jq1mr")
 name = &"get_var_is_playing"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_hxoqd"]
+[sub_resource type="Resource" id="Resource_6lmeg"]
 script = ExtResource("14_8k8m8")
 selected = 1
 items = ["top-down", "platformer", "spaceship"]
 
-[sub_resource type="Resource" id="Resource_ua4nn"]
+[sub_resource type="Resource" id="Resource_uvkff"]
 script = ExtResource("14_8k8m8")
 selected = 0
 items = ["player_1", "player_2"]
 
-[sub_resource type="Resource" id="Resource_53wue"]
+[sub_resource type="Resource" id="Resource_7ocq7"]
 script = ExtResource("13_ff376")
 name = &"simplecharacter_move"
 children = Array[ExtResource("13_ff376")]([])
 arguments = {
-"kind": SubResource("Resource_hxoqd"),
-"player": SubResource("Resource_ua4nn")
+"kind": SubResource("Resource_6lmeg"),
+"player": SubResource("Resource_uvkff")
 }
 
-[sub_resource type="Resource" id="Resource_x8kl4"]
+[sub_resource type="Resource" id="Resource_gaaif"]
 script = ExtResource("6_jq1mr")
 name = &"characterbody2d_is_on_floor"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_va7dd"]
+[sub_resource type="Resource" id="Resource_rjh5i"]
+script = ExtResource("6_jq1mr")
+name = &"SimpleCharacter_get_direction_x"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_th61b"]
+script = ExtResource("14_8k8m8")
+selected = 1
+items = ["==", ">", "<", ">=", "<=", "!="]
+
+[sub_resource type="Resource" id="Resource_qtwt4"]
+script = ExtResource("6_jq1mr")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_rjh5i"),
+"float2": 0.0,
+"op": SubResource("Resource_th61b")
+}
+
+[sub_resource type="Resource" id="Resource_rggcp"]
 script = ExtResource("13_ff376")
 name = &"call_method_group"
 children = Array[ExtResource("13_ff376")]([])
 arguments = {
 "group": "player_animation",
-"method_name": "play_walk"
+"method_name": "play_walk_right"
 }
 
-[sub_resource type="Resource" id="Resource_ad8mt"]
+[sub_resource type="Resource" id="Resource_dayuk"]
 script = ExtResource("13_ff376")
 name = &"if"
-children = Array[ExtResource("13_ff376")]([SubResource("Resource_va7dd")])
+children = Array[ExtResource("13_ff376")]([SubResource("Resource_rggcp")])
 arguments = {
-"condition": SubResource("Resource_x8kl4")
+"condition": SubResource("Resource_qtwt4")
 }
 
-[sub_resource type="Resource" id="Resource_mrfb7"]
+[sub_resource type="Resource" id="Resource_4n256"]
+script = ExtResource("6_jq1mr")
+name = &"SimpleCharacter_get_direction_x"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_27cxe"]
+script = ExtResource("14_8k8m8")
+selected = 2
+items = ["==", ">", "<", ">=", "<=", "!="]
+
+[sub_resource type="Resource" id="Resource_kcf75"]
+script = ExtResource("6_jq1mr")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_4n256"),
+"float2": 0.0,
+"op": SubResource("Resource_27cxe")
+}
+
+[sub_resource type="Resource" id="Resource_w150i"]
+script = ExtResource("13_ff376")
+name = &"call_method_group"
+children = Array[ExtResource("13_ff376")]([])
+arguments = {
+"group": "player_animation",
+"method_name": "play_walk_left"
+}
+
+[sub_resource type="Resource" id="Resource_nkhnt"]
+script = ExtResource("13_ff376")
+name = &"if"
+children = Array[ExtResource("13_ff376")]([SubResource("Resource_w150i")])
+arguments = {
+"condition": SubResource("Resource_kcf75")
+}
+
+[sub_resource type="Resource" id="Resource_s4uuc"]
+script = ExtResource("13_ff376")
+name = &"if"
+children = Array[ExtResource("13_ff376")]([SubResource("Resource_dayuk"), SubResource("Resource_nkhnt")])
+arguments = {
+"condition": SubResource("Resource_gaaif")
+}
+
+[sub_resource type="Resource" id="Resource_mwmi2"]
 script = ExtResource("13_ff376")
 name = &"call_method_group"
 children = Array[ExtResource("13_ff376")]([])
@@ -196,29 +259,29 @@ arguments = {
 "method_name": "play_jump_up"
 }
 
-[sub_resource type="Resource" id="Resource_y3ayw"]
+[sub_resource type="Resource" id="Resource_s4rn6"]
 script = ExtResource("13_ff376")
 name = &"else"
-children = Array[ExtResource("13_ff376")]([SubResource("Resource_mrfb7")])
+children = Array[ExtResource("13_ff376")]([SubResource("Resource_mwmi2")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_fiwl5"]
+[sub_resource type="Resource" id="Resource_at2ye"]
 script = ExtResource("13_ff376")
 name = &"if"
-children = Array[ExtResource("13_ff376")]([SubResource("Resource_53wue"), SubResource("Resource_ad8mt"), SubResource("Resource_y3ayw")])
+children = Array[ExtResource("13_ff376")]([SubResource("Resource_7ocq7"), SubResource("Resource_s4uuc"), SubResource("Resource_s4rn6")])
 arguments = {
-"condition": SubResource("Resource_iw3mt")
+"condition": SubResource("Resource_rc4uw")
 }
 
-[sub_resource type="Resource" id="Resource_5ovv7"]
+[sub_resource type="Resource" id="Resource_7w2jr"]
 script = ExtResource("13_ff376")
 name = &"physics_process"
-children = Array[ExtResource("13_ff376")]([SubResource("Resource_fiwl5")])
+children = Array[ExtResource("13_ff376")]([SubResource("Resource_at2ye")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_yrwb1"]
+[sub_resource type="Resource" id="Resource_yr42i"]
 script = ExtResource("4_11brd")
-root = SubResource("Resource_5ovv7")
+root = SubResource("Resource_7w2jr")
 canvas_position = Vector2(300, 0)
 
 [sub_resource type="Resource" id="Resource_hsh3i"]
@@ -229,7 +292,7 @@ var_type = 1
 [sub_resource type="Resource" id="Resource_i246p"]
 script = ExtResource("15_hikyw")
 script_inherits = "SimpleCharacter"
-block_serialization_trees = Array[ExtResource("4_11brd")]([SubResource("Resource_5hfsq"), SubResource("Resource_dcgxv"), SubResource("Resource_75dfa"), SubResource("Resource_yrwb1")])
+block_serialization_trees = Array[ExtResource("4_11brd")]([SubResource("Resource_7nd84"), SubResource("Resource_0vvq3"), SubResource("Resource_vxj21"), SubResource("Resource_yr42i")])
 variables = Array[ExtResource("8_nsild")]([SubResource("Resource_hsh3i")])
 generated_script = "extends SimpleCharacter
 
@@ -249,7 +312,10 @@ func _physics_process(delta):
 	if (is_playing):
 		move_with_player_buttons(\"player_1\", \"platformer\", delta)
 		if (is_on_floor()):
-			get_tree().call_group('player_animation', 'play_walk')
+			if ((direction_x) > 0):
+				get_tree().call_group('player_animation', 'play_walk_right')
+			if ((direction_x) < 0):
+				get_tree().call_group('player_animation', 'play_walk_left')
 		else:
 			get_tree().call_group('player_animation', 'play_jump_up')
 
