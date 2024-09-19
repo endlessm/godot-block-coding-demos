@@ -1,0 +1,326 @@
+[gd_scene load_steps=33 format=3 uid="uid://csovnt1mny846"]
+
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="1_ktmek"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="2_ynyts"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="3_lvc8y"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="4_0ujx4"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="4_s5687"]
+[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="5_vo5pp"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qkbax"]
+polygon = PackedVector2Array(2, -90, 205, -97, 198, -52, 2, -55)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_w384j"]
+polygon = PackedVector2Array(2, -90, -193, -98, -205, -52, 2, -55)
+
+[sub_resource type="Animation" id="Animation_mqrtu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, -145)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Polygon2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../BlueDoorArea/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5pec4"]
+resource_name = "open_blue_door"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(10, -145), Vector2(-165, -146)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Polygon2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(178, -10)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.76667, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../BlueDoorArea/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gvjxc"]
+_data = {
+"RESET": SubResource("Animation_mqrtu"),
+"open_blue_door": SubResource("Animation_5pec4")
+}
+
+[sub_resource type="Resource" id="Resource_ktcb3"]
+script = ExtResource("3_lvc8y")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"method_name": "open_blue_door"
+}]]
+
+[sub_resource type="Resource" id="Resource_7i71a"]
+script = ExtResource("4_0ujx4")
+selected = 0
+items = ["ahead", "backwards"]
+
+[sub_resource type="Resource" id="Resource_w1v4r"]
+script = ExtResource("3_lvc8y")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"animation": "open_blue_door",
+"direction": SubResource("Resource_7i71a")
+}]]
+
+[sub_resource type="Resource" id="Resource_4cbts"]
+script = ExtResource("2_ynyts")
+name = &"animationplayer_play"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_w1v4r")
+
+[sub_resource type="Resource" id="Resource_qjcxe"]
+script = ExtResource("2_ynyts")
+name = &"define_method"
+position = Vector2(100, 200)
+path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_4cbts")]]
+block_serialized_properties = SubResource("Resource_ktcb3")
+
+[sub_resource type="Resource" id="Resource_aw26a"]
+script = ExtResource("4_s5687")
+script_inherits = "AnimationPlayer"
+block_trees = Array[ExtResource("2_ynyts")]([SubResource("Resource_qjcxe")])
+variables = Array[ExtResource("5_vo5pp")]([])
+generated_script = "extends AnimationPlayer
+
+
+func open_blue_door():
+	if \"ahead\" == \"ahead\":
+		play('open_blue_door')
+	else:
+		play_backwards('open_blue_door')
+
+"
+version = 0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mp40v"]
+size = Vector2(359, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtq63"]
+size = Vector2(400, 80)
+
+[sub_resource type="Resource" id="Resource_8rq6q"]
+script = ExtResource("3_lvc8y")
+block_class = &"EntryBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_g4wkx"]
+script = ExtResource("3_lvc8y")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
+"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_0x56d"]
+script = ExtResource("2_ynyts")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_g4wkx")
+
+[sub_resource type="Resource" id="Resource_ah2tf"]
+script = ExtResource("3_lvc8y")
+block_class = &"ControlBlock"
+serialized_props = [["scope", ""], ["param_input_strings_array", [{
+"condition": false
+}]]]
+
+[sub_resource type="Resource" id="Resource_3w48h"]
+script = ExtResource("3_lvc8y")
+block_class = &"ParameterBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "blue_door_listener",
+"node": ""
+}]]
+
+[sub_resource type="Resource" id="Resource_lrw15"]
+script = ExtResource("3_lvc8y")
+block_class = &"ParameterBlock"
+serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
+"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
+
+[sub_resource type="Resource" id="Resource_6tude"]
+script = ExtResource("2_ynyts")
+name = &"parameter_block"
+position = Vector2(0, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_lrw15")
+
+[sub_resource type="Resource" id="Resource_0lvix"]
+script = ExtResource("2_ynyts")
+name = &"is_node_in_group"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_6tude")]]
+block_serialized_properties = SubResource("Resource_3w48h")
+
+[sub_resource type="Resource" id="Resource_rkkli"]
+script = ExtResource("3_lvc8y")
+block_class = &"StatementBlock"
+serialized_props = [["scope", ""], ["param_input_strings", {
+"group": "blue_door_listener",
+"method_name": "blue_door_entered"
+}]]
+
+[sub_resource type="Resource" id="Resource_7v1fp"]
+script = ExtResource("2_ynyts")
+name = &"call_method_group"
+position = Vector2(20, 0)
+path_child_pairs = []
+block_serialized_properties = SubResource("Resource_rkkli")
+
+[sub_resource type="Resource" id="Resource_bs3ep"]
+script = ExtResource("2_ynyts")
+name = &"if"
+position = Vector2(0, 0)
+path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_0lvix")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_7v1fp")]]
+block_serialized_properties = SubResource("Resource_ah2tf")
+
+[sub_resource type="Resource" id="Resource_i3o57"]
+script = ExtResource("2_ynyts")
+name = &"area2d_on_entered"
+position = Vector2(75, 200)
+path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_0x56d")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_bs3ep")]]
+block_serialized_properties = SubResource("Resource_8rq6q")
+
+[sub_resource type="Resource" id="Resource_y0yc4"]
+script = ExtResource("4_s5687")
+script_inherits = "Area2D"
+block_trees = Array[ExtResource("2_ynyts")]([SubResource("Resource_i3o57")])
+variables = Array[ExtResource("5_vo5pp")]([])
+generated_script = "extends Area2D
+
+
+func _on_body_entered(body: Node2D):
+
+	if body.is_in_group('blue_door_listener'):
+		get_tree().call_group('blue_door_listener', 'blue_door_entered')
+
+func _init():
+	body_entered.connect(_on_body_entered)
+"
+version = 0
+
+[node name="BlueDoor" type="Node2D"]
+
+[node name="BlueDoorBody" type="AnimatableBody2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="BlueDoorBody"]
+color = Color(0.28304, 0.294802, 1, 1)
+polygon = PackedVector2Array(7, -104, 4, -42, 203, -39, 205, -108)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="BlueDoorBody/Polygon2D"]
+occluder = SubResource("OccluderPolygon2D_qkbax")
+
+[node name="Polygon2D2" type="Polygon2D" parent="BlueDoorBody"]
+position = Vector2(10, -145)
+scale = Vector2(-1, -1)
+color = Color(0.28304, 0.294802, 1, 1)
+polygon = PackedVector2Array(7, -104, 4, -42, 203, -39, 205, -108)
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="BlueDoorBody/Polygon2D2"]
+position = Vector2(10, -145)
+rotation = 3.14159
+occluder = SubResource("OccluderPolygon2D_w384j")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BlueDoorBody" groups=["blue_door_ani"]]
+libraries = {
+"": SubResource("AnimationLibrary_gvjxc")
+}
+
+[node name="BlockCode" type="Node" parent="BlueDoorBody/AnimationPlayer"]
+script = ExtResource("1_ktmek")
+block_script = SubResource("Resource_aw26a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlueDoorBody"]
+visible = false
+position = Vector2(5.5, -73)
+shape = SubResource("RectangleShape2D_mp40v")
+
+[node name="BlueDoorArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlueDoorArea"]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_vtq63")
+
+[node name="BlockCode" type="Node" parent="BlueDoorArea"]
+script = ExtResource("1_ktmek")
+block_script = SubResource("Resource_y0yc4")

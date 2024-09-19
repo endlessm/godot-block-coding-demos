@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdug7kp8xxu2m"]
+
+[ext_resource type="Texture2D" uid="uid://dri83m6wlbu72" path="res://game-05/wall-tile.png" id="1_lftbc"]
+[ext_resource type="Texture2D" uid="uid://bumldixpo6cce" path="res://game-05/wall-tile-normal.png" id="2_d5t4c"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_h7ee5"]
+diffuse_texture = ExtResource("1_lftbc")
+normal_texture = ExtResource("2_d5t4c")
+texture_repeat = 2
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pwpb6"]
+polygon = PackedVector2Array(-176, -110, -94, -104, -46, -51, 62, -59, 100, -101, 211, -104, 238, -49, 238, 98, 207, 132, -208, 125, -226, 90, -220, -69)
+
+[node name="LevelPart" type="StaticBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-0.400024, -15.5)
+polygon = PackedVector2Array(-181, -122, -87, -116, -43, -61, 56, -68, 92, -109, 218, -115, 249, -56, 250, 99, 220, 143, -217, 140, -242, 92, -233, -77)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-0.399994, -15.5)
+texture = SubResource("CanvasTexture_h7ee5")
+polygon = PackedVector2Array(-181, -122, -87, -116, -43, -61, 56, -68, 92, -109, 218, -115, 249, -56, 250, 99, 220, 143, -217, 140, -242, 92, -233, -77)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(1, -12)
+occluder = SubResource("OccluderPolygon2D_pwpb6")
