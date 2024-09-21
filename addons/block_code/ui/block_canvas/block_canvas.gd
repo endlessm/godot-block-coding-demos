@@ -1,10 +1,12 @@
 @tool
 extends MarginContainer
 
+const ASTList = preload("res://addons/block_code/code_generation/ast_list.gd")
+const BlockAST = preload("res://addons/block_code/code_generation/block_ast.gd")
 const BlockCodePlugin = preload("res://addons/block_code/block_code_plugin.gd")
 const BlockTreeUtil = preload("res://addons/block_code/ui/block_tree_util.gd")
 const DragManager = preload("res://addons/block_code/drag_manager/drag_manager.gd")
-const InstructionTree = preload("res://addons/block_code/instruction_tree/instruction_tree.gd")
+const ScriptGenerator = preload("res://addons/block_code/code_generation/script_generator.gd")
 const Util = preload("res://addons/block_code/ui/util.gd")
 
 const EXTEND_MARGIN: float = 800
@@ -12,6 +14,8 @@ const BLOCK_AUTO_PLACE_MARGIN: Vector2 = Vector2(25, 8)
 const DEFAULT_WINDOW_MARGIN: Vector2 = Vector2(25, 25)
 const SNAP_GRID: Vector2 = Vector2(25, 25)
 const ZOOM_FACTOR: float = 1.1
+
+@onready var _context := BlockEditorContext.get_default()
 
 @onready var _window: Control = %Window
 @onready var _empty_box: BoxContainer = %EmptyBox
@@ -34,7 +38,7 @@ const ZOOM_FACTOR: float = 1.1
 @onready var _zoom_button: Button = %ZoomButton
 
 var _current_block_script: BlockScriptSerialization
-var _block_scenes_by_class = {}
+var _current_ast_list: ASTList
 var _panning := false
 var zoom: float:
 	set(value):
@@ -50,19 +54,10 @@ signal replace_block_code
 
 
 func _ready():
+	_context.changed.connect(_on_context_changed)
+
 	if not _open_scene_button.icon and not Util.node_is_part_of_edited_scene(self):
 		_open_scene_button.icon = _open_scene_icon
-	_populate_block_scenes_by_class()
-
-
-func _populate_block_scenes_by_class():
-	for _class in ProjectSettings.get_global_class_list():
-		if not _class.base.ends_with("Block"):
-			continue
-		var _script = load(_class.path)
-		if not _script.has_method("get_scene_path"):
-			continue
-		_block_scenes_by_class[_class.class] = _script.get_scene_path()
 
 
 func add_block(block: Block, position: Vector2 = Vector2.ZERO) -> void:
@@ -96,12 +91,12 @@ func set_child(n: Node):
 		set_child(c)
 
 
-func block_script_selected(block_script: BlockScriptSerialization):
+func _on_context_changed():
 	clear_canvas()
 
 	var edited_node = EditorInterface.get_inspector().get_edited_object() as Node
 
-	if block_script != _current_block_script:
+	if _context.block_script != _current_block_script:
 		_window.position = Vector2(0, 0)
 		zoom = 1
 
@@ -115,12 +110,12 @@ func block_script_selected(block_script: BlockScriptSerialization):
 	_open_scene_button.disabled = true
 	_replace_block_code_button.disabled = true
 
-	if block_script != null:
-		_load_block_script(block_script)
+	if _context.block_script != null:
+		_load_block_script(_context.block_script)
 		_window.visible = true
 		_zoom_button.visible = true
 
-		if block_script != _current_block_script:
+		if _context.block_script != _current_block_script:
 			reset_window_position()
 	elif edited_node == null:
 		_empty_box.visible = true
@@ -139,12 +134,74 @@ func block_script_selected(block_script: BlockScriptSerialization):
 		_selected_node_label.text = _selected_node_label_format.format({"node": edited_node.name})
 		_add_block_code_button.disabled = false
 
-	_current_block_script = block_script
+	_current_block_script = _context.block_script
 
 
 func _load_block_script(block_script: BlockScriptSerialization):
-	for tree in block_script.block_trees:
-		load_tree(_window, tree)
+	_current_ast_list = block_script.generate_ast_list()
+	reload_ui_from_ast_list()
+
+
+func reload_ui_from_ast_list():
+	for ast_pair in _current_ast_list.array:
+		var root_block = ui_tree_from_ast_node(ast_pair.ast.root)
+		root_block.position = ast_pair.canvas_position
+		_window.add_child(root_block)
+
+
+func ui_tree_from_ast_node(ast_node: BlockAST.ASTNode) -> Block:
+	var block: Block = _context.block_script.instantiate_block(ast_node.data)
+
+	# Args
+	var parameter_values: Dictionary
+
+	for arg_name in ast_node.arguments:
+		var argument = ast_node.arguments[arg_name]
+		if argument is BlockAST.ASTValueNode:
+			var value_block = ui_tree_from_ast_value_node(argument)
+			parameter_values[arg_name] = value_block
+		else:  # Argument is not a node, but a user input value
+			parameter_values[arg_name] = argument
+
+	block.set_parameter_values_on_ready(parameter_values)
+
+	# Children
+	var current_block: Block = block
+
+	var i: int = 0
+	for c in ast_node.children:
+		var child_block: Block = ui_tree_from_ast_node(c)
+
+		if i == 0:
+			current_block.child_snap.add_child(child_block)
+		else:
+			current_block.bottom_snap.add_child(child_block)
+
+		current_block = child_block
+		i += 1
+
+	reconnect_block.emit(block)
+	return block
+
+
+func ui_tree_from_ast_value_node(ast_value_node: BlockAST.ASTValueNode) -> Block:
+	var block: Block = _context.block_script.instantiate_block(ast_value_node.data)
+
+	# Args
+	var parameter_values: Dictionary
+
+	for arg_name in ast_value_node.arguments:
+		var argument = ast_value_node.arguments[arg_name]
+		if argument is BlockAST.ASTValueNode:
+			var value_block = ui_tree_from_ast_value_node(argument)
+			parameter_values[arg_name] = value_block
+		else:  # Argument is not a node, but a user input value
+			parameter_values[arg_name] = argument
+
+	block.set_parameter_values_on_ready(parameter_values)
+
+	reconnect_block.emit(block)
+	return block
 
 
 func clear_canvas():
@@ -153,50 +210,68 @@ func clear_canvas():
 		child.queue_free()
 
 
-func load_tree(parent: Node, node: BlockSerialization):
-	var scene: Block = Util.instantiate_block_by_name(node.name)
+func rebuild_ast_list():
+	_current_ast_list.clear()
 
-	# TODO: Remove once the data/UI decouple is done.
-	if scene == null:
-		var _block_scene_path = _block_scenes_by_class[node.block_serialized_properties.block_class]
-		scene = load(_block_scene_path).instantiate()
-	for prop_pair in node.block_serialized_properties.serialized_props:
-		scene.set(prop_pair[0], prop_pair[1])
-
-	scene.position = node.position
-	scene.resource = node
-	parent.add_child(scene)
-
-	var scene_block: Block = scene as Block
-	reconnect_block.emit(scene_block)
-
-	for c in node.path_child_pairs:
-		load_tree(scene.get_node(c[0]), c[1])
-
-
-func rebuild_block_trees(undo_redo):
-	var block_trees: Array[BlockSerialization]
 	for c in _window.get_children():
-		block_trees.append(build_tree(c, undo_redo))
-	undo_redo.add_undo_property(_current_block_script, "block_trees", _current_block_script.block_trees)
-	undo_redo.add_do_property(_current_block_script, "block_trees", block_trees)
+		if c is StatementBlock:
+			var root: BlockAST.ASTNode = build_ast(c)
+			var ast: BlockAST = BlockAST.new()
+			ast.root = root
+			_current_ast_list.append(ast, c.position)
 
 
-func build_tree(block: Block, undo_redo: EditorUndoRedoManager) -> BlockSerialization:
-	var path_child_pairs = []
-	block.update_resources(undo_redo)
+func build_ast(block: Block) -> BlockAST.ASTNode:
+	var ast_node := BlockAST.ASTNode.new()
+	ast_node.data = block.definition
 
-	for snap in find_snaps(block):
-		var snapped_block = snap.get_snapped_block()
-		if snapped_block == null:
-			continue
-		path_child_pairs.append([block.get_path_to(snap), build_tree(snapped_block, undo_redo)])
+	var parameter_values := block.get_parameter_values()
 
-	if block.resource.path_child_pairs != path_child_pairs:
-		undo_redo.add_undo_property(block.resource, "path_child_pairs", block.resource.path_child_pairs)
-		undo_redo.add_do_property(block.resource, "path_child_pairs", path_child_pairs)
+	for arg_name in parameter_values:
+		var arg_value = parameter_values[arg_name]
+		if arg_value is Block:
+			ast_node.arguments[arg_name] = build_value_ast(arg_value)
+		else:
+			ast_node.arguments[arg_name] = arg_value
 
-	return block.resource
+	var children: Array[BlockAST.ASTNode] = []
+
+	if block.child_snap:
+		var child: Block = block.child_snap.get_snapped_block()
+
+		while child != null:
+			var child_ast_node := build_ast(child)
+			child_ast_node.data = child.definition
+
+			children.append(child_ast_node)
+			if child.bottom_snap == null:
+				child = null
+			else:
+				child = child.bottom_snap.get_snapped_block()
+
+	ast_node.children = children
+
+	return ast_node
+
+
+func build_value_ast(block: ParameterBlock) -> BlockAST.ASTValueNode:
+	var ast_node := BlockAST.ASTValueNode.new()
+	ast_node.data = block.definition
+
+	var parameter_values := block.get_parameter_values()
+
+	for arg_name in parameter_values:
+		var arg_value = parameter_values[arg_name]
+		if arg_value is Block:
+			ast_node.arguments[arg_name] = build_value_ast(arg_value)
+		else:
+			ast_node.arguments[arg_name] = arg_value
+
+	return ast_node
+
+
+func rebuild_block_serialization_trees():
+	_context.block_script.update_from_ast_list(_current_ast_list)
 
 
 func find_snaps(node: Node) -> Array[SnapPoint]:
@@ -216,7 +291,7 @@ func set_scope(scope: String):
 		var valid := false
 
 		if block is EntryBlock:
-			if scope == block.get_entry_statement():
+			if scope == block.definition.code_template:
 				valid = true
 		else:
 			var tree_scope := BlockTreeUtil.get_tree_scope(block)
@@ -319,9 +394,8 @@ func set_mouse_override(override: bool):
 		_mouse_override.mouse_default_cursor_shape = Control.CURSOR_ARROW
 
 
-func generate_script_from_current_window(block_script: BlockScriptSerialization) -> String:
-	# TODO: implement multiple windows
-	return BlockTreeUtil.generate_script_from_nodes(_window.get_children(), block_script)
+func generate_script_from_current_window() -> String:
+	return ScriptGenerator.generate_script(_current_ast_list, _context.block_script)
 
 
 func _on_zoom_button_pressed():
