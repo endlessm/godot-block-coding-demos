@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=46 format=3 uid="uid://ci147qf6s6jhg"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
@@ -106,6 +106,118 @@ size = Vector2(960, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be137"]
 size = Vector2(71, 419)
 
+[sub_resource type="Resource" id="Resource_on3rr"]
+script = ExtResource("8_an3ek")
+name = &"queue_free"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_5aard"]
+script = ExtResource("8_an3ek")
+name = &"define_method"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_on3rr")])
+arguments = {
+"method_name": &"delete"
+}
+
+[sub_resource type="Resource" id="Resource_skbg6"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_5aard")
+canvas_position = Vector2(125, 100)
+
+[sub_resource type="Resource" id="Resource_tb6g7"]
+script = ExtResource("9_a8xal")
+script_inherits = "RigidBody2D"
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_skbg6")])
+variables = Array[ExtResource("10_pjdut")]([])
+generated_script = "extends RigidBody2D
+
+
+func delete():
+	queue_free()
+
+"
+version = 0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a01j5"]
+size = Vector2(63, 572)
+
+[sub_resource type="Resource" id="Resource_v25y3"]
+script = ExtResource("9_a8xal")
+script_inherits = "CollisionShape2D"
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([])
+variables = Array[ExtResource("10_pjdut")]([])
+generated_script = "extends CollisionShape2D
+
+
+"
+version = 0
+
+[sub_resource type="Resource" id="Resource_atom3"]
+script = ExtResource("8_4ctxh")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_1ehqn"]
+script = ExtResource("8_4ctxh")
+name = &"is_node_in_group"
+arguments = {
+"group": "obstacles",
+"node": SubResource("Resource_atom3")
+}
+
+[sub_resource type="Resource" id="Resource_0mdue"]
+script = ExtResource("8_4ctxh")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_a8ecr"]
+script = ExtResource("8_an3ek")
+name = &"call_method_node"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {
+"method_name": "delete",
+"node": SubResource("Resource_0mdue")
+}
+
+[sub_resource type="Resource" id="Resource_2oej7"]
+script = ExtResource("8_an3ek")
+name = &"if"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_a8ecr")])
+arguments = {
+"condition": SubResource("Resource_1ehqn")
+}
+
+[sub_resource type="Resource" id="Resource_1o51t"]
+script = ExtResource("8_an3ek")
+name = &"area2d_on_entered"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_2oej7")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_bcpcc"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_1o51t")
+canvas_position = Vector2(25, 50)
+
+[sub_resource type="Resource" id="Resource_acnid"]
+script = ExtResource("9_a8xal")
+script_inherits = "Area2D"
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_bcpcc")])
+variables = Array[ExtResource("10_pjdut")]([])
+generated_script = "extends Area2D
+
+
+func _init():
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	if ((something).is_in_group('obstacles')):
+		(something).call('delete')
+
+"
+version = 0
+
 [node name="Main" type="Node2D"]
 
 [node name="BackgroundStars" type="Parallax2D" parent="."]
@@ -186,7 +298,7 @@ shape = SubResource("RectangleShape2D_s7voe")
 position = Vector2(480, 544)
 shape = SubResource("RectangleShape2D_m1jur")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+[node name="RigidBody2D" type="RigidBody2D" parent="." groups=["obstacles"]]
 collision_mask = 0
 gravity_scale = 0.0
 linear_velocity = Vector2(-100, 0)
@@ -204,5 +316,24 @@ shape = SubResource("RectangleShape2D_be137")
 position = Vector2(562, 479.5)
 shape = SubResource("RectangleShape2D_be137")
 
+[node name="BlockCode" type="Node" parent="RigidBody2D"]
+script = ExtResource("6_by3km")
+block_script = SubResource("Resource_tb6g7")
+
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_2umo5")
+
+[node name="Deadzone" type="Area2D" parent="."]
+position = Vector2(-72, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deadzone"]
+position = Vector2(-32, 276)
+shape = SubResource("RectangleShape2D_a01j5")
+
+[node name="BlockCode" type="Node" parent="Deadzone/CollisionShape2D"]
+script = ExtResource("6_by3km")
+block_script = SubResource("Resource_v25y3")
+
+[node name="BlockCode" type="Node" parent="Deadzone"]
+script = ExtResource("6_by3km")
+block_script = SubResource("Resource_acnid")
