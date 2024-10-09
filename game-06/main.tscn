@@ -1,9 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=10 format=3 uid="uid://ci147qf6s6jhg"]
 
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="3_7g8jp"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="3_w1gab"]
+[ext_resource type="Texture2D" uid="uid://depftaxuqu0sm" path="res://game-01/smoke-01.png" id="5_vt2cy"]
+
+[sub_resource type="Curve" id="Curve_j0da6"]
+_data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_b36ji"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7voe"]
 size = Vector2(960, 20)
@@ -30,6 +38,20 @@ script = ExtResource("3_7g8jp")
 [node name="Ship" type="Sprite2D" parent="SimpleCharacter"]
 scale = Vector2(0.197971, 0.197971)
 texture = ExtResource("1_be160")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="SimpleCharacter"]
+position = Vector2(-32, 0)
+amount = 30
+texture = ExtResource("5_vt2cy")
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(-40, 0)
+initial_velocity_min = 79.27
+initial_velocity_max = 176.83
+scale_amount_min = 0.3
+scale_amount_max = 0.6
+scale_amount_curve = SubResource("Curve_j0da6")
+color_ramp = SubResource("Gradient_b36ji")
 
 [node name="Walls" type="StaticBody2D" parent="."]
 

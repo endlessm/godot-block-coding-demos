@@ -9,6 +9,7 @@ const KNOB_Z = 5.0
 const CONTROL_MARGIN = 20.0
 const OUTLINE_WIDTH = 3.0
 const MINIMUM_SNAP_DISTANCE = 80.0
+const MINIMUM_DRAG_THRESHOLD = 25
 
 const FOCUS_BORDER_COLOR = Color(225, 242, 0)
 
@@ -20,6 +21,11 @@ const BUILTIN_CATEGORIES_PROPS: Dictionary = {
 	{
 		"color": Color("ec3b59"),
 		"order": 10,
+	},
+	"Lifecycle | Spawn":
+	{
+		"color": Color("ec3b59"),
+		"order": 15,
 	},
 	"Transform | Position":
 	{
@@ -80,6 +86,11 @@ const BUILTIN_CATEGORIES_PROPS: Dictionary = {
 	{
 		"color": Color("4b7bec"),
 		"order": 110,
+	},
+	"Communication | Nodes":
+	{
+		"color": Color("4b7bec"),
+		"order": 115,
 	},
 	"Communication | Groups":
 	{
