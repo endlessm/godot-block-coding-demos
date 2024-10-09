@@ -118,6 +118,7 @@ stream = ExtResource("10_cws35")
 
 [node name="PewSound" type="AudioStreamPlayer2D" parent="SimpleCharacter"]
 stream = ExtResource("12_7w8un")
+pitch_scale = 2.0
 max_polyphony = 10
 
 [node name="Walls" type="StaticBody2D" parent="."]
