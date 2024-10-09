@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=38 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
 
-[sub_resource type="Resource" id="Resource_pfamd"]
+[sub_resource type="Resource" id="Resource_mcdt0"]
 script = ExtResource("8_an3ek")
 name = &"simplecharacter_move"
 children = Array[ExtResource("8_an3ek")]([])
@@ -21,7 +21,7 @@ arguments = {
 "player": "player_1"
 }
 
-[sub_resource type="Resource" id="Resource_rdkif"]
+[sub_resource type="Resource" id="Resource_3qu2d"]
 script = ExtResource("8_4ctxh")
 name = &"is_input_actioned"
 arguments = {
@@ -29,45 +29,38 @@ arguments = {
 "action_name": &"player_1_a"
 }
 
-[sub_resource type="Resource" id="Resource_oedh6"]
-script = ExtResource("8_4ctxh")
-name = &"get_node"
-arguments = {
-"path": NodePath("Lasers")
-}
-
-[sub_resource type="Resource" id="Resource_haer5"]
+[sub_resource type="Resource" id="Resource_sbspy"]
 script = ExtResource("8_an3ek")
-name = &"call_method_node"
+name = &"call_method_group"
 children = Array[ExtResource("8_an3ek")]([])
 arguments = {
-"method_name": "fire",
-"node": SubResource("Resource_oedh6")
+"group": "lasers",
+"method_name": "fire"
 }
 
-[sub_resource type="Resource" id="Resource_4stsk"]
+[sub_resource type="Resource" id="Resource_ov65i"]
 script = ExtResource("8_an3ek")
 name = &"if"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_haer5")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_sbspy")])
 arguments = {
-"condition": SubResource("Resource_rdkif")
+"condition": SubResource("Resource_3qu2d")
 }
 
-[sub_resource type="Resource" id="Resource_d3sag"]
+[sub_resource type="Resource" id="Resource_aqsfa"]
 script = ExtResource("8_an3ek")
 name = &"process"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_pfamd"), SubResource("Resource_4stsk")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_mcdt0"), SubResource("Resource_ov65i")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_t03h7"]
+[sub_resource type="Resource" id="Resource_lyqcw"]
 script = ExtResource("7_8cvv3")
-root = SubResource("Resource_d3sag")
+root = SubResource("Resource_aqsfa")
 canvas_position = Vector2(75, 50)
 
 [sub_resource type="Resource" id="Resource_313rt"]
 script = ExtResource("9_a8xal")
 script_inherits = "SimpleCharacter"
-block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_t03h7")])
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_lyqcw")])
 variables = Array[ExtResource("10_pjdut")]([])
 generated_script = "extends SimpleCharacter
 
@@ -75,7 +68,7 @@ generated_script = "extends SimpleCharacter
 func _process(delta):
 	move_with_player_buttons('player_1', 'top-down', delta)
 	if (Input.is_action_just_pressed('player_1_a')):
-		(get_node(\"Lasers\")).call('fire')
+		get_tree().call_group('lasers', 'fire')
 
 "
 version = 0
@@ -289,5 +282,3 @@ block_script = SubResource("Resource_v25y3")
 [node name="BlockCode" type="Node" parent="Deadzone"]
 script = ExtResource("6_by3km")
 block_script = SubResource("Resource_acnid")
-
-[editable path="Ship"]

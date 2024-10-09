@@ -1,10 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://dps3xjhs2ssns"]
+[gd_scene load_steps=28 format=3 uid="uid://dps3xjhs2ssns"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_rrros"]
 [ext_resource type="Texture2D" uid="uid://dqobtlpqjmouw" path="res://game-06/graphics/engine.svg" id="2_qdvvn"]
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="3_s1qof"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="4_i1022"]
+[ext_resource type="Script" path="res://addons/block_code/simple_spawner/simple_spawner.gd" id="4_m2gjr"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="5_8ag0i"]
+[ext_resource type="PackedScene" uid="uid://bhf37etwtrfbe" path="res://game-06/laser_particle.tscn" id="5_ongkj"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="6_rpoob"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="7_xmg58"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="8_ui4ru"]
@@ -19,63 +21,127 @@ point_count = 3
 radius = 19.0
 height = 70.0
 
-[sub_resource type="Gradient" id="Gradient_dpfi0"]
-offsets = PackedFloat32Array(0, 0.06, 0.133333, 1)
-colors = PackedColorArray(1, 1, 1, 0.306667, 1, 1, 1, 0.618667, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Gradient" id="Gradient_ejn0n"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.126667, 0.293333, 0.426667, 0.593333, 0.76, 0.926667)
-colors = PackedColorArray(0.92, 0.092, 0, 1, 0.8932, 0.945778, 0.0653333, 1, 0.263355, 0.97, 0.0679, 1, 0.07, 1, 0.7675, 1, 0.21, 0.460167, 1, 1, 0.535, 0.21725, 0.752, 1, 1, 0.07, 0.504, 1)
-
-[sub_resource type="Resource" id="Resource_fhmvj"]
+[sub_resource type="Resource" id="Resource_mrxa6"]
 script = ExtResource("7_xmg58")
 name = &"get_node"
 arguments = {
-"path": NodePath("PewSound")
+"path": NodePath("../PewSound")
 }
 
-[sub_resource type="Resource" id="Resource_858ys"]
+[sub_resource type="Resource" id="Resource_7tcmp"]
 script = ExtResource("6_rpoob")
 name = &"call_method_node"
 children = Array[ExtResource("6_rpoob")]([])
 arguments = {
 "method_name": "play",
-"node": SubResource("Resource_fhmvj")
+"node": SubResource("Resource_mrxa6")
 }
 
-[sub_resource type="Resource" id="Resource_skg1q"]
+[sub_resource type="Resource" id="Resource_ncv8w"]
 script = ExtResource("6_rpoob")
-name = &"CPUParticles2D_set_emitting"
+name = &"simplespawner_spawn_once"
 children = Array[ExtResource("6_rpoob")]([])
-arguments = {
-"value": true
-}
+arguments = {}
 
-[sub_resource type="Resource" id="Resource_p5qn8"]
+[sub_resource type="Resource" id="Resource_404b6"]
 script = ExtResource("6_rpoob")
 name = &"define_method"
-children = Array[ExtResource("6_rpoob")]([SubResource("Resource_858ys"), SubResource("Resource_skg1q")])
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_7tcmp"), SubResource("Resource_ncv8w")])
 arguments = {
 "method_name": &"fire"
 }
 
-[sub_resource type="Resource" id="Resource_exer3"]
+[sub_resource type="Resource" id="Resource_6q58r"]
 script = ExtResource("5_8ag0i")
-root = SubResource("Resource_p5qn8")
-canvas_position = Vector2(50, 50)
+root = SubResource("Resource_404b6")
+canvas_position = Vector2(75, 50)
 
-[sub_resource type="Resource" id="Resource_quep6"]
+[sub_resource type="Resource" id="Resource_pgr2a"]
 script = ExtResource("8_ui4ru")
-script_inherits = "CPUParticles2D"
-block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_exer3")])
+script_inherits = "SimpleSpawner"
+block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_6q58r")])
 variables = Array[ExtResource("9_5ylav")]([])
-generated_script = "extends CPUParticles2D
+generated_script = "extends SimpleSpawner
 
 
 func fire():
-	(get_node(\"PewSound\")).call('play')
-	emitting = true
+	(get_node(\"../PewSound\")).call('play')
+	spawn_once()
+
+"
+version = 0
+
+[sub_resource type="Animation" id="Animation_4jhbx"]
+resource_name = "wobble"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.0523599, 0.0523599]
+}
+
+[sub_resource type="Animation" id="Animation_rp8jp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_86tyj"]
+_data = {
+"RESET": SubResource("Animation_rp8jp"),
+"wobble": SubResource("Animation_4jhbx")
+}
+
+[sub_resource type="Resource" id="Resource_kexjn"]
+script = ExtResource("6_rpoob")
+name = &"animationplayer_play"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"animation": "wobble",
+"direction": "forward"
+}
+
+[sub_resource type="Resource" id="Resource_cnrdw"]
+script = ExtResource("6_rpoob")
+name = &"ready"
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_kexjn")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_gb2wy"]
+script = ExtResource("5_8ag0i")
+root = SubResource("Resource_cnrdw")
+canvas_position = Vector2(54, 47)
+
+[sub_resource type="Resource" id="Resource_gtmbp"]
+script = ExtResource("8_ui4ru")
+script_inherits = "AnimationPlayer"
+block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_gb2wy")])
+variables = Array[ExtResource("9_5ylav")]([])
+generated_script = "extends AnimationPlayer
+
+
+func _ready():
+	if 'forward' == \"forward\":
+		play('wobble')
+	else:
+		play_backwards('wobble')
+
 
 "
 version = 0
@@ -110,28 +176,25 @@ position = Vector2(3, -4)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_babat")
 
-[node name="Lasers" type="CPUParticles2D" parent="."]
-position = Vector2(70, 0)
-emitting = false
-lifetime = 0.5
-one_shot = true
-texture = ExtResource("2_qdvvn")
-spread = 0.0
-gravity = Vector2(-100, 0)
-initial_velocity_min = 450.0
-initial_velocity_max = 600.0
-scale_amount_min = 0.3
-scale_amount_max = 0.3
-color = Color(1, 0.348495, 0.262113, 1)
-color_ramp = SubResource("Gradient_dpfi0")
-color_initial_ramp = SubResource("Gradient_ejn0n")
-hue_variation_min = -0.5
-hue_variation_max = 0.5
+[node name="LaserSpawner" type="Node2D" parent="." groups=["lasers"]]
+script = ExtResource("4_m2gjr")
+scenes = Array[PackedScene]([ExtResource("5_ongkj")])
+spawn_limit = 10
 
-[node name="BlockCode" type="Node" parent="Lasers"]
+[node name="BlockCode" type="Node" parent="LaserSpawner"]
 script = ExtResource("4_i1022")
-block_script = SubResource("Resource_quep6")
+block_script = SubResource("Resource_pgr2a")
 
-[node name="PewSound" type="AudioStreamPlayer2D" parent="Lasers"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_86tyj")
+}
+speed_scale = 3.0
+
+[node name="BlockCode" type="Node" parent="AnimationPlayer"]
+script = ExtResource("4_i1022")
+block_script = SubResource("Resource_gtmbp")
+
+[node name="PewSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_vxg6f")
 pitch_scale = 2.0

@@ -33,6 +33,10 @@ movie_writer/movie_file="/sysroot/home/manuq/Descargas/demo.avi"
 
 enabled=PackedStringArray("res://addons/block_code/plugin.cfg")
 
+[global_group]
+
+lasers=""
+
 [input]
 
 player_1_select={
