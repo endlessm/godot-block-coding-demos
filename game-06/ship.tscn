@@ -1,15 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjtbs50uir1ww"]
+[gd_scene load_steps=6 format=3 uid="uid://c45vpqedwbvcv"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_rrros"]
-[ext_resource type="Texture2D" uid="uid://depftaxuqu0sm" path="res://game-01/smoke-01.png" id="2_3qwko"]
+[ext_resource type="Texture2D" uid="uid://dqobtlpqjmouw" path="res://game-06/graphics/engine.svg" id="2_qdvvn"]
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="3_s1qof"]
 
 [sub_resource type="Curve" id="Curve_j0da6"]
 _data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
-
-[sub_resource type="Gradient" id="Gradient_b36ji"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_babat"]
 radius = 19.0
@@ -21,17 +18,17 @@ speed = Vector2(400, 400)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(-54, -7)
-amount = 30
-texture = ExtResource("2_3qwko")
+amount = 10
+texture = ExtResource("2_qdvvn")
 direction = Vector2(-1, 0)
 spread = 0.0
-gravity = Vector2(-40, 0)
-initial_velocity_min = 79.27
-initial_velocity_max = 176.83
-scale_amount_min = 0.3
-scale_amount_max = 0.6
+gravity = Vector2(-100, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 400.0
+linear_accel_max = 100.0
+scale_amount_min = 0.5
+scale_amount_max = 0.75
 scale_amount_curve = SubResource("Curve_j0da6")
-color_ramp = SubResource("Gradient_b36ji")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-8, -6)
