@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdbjayvnqq488"]
+
+[ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="1_d20hm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j3twr"]
+size = Vector2(70, 45)
+
+[node name="Coin" type="RigidBody2D"]
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_j3twr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_d20hm")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bochmo20r0iqe"]
+
+[ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="1_imuk3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_be137"]
+size = Vector2(80, 419)
+
+[node name="Obstacle" type="RigidBody2D"]
+position = Vector2(0, -583)
+gravity_scale = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.515775, 0.515775)
+texture = ExtResource("1_imuk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -275)
+shape = SubResource("RectangleShape2D_be137")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 245)
+shape = SubResource("RectangleShape2D_be137")
