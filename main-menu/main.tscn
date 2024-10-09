@@ -70,6 +70,10 @@ text = "Pachinko (Physics)"
 layout_mode = 2
 text = "Space ship"
 
+[node name="Demo06Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Bu ~ Bu ~"
+
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 
@@ -84,3 +88,4 @@ fit_content = true
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo03Button" to="." method="_on_demo_03_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo04Button" to="." method="_on_demo_04_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo05Button" to="." method="_on_demo_05_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo06Button" to="." method="_on_demo_06_button_pressed"]

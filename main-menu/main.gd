@@ -19,3 +19,7 @@ func _on_demo_04_button_pressed() -> void:
 
 func _on_demo_05_button_pressed() -> void:
 	Global.change_scene("res://game-05/main.tscn")
+
+
+func _on_demo_06_button_pressed() -> void:
+	Global.change_scene("res://game-06/main.tscn")
