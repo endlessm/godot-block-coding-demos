@@ -176,6 +176,9 @@ position = Vector2(480, 544)
 shape = SubResource("RectangleShape2D_m1jur")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_mask = 0
+gravity_scale = 0.0
+linear_velocity = Vector2(-100, 0)
 
 [node name="Obstacle" type="Sprite2D" parent="RigidBody2D"]
 position = Vector2(563.597, 220.681)
