@@ -1,5 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=32 format=3 uid="uid://da28ei7q3d34p"]
 
+[ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="3_7g8jp"]
@@ -106,6 +107,16 @@ size = Vector2(960, 20)
 size = Vector2(71, 419)
 
 [node name="Main" type="Node2D"]
+
+[node name="BackgroundStars" type="Parallax2D" parent="."]
+scroll_offset = Vector2(2400, 0)
+repeat_size = Vector2(2400, 0)
+autoscroll = Vector2(-10, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundStars"]
+position = Vector2(0, -120)
+texture = ExtResource("1_1fkef")
+centered = false
 
 [node name="Coin" type="Sprite2D" parent="."]
 position = Vector2(413.597, 305.681)
