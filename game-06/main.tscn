@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=22 format=3 uid="uid://ci147qf6s6jhg"]
 
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="3_7g8jp"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="3_w1gab"]
 [ext_resource type="Texture2D" uid="uid://depftaxuqu0sm" path="res://game-01/smoke-01.png" id="5_vt2cy"]
+[ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="6_by3km"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="7_8cvv3"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
@@ -128,3 +129,6 @@ shape = SubResource("RectangleShape2D_be137")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(562, 479.5)
 shape = SubResource("RectangleShape2D_be137")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2umo5")
