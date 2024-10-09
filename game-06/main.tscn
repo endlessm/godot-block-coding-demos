@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=25 format=3 uid="uid://ci147qf6s6jhg"]
 
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
@@ -10,7 +10,10 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="7_8cvv3"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
+[ext_resource type="AudioStream" uid="uid://c1kbhp3fuf4i6" path="res://game-06/Sounds/Crash.ogg" id="10_cws35"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
+[ext_resource type="AudioStream" uid="uid://djgw1a6o2p6o3" path="res://game-06/Sounds/Ding.ogg" id="11_olthx"]
+[ext_resource type="AudioStream" uid="uid://bm178yv4wvqdn" path="res://game-06/Sounds/Pew.ogg" id="12_7w8un"]
 
 [sub_resource type="Curve" id="Curve_j0da6"]
 _data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -104,6 +107,18 @@ block_script = SubResource("Resource_0tpvx")
 position = Vector2(3, -4)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_babat")
+
+[node name="DingSound" type="AudioStreamPlayer2D" parent="SimpleCharacter"]
+stream = ExtResource("11_olthx")
+max_polyphony = 10
+
+[node name="CrashSound" type="AudioStreamPlayer2D" parent="SimpleCharacter"]
+position = Vector2(-157, -236)
+stream = ExtResource("10_cws35")
+
+[node name="PewSound" type="AudioStreamPlayer2D" parent="SimpleCharacter"]
+stream = ExtResource("12_7w8un")
+max_polyphony = 10
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
