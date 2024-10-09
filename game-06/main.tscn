@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=20 format=3 uid="uid://ci147qf6s6jhg"]
 
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
@@ -52,6 +52,10 @@ func _process(delta):
 "
 version = 0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_babat"]
+radius = 19.0
+height = 70.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7voe"]
 size = Vector2(960, 20)
 
@@ -96,6 +100,11 @@ color_ramp = SubResource("Gradient_b36ji")
 [node name="BlockCode" type="Node" parent="SimpleCharacter"]
 script = ExtResource("6_by3km")
 block_script = SubResource("Resource_0tpvx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SimpleCharacter"]
+position = Vector2(3, -4)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_babat")
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
