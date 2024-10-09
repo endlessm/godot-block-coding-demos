@@ -242,11 +242,10 @@ version = 0
 [node name="Main" type="Node2D"]
 
 [node name="BackgroundStars" type="Parallax2D" parent="."]
-repeat_size = Vector2(4800, 0)
-autoscroll = Vector2(-20, 0)
+repeat_size = Vector2(2700, 0)
+autoscroll = Vector2(-100, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundStars"]
-position = Vector2(0, -120)
 texture = ExtResource("1_1fkef")
 centered = false
 
