@@ -1,8 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://c45vpqedwbvcv"]
+[gd_scene load_steps=21 format=3 uid="uid://dps3xjhs2ssns"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_rrros"]
 [ext_resource type="Texture2D" uid="uid://dqobtlpqjmouw" path="res://game-06/graphics/engine.svg" id="2_qdvvn"]
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="3_s1qof"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="4_i1022"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="5_8ag0i"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="6_rpoob"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="7_xmg58"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="8_ui4ru"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="9_5ylav"]
+[ext_resource type="AudioStream" uid="uid://bm178yv4wvqdn" path="res://game-06/Sounds/Pew.ogg" id="10_vxg6f"]
 
 [sub_resource type="Curve" id="Curve_j0da6"]
 _data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -11,6 +18,67 @@ point_count = 3
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_babat"]
 radius = 19.0
 height = 70.0
+
+[sub_resource type="Gradient" id="Gradient_dpfi0"]
+offsets = PackedFloat32Array(0, 0.06, 0.133333, 1)
+colors = PackedColorArray(1, 1, 1, 0.306667, 1, 1, 1, 0.618667, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_ejn0n"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.126667, 0.293333, 0.426667, 0.593333, 0.76, 0.926667)
+colors = PackedColorArray(0.92, 0.092, 0, 1, 0.8932, 0.945778, 0.0653333, 1, 0.263355, 0.97, 0.0679, 1, 0.07, 1, 0.7675, 1, 0.21, 0.460167, 1, 1, 0.535, 0.21725, 0.752, 1, 1, 0.07, 0.504, 1)
+
+[sub_resource type="Resource" id="Resource_fhmvj"]
+script = ExtResource("7_xmg58")
+name = &"get_node"
+arguments = {
+"path": NodePath("PewSound")
+}
+
+[sub_resource type="Resource" id="Resource_858ys"]
+script = ExtResource("6_rpoob")
+name = &"call_method_node"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"method_name": "play",
+"node": SubResource("Resource_fhmvj")
+}
+
+[sub_resource type="Resource" id="Resource_skg1q"]
+script = ExtResource("6_rpoob")
+name = &"CPUParticles2D_set_emitting"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"value": true
+}
+
+[sub_resource type="Resource" id="Resource_p5qn8"]
+script = ExtResource("6_rpoob")
+name = &"define_method"
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_858ys"), SubResource("Resource_skg1q")])
+arguments = {
+"method_name": &"fire"
+}
+
+[sub_resource type="Resource" id="Resource_exer3"]
+script = ExtResource("5_8ag0i")
+root = SubResource("Resource_p5qn8")
+canvas_position = Vector2(50, 50)
+
+[sub_resource type="Resource" id="Resource_quep6"]
+script = ExtResource("8_ui4ru")
+script_inherits = "CPUParticles2D"
+block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_exer3")])
+variables = Array[ExtResource("9_5ylav")]([])
+generated_script = "extends CPUParticles2D
+
+
+func fire():
+	(get_node(\"PewSound\")).call('play')
+	emitting = true
+
+"
+version = 0
 
 [node name="SimpleCharacter" type="CharacterBody2D" groups=["affected_by_gravity"]]
 script = ExtResource("1_rrros")
@@ -41,3 +109,29 @@ region_rect = Rect2(338.878, 351.521, 753.301, 389.432)
 position = Vector2(3, -4)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_babat")
+
+[node name="Lasers" type="CPUParticles2D" parent="."]
+position = Vector2(70, 0)
+emitting = false
+lifetime = 0.5
+one_shot = true
+texture = ExtResource("2_qdvvn")
+spread = 0.0
+gravity = Vector2(-100, 0)
+initial_velocity_min = 450.0
+initial_velocity_max = 600.0
+scale_amount_min = 0.3
+scale_amount_max = 0.3
+color = Color(1, 0.348495, 0.262113, 1)
+color_ramp = SubResource("Gradient_dpfi0")
+color_initial_ramp = SubResource("Gradient_ejn0n")
+hue_variation_min = -0.5
+hue_variation_max = 0.5
+
+[node name="BlockCode" type="Node" parent="Lasers"]
+script = ExtResource("4_i1022")
+block_script = SubResource("Resource_quep6")
+
+[node name="PewSound" type="AudioStreamPlayer2D" parent="Lasers"]
+stream = ExtResource("10_vxg6f")
+pitch_scale = 2.0
