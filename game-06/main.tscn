@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=41 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
@@ -105,11 +105,20 @@ func _ready():
 "
 version = 0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7voe"]
-size = Vector2(960, 20)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6eqcx"]
+normal = Vector2(0, 1)
+distance = -30.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1jur"]
-size = Vector2(960, 20)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0phyh"]
+normal = Vector2(-1, 0)
+distance = -60.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ox1xw"]
+distance = -30.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_um3wv"]
+normal = Vector2(1, 0)
+distance = -60.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be137"]
 size = Vector2(71, 419)
@@ -250,13 +259,21 @@ block_script = SubResource("Resource_313rt")
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
 position = Vector2(480, 0)
-shape = SubResource("RectangleShape2D_s7voe")
+shape = SubResource("WorldBoundaryShape2D_6eqcx")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(960, 274)
+shape = SubResource("WorldBoundaryShape2D_0phyh")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
 position = Vector2(480, 544)
-shape = SubResource("RectangleShape2D_m1jur")
+shape = SubResource("WorldBoundaryShape2D_ox1xw")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 276)
+shape = SubResource("WorldBoundaryShape2D_um3wv")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="." groups=["obstacles"]]
 collision_mask = 0
