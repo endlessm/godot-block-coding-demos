@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=45 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
@@ -13,10 +13,7 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="8_4ctxh"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
-[ext_resource type="AudioStream" uid="uid://c1kbhp3fuf4i6" path="res://game-06/Sounds/Crash.ogg" id="10_cws35"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
-[ext_resource type="AudioStream" uid="uid://djgw1a6o2p6o3" path="res://game-06/Sounds/Ding.ogg" id="11_olthx"]
-[ext_resource type="AudioStream" uid="uid://bm178yv4wvqdn" path="res://game-06/Sounds/Pew.ogg" id="12_7w8un"]
 
 [sub_resource type="Curve" id="Curve_j0da6"]
 _data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -25,7 +22,7 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_b36ji"]
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 
-[sub_resource type="Resource" id="Resource_m3cle"]
+[sub_resource type="Resource" id="Resource_df0lr"]
 script = ExtResource("8_an3ek")
 name = &"simplecharacter_move"
 children = Array[ExtResource("8_an3ek")]([])
@@ -34,7 +31,7 @@ arguments = {
 "player": "player_1"
 }
 
-[sub_resource type="Resource" id="Resource_781pc"]
+[sub_resource type="Resource" id="Resource_wyhh8"]
 script = ExtResource("8_4ctxh")
 name = &"is_input_actioned"
 arguments = {
@@ -42,45 +39,59 @@ arguments = {
 "action_name": &"player_1_a"
 }
 
-[sub_resource type="Resource" id="Resource_l4off"]
-script = ExtResource("8_4ctxh")
-name = &"get_node"
-arguments = {
-"path": NodePath("PewSound")
-}
-
-[sub_resource type="Resource" id="Resource_sg0fd"]
+[sub_resource type="Resource" id="Resource_2vbtj"]
 script = ExtResource("8_an3ek")
-name = &"call_method_node"
+name = &"play_sound"
 children = Array[ExtResource("8_an3ek")]([])
 arguments = {
-"method_name": "play",
-"node": SubResource("Resource_l4off")
+"db": 0.0,
+"name": "pew",
+"pitch": 2.0
 }
 
-[sub_resource type="Resource" id="Resource_2wvxe"]
+[sub_resource type="Resource" id="Resource_5vgm4"]
 script = ExtResource("8_an3ek")
 name = &"if"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_sg0fd")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_2vbtj")])
 arguments = {
-"condition": SubResource("Resource_781pc")
+"condition": SubResource("Resource_wyhh8")
 }
 
-[sub_resource type="Resource" id="Resource_sary1"]
+[sub_resource type="Resource" id="Resource_s41wy"]
 script = ExtResource("8_an3ek")
 name = &"process"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_m3cle"), SubResource("Resource_2wvxe")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_df0lr"), SubResource("Resource_5vgm4")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_d5jya"]
+[sub_resource type="Resource" id="Resource_wfux0"]
 script = ExtResource("7_8cvv3")
-root = SubResource("Resource_sary1")
+root = SubResource("Resource_s41wy")
 canvas_position = Vector2(75, 50)
+
+[sub_resource type="Resource" id="Resource_hl2we"]
+script = ExtResource("8_an3ek")
+name = &"load_sound"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {
+"file_path": "res://game-06/Sounds/Pew.ogg",
+"name": "pew"
+}
+
+[sub_resource type="Resource" id="Resource_lsm30"]
+script = ExtResource("8_an3ek")
+name = &"ready"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_hl2we")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_ggdi5"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_lsm30")
+canvas_position = Vector2(75, 475)
 
 [sub_resource type="Resource" id="Resource_0tpvx"]
 script = ExtResource("9_a8xal")
 script_inherits = "SimpleCharacter"
-block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_d5jya")])
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_wfux0"), SubResource("Resource_ggdi5")])
 variables = Array[ExtResource("10_pjdut")]([])
 generated_script = "extends SimpleCharacter
 
@@ -88,7 +99,18 @@ generated_script = "extends SimpleCharacter
 func _process(delta):
 	move_with_player_buttons('player_1', 'top-down', delta)
 	if (Input.is_action_just_pressed('player_1_a')):
-		(get_node(\"PewSound\")).call('play')
+		var __sound_node_1 = get_node('pew')
+		__sound_node_1.volume_db = 0
+		__sound_node_1.pitch_scale = 2
+		__sound_node_1.play()
+
+
+func _ready():
+	var __sound_1 = AudioStreamPlayer.new()
+	__sound_1.name = 'pew'
+	__sound_1.set_stream(load('res://game-06/Sounds/Pew.ogg'))
+	add_child(__sound_1)
+
 
 "
 version = 0
@@ -273,19 +295,6 @@ block_script = SubResource("Resource_0tpvx")
 position = Vector2(3, -4)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_babat")
-
-[node name="DingSound" type="AudioStreamPlayer2D" parent="SimpleCharacter"]
-stream = ExtResource("11_olthx")
-max_polyphony = 10
-
-[node name="CrashSound" type="AudioStreamPlayer2D" parent="SimpleCharacter"]
-position = Vector2(-157, -236)
-stream = ExtResource("10_cws35")
-
-[node name="PewSound" type="AudioStreamPlayer2D" parent="SimpleCharacter"]
-stream = ExtResource("12_7w8un")
-pitch_scale = 2.0
-max_polyphony = 10
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
