@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=7 format=3 uid="uid://ci147qf6s6jhg"]
 
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
+[ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="3_7g8jp"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="3_w1gab"]
 
-[node name="Main" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7voe"]
+size = Vector2(960, 20)
 
-[node name="Ship" type="Sprite2D" parent="."]
-position = Vector2(157, 236)
-scale = Vector2(0.197971, 0.197971)
-texture = ExtResource("1_be160")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1jur"]
+size = Vector2(960, 20)
+
+[node name="Main" type="Node2D"]
 
 [node name="Coin" type="Sprite2D" parent="."]
 position = Vector2(413.597, 305.681)
@@ -20,3 +22,21 @@ texture = ExtResource("2_bcxue")
 position = Vector2(563.597, 220.681)
 scale = Vector2(0.515775, 0.515775)
 texture = ExtResource("3_w1gab")
+
+[node name="SimpleCharacter" type="CharacterBody2D" parent="." groups=["affected_by_gravity"]]
+position = Vector2(157, 236)
+script = ExtResource("3_7g8jp")
+
+[node name="Ship" type="Sprite2D" parent="SimpleCharacter"]
+scale = Vector2(0.197971, 0.197971)
+texture = ExtResource("1_be160")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(480, 0)
+shape = SubResource("RectangleShape2D_s7voe")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(480, 544)
+shape = SubResource("RectangleShape2D_m1jur")
