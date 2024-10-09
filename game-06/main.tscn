@@ -1,9 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=31 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="3_7g8jp"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="3_w1gab"]
+[ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="4_t01by"]
 [ext_resource type="Texture2D" uid="uid://depftaxuqu0sm" path="res://game-01/smoke-01.png" id="5_vt2cy"]
 [ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="6_by3km"]
@@ -116,12 +117,8 @@ position = Vector2(157, 236)
 script = ExtResource("3_7g8jp")
 speed = Vector2(400, 400)
 
-[node name="Ship" type="Sprite2D" parent="SimpleCharacter"]
-scale = Vector2(0.197971, 0.197971)
-texture = ExtResource("1_be160")
-
 [node name="CPUParticles2D" type="CPUParticles2D" parent="SimpleCharacter"]
-position = Vector2(-32, 0)
+position = Vector2(-54, -7)
 amount = 30
 texture = ExtResource("5_vt2cy")
 direction = Vector2(-1, 0)
@@ -133,6 +130,18 @@ scale_amount_min = 0.3
 scale_amount_max = 0.6
 scale_amount_curve = SubResource("Curve_j0da6")
 color_ramp = SubResource("Gradient_b36ji")
+
+[node name="Sprite2D" type="Sprite2D" parent="SimpleCharacter"]
+position = Vector2(-8, -6)
+scale = Vector2(0.194135, 0.194135)
+texture = ExtResource("4_t01by")
+region_enabled = true
+region_rect = Rect2(338.878, 351.521, 753.301, 389.432)
+
+[node name="Ship" type="Sprite2D" parent="SimpleCharacter"]
+visible = false
+scale = Vector2(0.197971, 0.197971)
+texture = ExtResource("1_be160")
 
 [node name="BlockCode" type="Node" parent="SimpleCharacter"]
 script = ExtResource("6_by3km")
