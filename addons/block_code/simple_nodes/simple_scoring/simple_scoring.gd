@@ -63,12 +63,6 @@ func simple_setup():
 	add_child(right_label)
 
 
-func _exit_tree():
-	for label in _score_labels.values():
-		label.queue_free()
-	_score_labels.clear()
-
-
 func get_custom_class():
 	return "SimpleScoring"
 
@@ -106,7 +100,7 @@ static func setup_custom_blocks():
 		block_definition.target_node_class = _class_name
 		block_definition.category = "Info | Score"
 		block_definition.type = Types.BlockType.STATEMENT
-		block_definition.display_template = "Set player %s score to {score: INT}" % player
+		block_definition.display_template = "set player %s score to {score: INT}" % player
 		block_definition.code_template = "score_%s = {score}" % _POSITIONS_FOR_PLAYER[player]
 		block_list.append(block_definition)
 
@@ -115,7 +109,7 @@ static func setup_custom_blocks():
 		block_definition.target_node_class = _class_name
 		block_definition.category = "Info | Score"
 		block_definition.type = Types.BlockType.STATEMENT
-		block_definition.display_template = "Change player %s score by {score: INT}" % player
+		block_definition.display_template = "change player %s score by {score: INT}" % player
 		block_definition.code_template = "score_%s += {score}" % _POSITIONS_FOR_PLAYER[player]
 		block_list.append(block_definition)
 
