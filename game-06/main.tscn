@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=46 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
@@ -221,9 +221,8 @@ version = 0
 [node name="Main" type="Node2D"]
 
 [node name="BackgroundStars" type="Parallax2D" parent="."]
-scroll_offset = Vector2(2400, 0)
-repeat_size = Vector2(2400, 0)
-autoscroll = Vector2(-10, 0)
+repeat_size = Vector2(4800, 0)
+autoscroll = Vector2(-20, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundStars"]
 position = Vector2(0, -120)
