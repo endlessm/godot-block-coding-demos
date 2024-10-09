@@ -1,3 +1,22 @@
-[gd_scene format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=4 format=3 uid="uid://ci147qf6s6jhg"]
+
+[ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
+[ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
+[ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="3_w1gab"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Ship" type="Sprite2D" parent="."]
+position = Vector2(157, 236)
+scale = Vector2(0.197971, 0.197971)
+texture = ExtResource("1_be160")
+
+[node name="Coin" type="Sprite2D" parent="."]
+position = Vector2(413.597, 305.681)
+scale = Vector2(0.147097, 0.147097)
+texture = ExtResource("2_bcxue")
+
+[node name="Obstacle" type="Sprite2D" parent="."]
+position = Vector2(563.597, 220.681)
+scale = Vector2(0.515775, 0.515775)
+texture = ExtResource("3_w1gab")
