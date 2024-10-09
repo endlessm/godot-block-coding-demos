@@ -1,11 +1,9 @@
-[gd_scene load_steps=44 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=39 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
-[ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="3_7g8jp"]
+[ext_resource type="PackedScene" uid="uid://c45vpqedwbvcv" path="res://game-06/ship.tscn" id="3_43t81"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="3_w1gab"]
-[ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="4_t01by"]
-[ext_resource type="Texture2D" uid="uid://depftaxuqu0sm" path="res://game-01/smoke-01.png" id="5_vt2cy"]
 [ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="6_by3km"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="7_8cvv3"]
@@ -13,13 +11,6 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
-
-[sub_resource type="Curve" id="Curve_j0da6"]
-_data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Gradient" id="Gradient_b36ji"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 
 [sub_resource type="Resource" id="Resource_df0lr"]
 script = ExtResource("8_an3ek")
@@ -87,7 +78,7 @@ script = ExtResource("7_8cvv3")
 root = SubResource("Resource_lsm30")
 canvas_position = Vector2(75, 475)
 
-[sub_resource type="Resource" id="Resource_0tpvx"]
+[sub_resource type="Resource" id="Resource_313rt"]
 script = ExtResource("9_a8xal")
 script_inherits = "SimpleCharacter"
 block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_wfux0"), SubResource("Resource_ggdi5")])
@@ -113,10 +104,6 @@ func _ready():
 
 "
 version = 0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_babat"]
-radius = 19.0
-height = 70.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7voe"]
 size = Vector2(960, 20)
@@ -254,40 +241,11 @@ position = Vector2(413.597, 305.681)
 scale = Vector2(0.147097, 0.147097)
 texture = ExtResource("2_bcxue")
 
-[node name="SimpleCharacter" type="CharacterBody2D" parent="." groups=["affected_by_gravity"]]
-position = Vector2(157, 236)
-script = ExtResource("3_7g8jp")
-speed = Vector2(400, 400)
+[node name="Ship" parent="." instance=ExtResource("3_43t81")]
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="SimpleCharacter"]
-position = Vector2(-54, -7)
-amount = 30
-texture = ExtResource("5_vt2cy")
-direction = Vector2(-1, 0)
-spread = 0.0
-gravity = Vector2(-40, 0)
-initial_velocity_min = 79.27
-initial_velocity_max = 176.83
-scale_amount_min = 0.3
-scale_amount_max = 0.6
-scale_amount_curve = SubResource("Curve_j0da6")
-color_ramp = SubResource("Gradient_b36ji")
-
-[node name="Sprite2D" type="Sprite2D" parent="SimpleCharacter"]
-position = Vector2(-8, -6)
-scale = Vector2(0.194135, 0.194135)
-texture = ExtResource("4_t01by")
-region_enabled = true
-region_rect = Rect2(338.878, 351.521, 753.301, 389.432)
-
-[node name="BlockCode" type="Node" parent="SimpleCharacter"]
+[node name="BlockCode" type="Node" parent="Ship"]
 script = ExtResource("6_by3km")
-block_script = SubResource("Resource_0tpvx")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SimpleCharacter"]
-position = Vector2(3, -4)
-rotation = -1.57079
-shape = SubResource("CapsuleShape2D_babat")
+block_script = SubResource("Resource_313rt")
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
