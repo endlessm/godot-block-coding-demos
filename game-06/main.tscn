@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
-[ext_resource type="PackedScene" uid="uid://c45vpqedwbvcv" path="res://game-06/ship.tscn" id="3_43t81"]
+[ext_resource type="PackedScene" uid="uid://bjtbs50uir1ww" path="res://game-06/ship.tscn" id="3_43t81"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="3_w1gab"]
 [ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="6_by3km"]
@@ -242,6 +242,7 @@ scale = Vector2(0.147097, 0.147097)
 texture = ExtResource("2_bcxue")
 
 [node name="Ship" parent="." instance=ExtResource("3_43t81")]
+position = Vector2(157, 236)
 
 [node name="BlockCode" type="Node" parent="Ship"]
 script = ExtResource("6_by3km")

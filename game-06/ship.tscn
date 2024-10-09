@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c45vpqedwbvcv"]
+[gd_scene load_steps=7 format=3 uid="uid://bjtbs50uir1ww"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_rrros"]
 [ext_resource type="Texture2D" uid="uid://depftaxuqu0sm" path="res://game-01/smoke-01.png" id="2_3qwko"]
@@ -16,7 +16,6 @@ radius = 19.0
 height = 70.0
 
 [node name="SimpleCharacter" type="CharacterBody2D" groups=["affected_by_gravity"]]
-position = Vector2(157, 236)
 script = ExtResource("1_rrros")
 speed = Vector2(400, 400)
 
