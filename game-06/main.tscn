@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=30 format=3 uid="uid://ci147qf6s6jhg"]
 
 [ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
 [ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="6_by3km"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="7_8cvv3"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="8_4ctxh"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
 [ext_resource type="AudioStream" uid="uid://c1kbhp3fuf4i6" path="res://game-06/Sounds/Crash.ogg" id="10_cws35"]
@@ -22,7 +23,7 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_b36ji"]
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 
-[sub_resource type="Resource" id="Resource_6hcy4"]
+[sub_resource type="Resource" id="Resource_m3cle"]
 script = ExtResource("8_an3ek")
 name = &"simplecharacter_move"
 children = Array[ExtResource("8_an3ek")]([])
@@ -31,27 +32,61 @@ arguments = {
 "player": "player_1"
 }
 
-[sub_resource type="Resource" id="Resource_5hw3q"]
+[sub_resource type="Resource" id="Resource_781pc"]
+script = ExtResource("8_4ctxh")
+name = &"is_input_actioned"
+arguments = {
+"action": "just_pressed",
+"action_name": &"player_1_a"
+}
+
+[sub_resource type="Resource" id="Resource_l4off"]
+script = ExtResource("8_4ctxh")
+name = &"get_node"
+arguments = {
+"path": NodePath("PewSound")
+}
+
+[sub_resource type="Resource" id="Resource_sg0fd"]
+script = ExtResource("8_an3ek")
+name = &"call_method_node"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {
+"method_name": "play",
+"node": SubResource("Resource_l4off")
+}
+
+[sub_resource type="Resource" id="Resource_2wvxe"]
+script = ExtResource("8_an3ek")
+name = &"if"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_sg0fd")])
+arguments = {
+"condition": SubResource("Resource_781pc")
+}
+
+[sub_resource type="Resource" id="Resource_sary1"]
 script = ExtResource("8_an3ek")
 name = &"process"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_6hcy4")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_m3cle"), SubResource("Resource_2wvxe")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_nkef5"]
+[sub_resource type="Resource" id="Resource_d5jya"]
 script = ExtResource("7_8cvv3")
-root = SubResource("Resource_5hw3q")
+root = SubResource("Resource_sary1")
 canvas_position = Vector2(75, 50)
 
 [sub_resource type="Resource" id="Resource_0tpvx"]
 script = ExtResource("9_a8xal")
 script_inherits = "SimpleCharacter"
-block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_nkef5")])
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_d5jya")])
 variables = Array[ExtResource("10_pjdut")]([])
 generated_script = "extends SimpleCharacter
 
 
 func _process(delta):
 	move_with_player_buttons('player_1', 'top-down', delta)
+	if (Input.is_action_just_pressed('player_1_a')):
+		(get_node(\"PewSound\")).call('play')
 
 "
 version = 0
