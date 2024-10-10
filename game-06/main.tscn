@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=53 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="PackedScene" uid="uid://fvdldxg5au17" path="res://game-06/coin.tscn" id="2_2m1wf"]
@@ -159,17 +159,6 @@ distance = -60.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a01j5"]
 size = Vector2(63, 572)
-
-[sub_resource type="Resource" id="Resource_v25y3"]
-script = ExtResource("9_a8xal")
-script_inherits = "CollisionShape2D"
-block_serialization_trees = Array[ExtResource("7_8cvv3")]([])
-variables = Array[ExtResource("10_pjdut")]([])
-generated_script = "extends CollisionShape2D
-
-
-"
-version = 0
 
 [sub_resource type="Resource" id="Resource_a4r1w"]
 script = ExtResource("8_4ctxh")
@@ -376,10 +365,6 @@ position = Vector2(-72, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Deadzone"]
 position = Vector2(-32, 276)
 shape = SubResource("RectangleShape2D_a01j5")
-
-[node name="BlockCode" type="Node" parent="Deadzone/CollisionShape2D"]
-script = ExtResource("6_by3km")
-block_script = SubResource("Resource_v25y3")
 
 [node name="BlockCode" type="Node" parent="Deadzone"]
 script = ExtResource("6_by3km")
