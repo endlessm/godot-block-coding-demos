@@ -270,11 +270,9 @@ modulate = Color(0.628859, 0.628859, 0.628859, 1)
 texture = ExtResource("1_1fkef")
 centered = false
 
-[node name="HUD" parent="." instance=ExtResource("2_xum6x")]
-offset_left = 24.0
-offset_top = 16.0
-offset_right = 64.0
-offset_bottom = 16.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_xum6x")]
 
 [node name="Ship" parent="." instance=ExtResource("3_43t81")]
 position = Vector2(157, 236)
