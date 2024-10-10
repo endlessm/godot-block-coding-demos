@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="8_4ctxh"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
-[ext_resource type="PackedScene" uid="uid://bochmo20r0iqe" path="res://game-06/obstacle.tscn" id="10_0r6ub"]
+[ext_resource type="PackedScene" path="res://game-06/obstacle.tscn" id="10_0r6ub"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
 
 [sub_resource type="Resource" id="Resource_mcdt0"]
@@ -208,6 +208,7 @@ repeat_size = Vector2(2700, 0)
 autoscroll = Vector2(-100, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundStars"]
+modulate = Color(0.628859, 0.628859, 0.628859, 1)
 texture = ExtResource("1_1fkef")
 centered = false
 

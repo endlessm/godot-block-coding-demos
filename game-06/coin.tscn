@@ -15,14 +15,14 @@ gravity_scale = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j3twr")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-scale = Vector2(0.32356, 0.32356)
-texture = ExtResource("1_og0d8")
-region_enabled = true
-region_rect = Rect2(1469.28, 341.455, 226.813, 149.091)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_q0gxq")
 position = Vector2(-3, -3)
 scale = Vector2(0.343372, 0.343372)
 texture = ExtResource("2_p4myk")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+scale = Vector2(0.32356, 0.32356)
+texture = ExtResource("1_og0d8")
+region_enabled = true
+region_rect = Rect2(1469.28, 341.455, 226.813, 149.091)
