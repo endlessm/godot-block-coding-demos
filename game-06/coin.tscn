@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://fvdldxg5au17"]
+[gd_scene load_steps=33 format=3 uid="uid://fvdldxg5au17"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_og0d8"]
 [ext_resource type="Texture2D" uid="uid://djqy6w0vissy2" path="res://game-06/graphics/glow.png" id="2_p4myk"]
@@ -198,7 +198,7 @@ _data = {
 "taken": SubResource("Animation_w16q0")
 }
 
-[sub_resource type="Resource" id="Resource_infm5"]
+[sub_resource type="Resource" id="Resource_sspb5"]
 script = ExtResource("5_yr5t4")
 name = &"animationplayer_play"
 children = Array[ExtResource("5_yr5t4")]([])
@@ -207,23 +207,47 @@ arguments = {
 "direction": "forward"
 }
 
-[sub_resource type="Resource" id="Resource_p20b7"]
+[sub_resource type="Resource" id="Resource_c3tte"]
+script = ExtResource("5_yr5t4")
+name = &"print"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"text": "ANIMATION END"
+}
+
+[sub_resource type="Resource" id="Resource_voi3q"]
+script = ExtResource("6_mye12")
+name = &"get_node"
+arguments = {
+"path": NodePath("..")
+}
+
+[sub_resource type="Resource" id="Resource_8jl1g"]
+script = ExtResource("5_yr5t4")
+name = &"call_method_node"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"method_name": "delete",
+"node": SubResource("Resource_voi3q")
+}
+
+[sub_resource type="Resource" id="Resource_heq82"]
 script = ExtResource("5_yr5t4")
 name = &"define_method"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_infm5")])
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_sspb5"), SubResource("Resource_c3tte"), SubResource("Resource_8jl1g")])
 arguments = {
 "method_name": &"play_taken"
 }
 
-[sub_resource type="Resource" id="Resource_jksg0"]
+[sub_resource type="Resource" id="Resource_2ytwr"]
 script = ExtResource("4_xb1ij")
-root = SubResource("Resource_p20b7")
+root = SubResource("Resource_heq82")
 canvas_position = Vector2(125, 125)
 
 [sub_resource type="Resource" id="Resource_18qip"]
 script = ExtResource("7_qi5iu")
 script_inherits = "AnimationPlayer"
-block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_jksg0")])
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_2ytwr")])
 variables = Array[ExtResource("8_vi8nk")]([])
 generated_script = "extends AnimationPlayer
 
@@ -233,7 +257,10 @@ func play_taken():
 		play('taken')
 	else:
 		play_backwards('taken')
+	await animation_finished
 
+	print('ANIMATION END')
+	(get_node(\"..\")).call('delete')
 
 "
 version = 0
