@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="8_4ctxh"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
-[ext_resource type="PackedScene" path="res://game-06/obstacle.tscn" id="10_0r6ub"]
+[ext_resource type="PackedScene" uid="uid://c6umuob7nsko3" path="res://game-06/obstacle.tscn" id="10_0r6ub"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
 
 [sub_resource type="Resource" id="Resource_mcdt0"]
