@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c6umuob7nsko3"]
+[gd_scene load_steps=18 format=3 uid="uid://c6umuob7nsko3"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_312dy"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="1_imuk3"]
@@ -11,39 +11,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be137"]
 size = Vector2(80, 419)
-
-[sub_resource type="Resource" id="Resource_1dqus"]
-script = ExtResource("5_7t0qk")
-name = &"queue_free"
-children = Array[ExtResource("5_7t0qk")]([])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_jryw2"]
-script = ExtResource("5_7t0qk")
-name = &"define_method"
-children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_1dqus")])
-arguments = {
-"method_name": &"delete"
-}
-
-[sub_resource type="Resource" id="Resource_o47tg"]
-script = ExtResource("4_1i25q")
-root = SubResource("Resource_jryw2")
-canvas_position = Vector2(325, 50)
-
-[sub_resource type="Resource" id="Resource_usbhe"]
-script = ExtResource("6_fmqgp")
-script_inherits = "RigidBody2D"
-block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_o47tg")])
-variables = Array[ExtResource("7_k8x14")]([])
-generated_script = "extends RigidBody2D
-
-
-func delete():
-	queue_free()
-
-"
-version = 0
 
 [sub_resource type="Resource" id="Resource_rx164"]
 script = ExtResource("6_pdd8d")
@@ -145,10 +112,6 @@ shape = SubResource("RectangleShape2D_be137")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, 245)
 shape = SubResource("RectangleShape2D_be137")
-
-[node name="BlockCode" type="Node" parent="."]
-script = ExtResource("3_ypf55")
-block_script = SubResource("Resource_usbhe")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

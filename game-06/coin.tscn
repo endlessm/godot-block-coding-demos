@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://fvdldxg5au17"]
+[gd_scene load_steps=33 format=3 uid="uid://fvdldxg5au17"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_og0d8"]
 [ext_resource type="Texture2D" uid="uid://djqy6w0vissy2" path="res://game-06/graphics/glow.png" id="2_p4myk"]
@@ -240,16 +240,17 @@ _data = {
 "taken": SubResource("Animation_w16q0")
 }
 
-[sub_resource type="Resource" id="Resource_sspb5"]
+[sub_resource type="Resource" id="Resource_gfvmc"]
 script = ExtResource("5_yr5t4")
 name = &"animationplayer_play"
 children = Array[ExtResource("5_yr5t4")]([])
 arguments = {
 "animation": "taken",
-"direction": "forward"
+"direction": "forward",
+"wait_mode": "until done"
 }
 
-[sub_resource type="Resource" id="Resource_c3tte"]
+[sub_resource type="Resource" id="Resource_va7lt"]
 script = ExtResource("5_yr5t4")
 name = &"print"
 children = Array[ExtResource("5_yr5t4")]([])
@@ -257,39 +258,38 @@ arguments = {
 "text": "ANIMATION END"
 }
 
-[sub_resource type="Resource" id="Resource_voi3q"]
+[sub_resource type="Resource" id="Resource_kfpvr"]
 script = ExtResource("6_mye12")
 name = &"get_node"
 arguments = {
 "path": NodePath("..")
 }
 
-[sub_resource type="Resource" id="Resource_8jl1g"]
+[sub_resource type="Resource" id="Resource_jvy7v"]
 script = ExtResource("5_yr5t4")
-name = &"call_method_node"
+name = &"queue_free_node"
 children = Array[ExtResource("5_yr5t4")]([])
 arguments = {
-"method_name": "delete",
-"node": SubResource("Resource_voi3q")
+"node": SubResource("Resource_kfpvr")
 }
 
-[sub_resource type="Resource" id="Resource_heq82"]
+[sub_resource type="Resource" id="Resource_15crc"]
 script = ExtResource("5_yr5t4")
 name = &"define_method"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_sspb5"), SubResource("Resource_c3tte"), SubResource("Resource_8jl1g")])
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_gfvmc"), SubResource("Resource_va7lt"), SubResource("Resource_jvy7v")])
 arguments = {
 "method_name": &"play_taken"
 }
 
-[sub_resource type="Resource" id="Resource_2ytwr"]
+[sub_resource type="Resource" id="Resource_kfiq8"]
 script = ExtResource("4_xb1ij")
-root = SubResource("Resource_heq82")
+root = SubResource("Resource_15crc")
 canvas_position = Vector2(125, 125)
 
 [sub_resource type="Resource" id="Resource_18qip"]
 script = ExtResource("7_qi5iu")
 script_inherits = "AnimationPlayer"
-block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_2ytwr")])
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_kfiq8")])
 variables = Array[ExtResource("8_vi8nk")]([])
 generated_script = "extends AnimationPlayer
 
@@ -299,43 +299,11 @@ func play_taken():
 		play('taken')
 	else:
 		play_backwards('taken')
-	await animation_finished
+	if 'until done' == \"until done\":
+		await animation_finished
 
 	print('ANIMATION END')
-	(get_node(\"..\")).call('delete')
-
-"
-version = 0
-
-[sub_resource type="Resource" id="Resource_y50rn"]
-script = ExtResource("5_yr5t4")
-name = &"queue_free"
-children = Array[ExtResource("5_yr5t4")]([])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_i8l1h"]
-script = ExtResource("5_yr5t4")
-name = &"define_method"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_y50rn")])
-arguments = {
-"method_name": &"delete"
-}
-
-[sub_resource type="Resource" id="Resource_apy7v"]
-script = ExtResource("4_xb1ij")
-root = SubResource("Resource_i8l1h")
-canvas_position = Vector2(300, 50)
-
-[sub_resource type="Resource" id="Resource_fqhct"]
-script = ExtResource("7_qi5iu")
-script_inherits = "RigidBody2D"
-block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_apy7v")])
-variables = Array[ExtResource("8_vi8nk")]([])
-generated_script = "extends RigidBody2D
-
-
-func delete():
-	queue_free()
+	(get_node(\"..\")).queue_free()
 
 "
 version = 0
@@ -383,7 +351,3 @@ libraries = {
 [node name="BlockCode" type="Node" parent="AnimationPlayer"]
 script = ExtResource("3_fm8j6")
 block_script = SubResource("Resource_18qip")
-
-[node name="BlockCode" type="Node" parent="."]
-script = ExtResource("3_fm8j6")
-block_script = SubResource("Resource_fqhct")
