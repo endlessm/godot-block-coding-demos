@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://fvdldxg5au17"]
+[gd_scene load_steps=29 format=3 uid="uid://fvdldxg5au17"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_og0d8"]
 [ext_resource type="Texture2D" uid="uid://djqy6w0vissy2" path="res://game-06/graphics/glow.png" id="2_p4myk"]
@@ -72,6 +72,199 @@ version = 0
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q0gxq"]
 blend_mode = 1
 
+[sub_resource type="Animation" id="Animation_w16q0"]
+resource_name = "taken"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(0.32356, 0.32356), Vector2(0.713231, 0.713231)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(0.343372, 0.343372), Vector2(0.690571, 0.690571)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.2),
+"transitions": PackedFloat32Array(2, 2, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4uf1l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.32356, 0.32356)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.343372, 0.343372)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(2, 2, 2, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r185l"]
+_data = {
+"RESET": SubResource("Animation_4uf1l"),
+"taken": SubResource("Animation_w16q0")
+}
+
+[sub_resource type="Resource" id="Resource_7p0wd"]
+script = ExtResource("5_yr5t4")
+name = &"animationplayer_play"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"animation": "taken",
+"direction": "forward"
+}
+
+[sub_resource type="Resource" id="Resource_6aufk"]
+script = ExtResource("5_yr5t4")
+name = &"define_method"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_7p0wd")])
+arguments = {
+"method_name": &"on_taken"
+}
+
+[sub_resource type="Resource" id="Resource_8gxqa"]
+script = ExtResource("4_xb1ij")
+root = SubResource("Resource_6aufk")
+canvas_position = Vector2(125, 125)
+
+[sub_resource type="Resource" id="Resource_qafg2"]
+script = ExtResource("6_mye12")
+name = &"is_input_actioned"
+arguments = {
+"action": "just_released",
+"action_name": &"ui_accept"
+}
+
+[sub_resource type="Resource" id="Resource_r1716"]
+script = ExtResource("5_yr5t4")
+name = &"animationplayer_play"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"animation": "taken",
+"direction": "forward"
+}
+
+[sub_resource type="Resource" id="Resource_xw4k3"]
+script = ExtResource("5_yr5t4")
+name = &"if"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_r1716")])
+arguments = {
+"condition": SubResource("Resource_qafg2")
+}
+
+[sub_resource type="Resource" id="Resource_tq86u"]
+script = ExtResource("5_yr5t4")
+name = &"process"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_xw4k3")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_scyf1"]
+script = ExtResource("4_xb1ij")
+root = SubResource("Resource_tq86u")
+canvas_position = Vector2(450, 175)
+
+[sub_resource type="Resource" id="Resource_18qip"]
+script = ExtResource("7_qi5iu")
+script_inherits = "AnimationPlayer"
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_8gxqa"), SubResource("Resource_scyf1")])
+variables = Array[ExtResource("8_vi8nk")]([])
+generated_script = "extends AnimationPlayer
+
+
+func on_taken():
+	if 'forward' == \"forward\":
+		play('taken')
+	else:
+		play_backwards('taken')
+
+
+func _process(delta):
+	if (Input.is_action_just_released('ui_accept')):
+		if 'forward' == \"forward\":
+			play('taken')
+		else:
+			play_backwards('taken')
+
+
+"
+version = 0
+
 [node name="Coin" type="RigidBody2D"]
 gravity_scale = 0.0
 
@@ -89,6 +282,7 @@ script = ExtResource("3_fm8j6")
 block_script = SubResource("Resource_1tgsl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(2, 2, 2, 1)
 material = SubResource("CanvasItemMaterial_q0gxq")
 position = Vector2(-3, -3)
 scale = Vector2(0.343372, 0.343372)
@@ -99,3 +293,12 @@ scale = Vector2(0.32356, 0.32356)
 texture = ExtResource("1_og0d8")
 region_enabled = true
 region_rect = Rect2(1469.28, 341.455, 226.813, 149.091)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r185l")
+}
+
+[node name="BlockCode" type="Node" parent="AnimationPlayer"]
+script = ExtResource("3_fm8j6")
+block_script = SubResource("Resource_18qip")
