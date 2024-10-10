@@ -87,6 +87,7 @@ text = "Score:
 "
 
 [node name="GameOverPanel" type="PanelContainer" parent="." groups=["Overlay"]]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ary77")
 
