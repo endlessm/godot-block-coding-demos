@@ -212,8 +212,10 @@ texture = ExtResource("1_1fkef")
 centered = false
 
 [node name="HUD" parent="." instance=ExtResource("2_xum6x")]
-offset_left = -72.0
-offset_right = -32.0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 64.0
+offset_bottom = 16.0
 
 [node name="Coin" parent="." instance=ExtResource("2_2m1wf")]
 position = Vector2(428, 300)
