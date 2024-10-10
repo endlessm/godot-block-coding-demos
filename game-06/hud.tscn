@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://crt1rd7wivci5"]
+[gd_scene load_steps=17 format=3 uid="uid://crt1rd7wivci5"]
 
 [ext_resource type="PackedScene" uid="uid://csbi7tcvjhju4" path="res://game-06/game_score.tscn" id="1_sqdyh"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_kjf1e"]
@@ -7,6 +7,10 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_gl83s"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_70vs7"]
 [ext_resource type="FontFile" uid="uid://0a8howkelk56" path="res://game-05/font/Orbitron-Bold.ttf" id="7_7m1de"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vhaqr"]
+font = ExtResource("7_7m1de")
+font_size = 42
 
 [sub_resource type="Gradient" id="Gradient_vsr38"]
 offsets = PackedFloat32Array(0, 0.308594, 0.425781, 1)
@@ -78,16 +82,16 @@ theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 16
 
 [node name="GameScore" parent="InGamePanel" instance=ExtResource("1_sqdyh")]
-position = Vector2(140, 13)
+position = Vector2(140, 3)
 
 [node name="Label" type="Label" parent="InGamePanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Score:
 "
+label_settings = SubResource("LabelSettings_vhaqr")
 
 [node name="GameOverPanel" type="PanelContainer" parent="." groups=["Overlay"]]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ary77")
 
@@ -106,7 +110,7 @@ scale = Vector2(1, 1)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-text = "coins          "
+text = "gems          "
 label_settings = SubResource("LabelSettings_d6ja6")
 horizontal_alignment = 2
 
