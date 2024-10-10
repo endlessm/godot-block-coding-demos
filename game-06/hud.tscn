@@ -1,6 +1,46 @@
-[gd_scene load_steps=2 format=3 uid="uid://crt1rd7wivci5"]
+[gd_scene load_steps=11 format=3 uid="uid://crt1rd7wivci5"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_scoring/simple_scoring.gd" id="1_f6y66"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_kjf1e"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="3_yjmq7"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_i4vdi"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_gl83s"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_70vs7"]
+
+[sub_resource type="Resource" id="Resource_hgycj"]
+script = ExtResource("4_i4vdi")
+name = &"simplescoring_change_score"
+children = Array[ExtResource("4_i4vdi")]([])
+arguments = {
+"score": 1
+}
+
+[sub_resource type="Resource" id="Resource_hurc1"]
+script = ExtResource("4_i4vdi")
+name = &"define_method"
+children = Array[ExtResource("4_i4vdi")]([SubResource("Resource_hgycj")])
+arguments = {
+"method_name": &"increase_score"
+}
+
+[sub_resource type="Resource" id="Resource_7l2kr"]
+script = ExtResource("3_yjmq7")
+root = SubResource("Resource_hurc1")
+canvas_position = Vector2(100, 50)
+
+[sub_resource type="Resource" id="Resource_5elog"]
+script = ExtResource("5_gl83s")
+script_inherits = "SimpleScoring"
+block_serialization_trees = Array[ExtResource("3_yjmq7")]([SubResource("Resource_7l2kr")])
+variables = Array[ExtResource("6_70vs7")]([])
+generated_script = "extends SimpleScoring
+
+
+func increase_score():
+	score += 1
+
+"
+version = 0
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -10,10 +50,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SimpleScoring" type="Node2D" parent="." groups=["hud"]]
+[node name="SimpleScoring" type="Node2D" parent="." groups=["Score", "hud"]]
 position = Vector2(140, 4)
 scale = Vector2(0.29, 0.29)
 script = ExtResource("1_f6y66")
+
+[node name="BlockCode" type="Node" parent="SimpleScoring"]
+script = ExtResource("2_kjf1e")
+block_script = SubResource("Resource_5elog")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0

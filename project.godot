@@ -37,6 +37,7 @@ enabled=PackedStringArray("res://addons/block_code/plugin.cfg")
 
 lasers=""
 Ship=""
+Score=""
 
 [input]
 

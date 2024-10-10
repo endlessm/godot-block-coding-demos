@@ -1,10 +1,73 @@
-[gd_scene load_steps=5 format=3 uid="uid://fvdldxg5au17"]
+[gd_scene load_steps=17 format=3 uid="uid://fvdldxg5au17"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_og0d8"]
 [ext_resource type="Texture2D" uid="uid://djqy6w0vissy2" path="res://game-06/graphics/glow.png" id="2_p4myk"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_fm8j6"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_xb1ij"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="5_yr5t4"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="6_mye12"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="7_qi5iu"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="8_vi8nk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j3twr"]
-size = Vector2(70, 45)
+[sub_resource type="Resource" id="Resource_aj0an"]
+script = ExtResource("6_mye12")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_7x0to"]
+script = ExtResource("6_mye12")
+name = &"is_node_in_group"
+arguments = {
+"group": "Ship",
+"node": SubResource("Resource_aj0an")
+}
+
+[sub_resource type="Resource" id="Resource_vbvon"]
+script = ExtResource("5_yr5t4")
+name = &"call_method_group"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"group": "Score",
+"method_name": "increase_score"
+}
+
+[sub_resource type="Resource" id="Resource_556d0"]
+script = ExtResource("5_yr5t4")
+name = &"if"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_vbvon")])
+arguments = {
+"condition": SubResource("Resource_7x0to")
+}
+
+[sub_resource type="Resource" id="Resource_nx2ua"]
+script = ExtResource("5_yr5t4")
+name = &"area2d_on_entered"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_556d0")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_l0udv"]
+script = ExtResource("4_xb1ij")
+root = SubResource("Resource_nx2ua")
+canvas_position = Vector2(75, 100)
+
+[sub_resource type="Resource" id="Resource_1tgsl"]
+script = ExtResource("7_qi5iu")
+script_inherits = "Area2D"
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_l0udv")])
+variables = Array[ExtResource("8_vi8nk")]([])
+generated_script = "extends Area2D
+
+
+func _init():
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	if ((something).is_in_group('Ship')):
+		get_tree().call_group('Score', 'increase_score')
+
+"
+version = 0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q0gxq"]
 blend_mode = 1
@@ -12,8 +75,18 @@ blend_mode = 1
 [node name="Coin" type="RigidBody2D"]
 gravity_scale = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_j3twr")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(34, -2, -2, 21, -35, 2, -24, -16, -5, -23, 14, -22, 24, -16)
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(1.05, 1.05)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(34, -2, -2, 21, -35, 2, -24, -16, -5, -23, 14, -22, 24, -16)
+
+[node name="BlockCode" type="Node" parent="Area2D"]
+script = ExtResource("3_fm8j6")
+block_script = SubResource("Resource_1tgsl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_q0gxq")

@@ -220,6 +220,7 @@ offset_bottom = 16.0
 
 [node name="Coin" parent="." instance=ExtResource("2_2m1wf")]
 position = Vector2(428, 300)
+collision_layer = 2
 
 [node name="Ship" parent="." instance=ExtResource("3_43t81")]
 position = Vector2(157, 236)
