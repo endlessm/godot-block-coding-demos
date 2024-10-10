@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdbjayvnqq488"]
+[gd_scene load_steps=5 format=3 uid="uid://fvdldxg5au17"]
 
-[ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="1_d20hm"]
+[ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_og0d8"]
+[ext_resource type="Texture2D" uid="uid://djqy6w0vissy2" path="res://game-06/graphics/glow.png" id="2_p4myk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3twr"]
 size = Vector2(70, 45)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q0gxq"]
+blend_mode = 1
 
 [node name="Coin" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -11,6 +15,14 @@ gravity_scale = 0.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j3twr")
 
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+scale = Vector2(0.32356, 0.32356)
+texture = ExtResource("1_og0d8")
+region_enabled = true
+region_rect = Rect2(1469.28, 341.455, 226.813, 149.091)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("1_d20hm")
+material = SubResource("CanvasItemMaterial_q0gxq")
+position = Vector2(-3, -3)
+scale = Vector2(0.343372, 0.343372)
+texture = ExtResource("2_p4myk")
