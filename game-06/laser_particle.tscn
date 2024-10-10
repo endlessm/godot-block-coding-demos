@@ -40,7 +40,7 @@ script = ExtResource("4_nugsw")
 name = &"print"
 children = Array[ExtResource("4_nugsw")]([])
 arguments = {
-"text": "Hello"
+"text": "Particles finished"
 }
 
 [sub_resource type="Resource" id="Resource_sjogv"]
@@ -75,7 +75,7 @@ func _ready():
 	emitting = true
 
 func _on_finished():
-	print('Hello')
+	print('Particles finished')
 	queue_free()
 
 "
