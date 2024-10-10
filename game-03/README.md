@@ -13,6 +13,10 @@ The world is built with tilemap style.
 The player is implemented with SimpleCharacter node. So, using W, A, D to jump
 and move left & right.
 
+Check the player is on floor, or not to play walk, or jump up animation. Also,
+check the player's Direction X to play the walk right, or left animation in the
+AnimationPlayer.
+
 The collected coins and the player's lives are implemented with a SimpleScoring
 node. Player 1's score represents as collected coins and player 2's score
 represents lives.

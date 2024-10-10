@@ -1,45 +1,38 @@
-[gd_scene load_steps=18 format=3 uid="uid://beuisy5yrw0bq"]
+[gd_scene load_steps=16 format=3 uid="uid://beuisy5yrw0bq"]
 
 [ext_resource type="SpriteFrames" uid="uid://b3orjhfv6eeud" path="res://game-03/components/flag/flag-spriteframes-green.tres" id="2_l6hhd"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_p5gp7"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_23rwb"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="4_seder"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="3_jokul"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_46bls"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="6_j6jp8"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_ij0rl"]
 
-[sub_resource type="Resource" id="Resource_5umg0"]
-script = ExtResource("4_seder")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "raise_flag"
-}]]
-
-[sub_resource type="Resource" id="Resource_blx3e"]
-script = ExtResource("4_seder")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"value": false
-}]]
-
-[sub_resource type="Resource" id="Resource_dn3n6"]
+[sub_resource type="Resource" id="Resource_j3fsa"]
 script = ExtResource("3_23rwb")
 name = &"CanvasItem_set_visible"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_blx3e")
+children = Array[ExtResource("3_23rwb")]([])
+arguments = {
+"value": false
+}
 
-[sub_resource type="Resource" id="Resource_kl6ma"]
+[sub_resource type="Resource" id="Resource_rwd4w"]
 script = ExtResource("3_23rwb")
 name = &"define_method"
-position = Vector2(50, 150)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_dn3n6")]]
-block_serialized_properties = SubResource("Resource_5umg0")
+children = Array[ExtResource("3_23rwb")]([SubResource("Resource_j3fsa")])
+arguments = {
+"method_name": &"raise_flag"
+}
 
-[sub_resource type="Resource" id="Resource_7feiv"]
+[sub_resource type="Resource" id="Resource_0smsu"]
+script = ExtResource("3_jokul")
+root = SubResource("Resource_rwd4w")
+canvas_position = Vector2(100, 50)
+
+[sub_resource type="Resource" id="Resource_mmf21"]
 script = ExtResource("5_46bls")
 script_inherits = "AnimatedSprite2D"
-block_trees = Array[ExtResource("3_23rwb")]([SubResource("Resource_kl6ma")])
-variables = Array[ExtResource("6_j6jp8")]([])
+block_serialization_trees = Array[ExtResource("3_jokul")]([SubResource("Resource_0smsu")])
+variables = Array[ExtResource("6_ij0rl")]([])
 generated_script = "extends AnimatedSprite2D
 
 
@@ -49,39 +42,32 @@ func raise_flag():
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_6v80f"]
-script = ExtResource("4_seder")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "raise_flag"
-}]]
-
-[sub_resource type="Resource" id="Resource_o05sx"]
-script = ExtResource("4_seder")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"value": true
-}]]
-
-[sub_resource type="Resource" id="Resource_5efax"]
+[sub_resource type="Resource" id="Resource_fh4cr"]
 script = ExtResource("3_23rwb")
 name = &"CanvasItem_set_visible"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_o05sx")
+children = Array[ExtResource("3_23rwb")]([])
+arguments = {
+"value": true
+}
 
-[sub_resource type="Resource" id="Resource_nqdov"]
+[sub_resource type="Resource" id="Resource_ug11f"]
 script = ExtResource("3_23rwb")
 name = &"define_method"
-position = Vector2(125, 100)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_5efax")]]
-block_serialized_properties = SubResource("Resource_6v80f")
+children = Array[ExtResource("3_23rwb")]([SubResource("Resource_fh4cr")])
+arguments = {
+"method_name": &"raise_flag"
+}
 
-[sub_resource type="Resource" id="Resource_q3u75"]
+[sub_resource type="Resource" id="Resource_u0qjp"]
+script = ExtResource("3_jokul")
+root = SubResource("Resource_ug11f")
+canvas_position = Vector2(75, 50)
+
+[sub_resource type="Resource" id="Resource_embs1"]
 script = ExtResource("5_46bls")
 script_inherits = "AnimatedSprite2D"
-block_trees = Array[ExtResource("3_23rwb")]([SubResource("Resource_nqdov")])
-variables = Array[ExtResource("6_j6jp8")]([])
+block_serialization_trees = Array[ExtResource("3_jokul")]([SubResource("Resource_u0qjp")])
+variables = Array[ExtResource("6_ij0rl")]([])
 generated_script = "extends AnimatedSprite2D
 
 
@@ -103,7 +89,7 @@ animation = &"down"
 
 [node name="BlockCode" type="Node" parent="Down"]
 script = ExtResource("2_p5gp7")
-block_script = SubResource("Resource_7feiv")
+block_script = SubResource("Resource_mmf21")
 
 [node name="Up" type="AnimatedSprite2D" parent="." groups=["flag"]]
 visible = false
@@ -112,7 +98,7 @@ animation = &"up"
 
 [node name="BlockCode" type="Node" parent="Up"]
 script = ExtResource("2_p5gp7")
-block_script = SubResource("Resource_q3u75")
+block_script = SubResource("Resource_embs1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-32, 0)
