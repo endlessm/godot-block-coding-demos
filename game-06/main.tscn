@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=43 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="PackedScene" uid="uid://fvdldxg5au17" path="res://game-06/coin.tscn" id="2_2m1wf"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
 [ext_resource type="PackedScene" uid="uid://c6umuob7nsko3" path="res://game-06/obstacle.tscn" id="10_0r6ub"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
+[ext_resource type="Script" path="res://addons/block_code/simple_spawner/simple_spawner.gd" id="13_jo5u2"]
 
 [sub_resource type="Resource" id="Resource_mcdt0"]
 script = ExtResource("8_an3ek")
@@ -201,6 +202,37 @@ func _on_body_entered(something: Node2D):
 "
 version = 0
 
+[sub_resource type="Resource" id="Resource_576c1"]
+script = ExtResource("8_an3ek")
+name = &"simplespawner_start_spawning"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_v8do1"]
+script = ExtResource("8_an3ek")
+name = &"ready"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_576c1")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_3jeyb"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_v8do1")
+canvas_position = Vector2(54, 47)
+
+[sub_resource type="Resource" id="Resource_mx5s8"]
+script = ExtResource("9_a8xal")
+script_inherits = "SimpleSpawner"
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_3jeyb")])
+variables = Array[ExtResource("10_pjdut")]([])
+generated_script = "extends SimpleSpawner
+
+
+func _ready():
+	spawn_start()
+
+"
+version = 0
+
 [node name="Main" type="Node2D"]
 
 [node name="BackgroundStars" type="Parallax2D" parent="."]
@@ -250,7 +282,7 @@ shape = SubResource("WorldBoundaryShape2D_um3wv")
 [node name="Obstacle" parent="." instance=ExtResource("10_0r6ub")]
 position = Vector2(574, 263)
 
-[node name="BlockCode" type="Node" parent="Obstacle"]
+[node name="BlockCode2" type="Node" parent="Obstacle"]
 script = ExtResource("6_by3km")
 block_script = SubResource("Resource_tb6g7")
 
@@ -271,3 +303,15 @@ block_script = SubResource("Resource_v25y3")
 [node name="BlockCode" type="Node" parent="Deadzone"]
 script = ExtResource("6_by3km")
 block_script = SubResource("Resource_acnid")
+
+[node name="SimpleSpawner" type="Node2D" parent="."]
+position = Vector2(1000, 275)
+script = ExtResource("13_jo5u2")
+scenes = Array[PackedScene]([ExtResource("2_2m1wf"), ExtResource("10_0r6ub")])
+spawn_parent = 1
+spawn_frequency = 3.0
+spawn_limit = 0
+
+[node name="BlockCode" type="Node" parent="SimpleSpawner"]
+script = ExtResource("6_by3km")
+block_script = SubResource("Resource_mx5s8")

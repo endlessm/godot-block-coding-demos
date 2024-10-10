@@ -1,15 +1,56 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6umuob7nsko3"]
+[gd_scene load_steps=13 format=3 uid="uid://c6umuob7nsko3"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_312dy"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="1_imuk3"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_ypf55"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_1i25q"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="5_7t0qk"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="6_fmqgp"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="7_k8x14"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be137"]
 size = Vector2(80, 419)
 
+[sub_resource type="Resource" id="Resource_46ps4"]
+script = ExtResource("5_7t0qk")
+name = &"queue_free"
+children = Array[ExtResource("5_7t0qk")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_t5ugp"]
+script = ExtResource("5_7t0qk")
+name = &"define_method"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_46ps4")])
+arguments = {
+"method_name": &"delete"
+}
+
+[sub_resource type="Resource" id="Resource_wn5d4"]
+script = ExtResource("4_1i25q")
+root = SubResource("Resource_t5ugp")
+canvas_position = Vector2(325, 50)
+
+[sub_resource type="Resource" id="Resource_usbhe"]
+script = ExtResource("6_fmqgp")
+script_inherits = "RigidBody2D"
+block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_wn5d4")])
+variables = Array[ExtResource("7_k8x14")]([])
+generated_script = "extends RigidBody2D
+
+
+func delete():
+	queue_free()
+
+"
+version = 0
+
 [node name="Obstacle" type="RigidBody2D"]
-position = Vector2(0, -583)
+position = Vector2(0, 26)
 collision_mask = 0
 gravity_scale = 0.0
+linear_velocity = Vector2(-200, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 position = Vector2(-29, 250)
@@ -37,3 +78,7 @@ shape = SubResource("RectangleShape2D_be137")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, 245)
 shape = SubResource("RectangleShape2D_be137")
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("3_ypf55")
+block_script = SubResource("Resource_usbhe")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://fvdldxg5au17"]
+[gd_scene load_steps=33 format=3 uid="uid://fvdldxg5au17"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_og0d8"]
 [ext_resource type="Texture2D" uid="uid://djqy6w0vissy2" path="res://game-06/graphics/glow.png" id="2_p4myk"]
@@ -9,20 +9,20 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="7_qi5iu"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="8_vi8nk"]
 
-[sub_resource type="Resource" id="Resource_aj0an"]
+[sub_resource type="Resource" id="Resource_xaj6d"]
 script = ExtResource("6_mye12")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_7x0to"]
+[sub_resource type="Resource" id="Resource_tsnde"]
 script = ExtResource("6_mye12")
 name = &"is_node_in_group"
 arguments = {
 "group": "Ship",
-"node": SubResource("Resource_aj0an")
+"node": SubResource("Resource_xaj6d")
 }
 
-[sub_resource type="Resource" id="Resource_vbvon"]
+[sub_resource type="Resource" id="Resource_gqibk"]
 script = ExtResource("5_yr5t4")
 name = &"call_method_group"
 children = Array[ExtResource("5_yr5t4")]([])
@@ -31,29 +31,54 @@ arguments = {
 "method_name": "increase_score"
 }
 
-[sub_resource type="Resource" id="Resource_556d0"]
+[sub_resource type="Resource" id="Resource_qfprd"]
 script = ExtResource("5_yr5t4")
-name = &"if"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_vbvon")])
-arguments = {
-"condition": SubResource("Resource_7x0to")
-}
-
-[sub_resource type="Resource" id="Resource_nx2ua"]
-script = ExtResource("5_yr5t4")
-name = &"area2d_on_entered"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_556d0")])
+name = &"queue_free"
+children = Array[ExtResource("5_yr5t4")]([])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_l0udv"]
+[sub_resource type="Resource" id="Resource_ijx5k"]
+script = ExtResource("5_yr5t4")
+name = &"if"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_gqibk"), SubResource("Resource_qfprd")])
+arguments = {
+"condition": SubResource("Resource_tsnde")
+}
+
+[sub_resource type="Resource" id="Resource_0vjer"]
+script = ExtResource("5_yr5t4")
+name = &"area2d_on_entered"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_ijx5k")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_2sdye"]
 script = ExtResource("4_xb1ij")
-root = SubResource("Resource_nx2ua")
+root = SubResource("Resource_0vjer")
 canvas_position = Vector2(75, 100)
+
+[sub_resource type="Resource" id="Resource_xt7p3"]
+script = ExtResource("5_yr5t4")
+name = &"queue_free"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_bsa3k"]
+script = ExtResource("5_yr5t4")
+name = &"define_method"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_xt7p3")])
+arguments = {
+"method_name": &"delete"
+}
+
+[sub_resource type="Resource" id="Resource_p7ak3"]
+script = ExtResource("4_xb1ij")
+root = SubResource("Resource_bsa3k")
+canvas_position = Vector2(725, 100)
 
 [sub_resource type="Resource" id="Resource_1tgsl"]
 script = ExtResource("7_qi5iu")
 script_inherits = "Area2D"
-block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_l0udv")])
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_2sdye"), SubResource("Resource_p7ak3")])
 variables = Array[ExtResource("8_vi8nk")]([])
 generated_script = "extends Area2D
 
@@ -65,12 +90,67 @@ func _on_body_entered(something: Node2D):
 
 	if ((something).is_in_group('Ship')):
 		get_tree().call_group('Score', 'increase_score')
+		queue_free()
+
+func delete():
+	queue_free()
 
 "
 version = 0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q0gxq"]
 blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_4uf1l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.32356, 0.32356)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.343372, 0.343372)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(2, 2, 2, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_w16q0"]
 resource_name = "taken"
@@ -122,57 +202,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(2, 2, 2),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_4uf1l"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D2:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.32356, 0.32356)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D2:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.343372, 0.343372)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(2, 2, 2, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r185l"]
@@ -267,6 +296,9 @@ version = 0
 
 [node name="Coin" type="RigidBody2D"]
 gravity_scale = 0.0
+linear_velocity = Vector2(-200, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(34, -2, -2, 21, -35, 2, -24, -16, -5, -23, 14, -22, 24, -16)
