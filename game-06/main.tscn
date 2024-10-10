@@ -1,7 +1,8 @@
-[gd_scene load_steps=37 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=38 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
-[ext_resource type="PackedScene" uid="uid://cdbjayvnqq488" path="res://game-06/coin.tscn" id="2_2m1wf"]
+[ext_resource type="PackedScene" uid="uid://fvdldxg5au17" path="res://game-06/coin.tscn" id="2_2m1wf"]
+[ext_resource type="PackedScene" uid="uid://crt1rd7wivci5" path="res://game-06/hud.tscn" id="2_xum6x"]
 [ext_resource type="PackedScene" uid="uid://dps3xjhs2ssns" path="res://game-06/ship.tscn" id="3_43t81"]
 [ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="6_by3km"]
@@ -209,6 +210,10 @@ autoscroll = Vector2(-100, 0)
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundStars"]
 texture = ExtResource("1_1fkef")
 centered = false
+
+[node name="HUD" parent="." instance=ExtResource("2_xum6x")]
+offset_left = -72.0
+offset_right = -32.0
 
 [node name="Coin" parent="." instance=ExtResource("2_2m1wf")]
 position = Vector2(428, 300)
