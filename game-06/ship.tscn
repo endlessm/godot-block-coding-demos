@@ -1,17 +1,14 @@
-[gd_scene load_steps=28 format=3 uid="uid://dps3xjhs2ssns"]
+[gd_scene load_steps=19 format=3 uid="uid://dps3xjhs2ssns"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_rrros"]
 [ext_resource type="Texture2D" uid="uid://dqobtlpqjmouw" path="res://game-06/graphics/engine.svg" id="2_qdvvn"]
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="3_s1qof"]
+[ext_resource type="PackedScene" uid="uid://cmyx2g1new5rm" path="res://game-06/laser_gun.tscn" id="4_0x2nn"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="4_i1022"]
-[ext_resource type="Script" path="res://addons/block_code/simple_spawner/simple_spawner.gd" id="4_m2gjr"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="5_8ag0i"]
-[ext_resource type="PackedScene" uid="uid://bhf37etwtrfbe" path="res://game-06/laser_particle.tscn" id="5_ongkj"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="6_rpoob"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="7_xmg58"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="8_ui4ru"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="9_5ylav"]
-[ext_resource type="AudioStream" uid="uid://bm178yv4wvqdn" path="res://game-06/Sounds/Pew.ogg" id="10_vxg6f"]
 
 [sub_resource type="Curve" id="Curve_j0da6"]
 _data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -20,56 +17,6 @@ point_count = 3
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_babat"]
 radius = 19.0
 height = 70.0
-
-[sub_resource type="Resource" id="Resource_mrxa6"]
-script = ExtResource("7_xmg58")
-name = &"get_node"
-arguments = {
-"path": NodePath("../PewSound")
-}
-
-[sub_resource type="Resource" id="Resource_7tcmp"]
-script = ExtResource("6_rpoob")
-name = &"call_method_node"
-children = Array[ExtResource("6_rpoob")]([])
-arguments = {
-"method_name": "play",
-"node": SubResource("Resource_mrxa6")
-}
-
-[sub_resource type="Resource" id="Resource_ncv8w"]
-script = ExtResource("6_rpoob")
-name = &"simplespawner_spawn_once"
-children = Array[ExtResource("6_rpoob")]([])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_404b6"]
-script = ExtResource("6_rpoob")
-name = &"define_method"
-children = Array[ExtResource("6_rpoob")]([SubResource("Resource_7tcmp"), SubResource("Resource_ncv8w")])
-arguments = {
-"method_name": &"fire"
-}
-
-[sub_resource type="Resource" id="Resource_6q58r"]
-script = ExtResource("5_8ag0i")
-root = SubResource("Resource_404b6")
-canvas_position = Vector2(75, 50)
-
-[sub_resource type="Resource" id="Resource_pgr2a"]
-script = ExtResource("8_ui4ru")
-script_inherits = "SimpleSpawner"
-block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_6q58r")])
-variables = Array[ExtResource("9_5ylav")]([])
-generated_script = "extends SimpleSpawner
-
-
-func fire():
-	(get_node(\"../PewSound\")).call('play')
-	spawn_once()
-
-"
-version = 0
 
 [sub_resource type="Animation" id="Animation_rp8jp"]
 length = 0.001
@@ -176,14 +123,7 @@ position = Vector2(3, -4)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_babat")
 
-[node name="LaserSpawner" type="Node2D" parent="." groups=["lasers"]]
-script = ExtResource("4_m2gjr")
-scenes = Array[PackedScene]([ExtResource("5_ongkj")])
-spawn_limit = 10
-
-[node name="BlockCode" type="Node" parent="LaserSpawner"]
-script = ExtResource("4_i1022")
-block_script = SubResource("Resource_pgr2a")
+[node name="LaserGun" parent="." instance=ExtResource("4_0x2nn")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -194,7 +134,3 @@ speed_scale = 3.0
 [node name="BlockCode" type="Node" parent="AnimationPlayer"]
 script = ExtResource("4_i1022")
 block_script = SubResource("Resource_gtmbp")
-
-[node name="PewSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_vxg6f")
-pitch_scale = 2.0
