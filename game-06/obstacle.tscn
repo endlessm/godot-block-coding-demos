@@ -45,56 +45,56 @@ func delete():
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_v600f"]
+[sub_resource type="Resource" id="Resource_rx164"]
 script = ExtResource("6_pdd8d")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_y5wrl"]
+[sub_resource type="Resource" id="Resource_35sq6"]
 script = ExtResource("6_pdd8d")
 name = &"is_node_in_group"
 arguments = {
 "group": "Ship",
-"node": SubResource("Resource_v600f")
+"node": SubResource("Resource_rx164")
 }
 
-[sub_resource type="Resource" id="Resource_i5lpx"]
+[sub_resource type="Resource" id="Resource_r3ssq"]
 script = ExtResource("6_pdd8d")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_yvfsu"]
+[sub_resource type="Resource" id="Resource_d7wjj"]
 script = ExtResource("5_7t0qk")
 name = &"call_method_node"
 children = Array[ExtResource("5_7t0qk")]([])
 arguments = {
-"method_name": "explode",
-"node": SubResource("Resource_i5lpx")
+"method_name": "crash",
+"node": SubResource("Resource_r3ssq")
 }
 
-[sub_resource type="Resource" id="Resource_kxi3a"]
+[sub_resource type="Resource" id="Resource_lvj17"]
 script = ExtResource("5_7t0qk")
 name = &"if"
-children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_yvfsu")])
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_d7wjj")])
 arguments = {
-"condition": SubResource("Resource_y5wrl")
+"condition": SubResource("Resource_35sq6")
 }
 
-[sub_resource type="Resource" id="Resource_3o8xk"]
+[sub_resource type="Resource" id="Resource_2ksyw"]
 script = ExtResource("5_7t0qk")
 name = &"area2d_on_entered"
-children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_kxi3a")])
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_lvj17")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_hsih6"]
+[sub_resource type="Resource" id="Resource_twggb"]
 script = ExtResource("4_1i25q")
-root = SubResource("Resource_3o8xk")
+root = SubResource("Resource_2ksyw")
 canvas_position = Vector2(100, 325)
 
 [sub_resource type="Resource" id="Resource_ykn7p"]
 script = ExtResource("6_fmqgp")
 script_inherits = "Area2D"
-block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_hsih6")])
+block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_twggb")])
 variables = Array[ExtResource("7_k8x14")]([])
 generated_script = "extends Area2D
 
@@ -105,7 +105,7 @@ func _init():
 func _on_body_entered(something: Node2D):
 
 	if ((something).is_in_group('Ship')):
-		(something).call('explode')
+		(something).call('crash')
 
 "
 version = 0
