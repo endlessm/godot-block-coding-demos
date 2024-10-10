@@ -1,15 +1,15 @@
-[gd_scene load_steps=38 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=37 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
-[ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
+[ext_resource type="PackedScene" uid="uid://cdbjayvnqq488" path="res://game-06/coin.tscn" id="2_2m1wf"]
 [ext_resource type="PackedScene" uid="uid://dps3xjhs2ssns" path="res://game-06/ship.tscn" id="3_43t81"]
-[ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="3_w1gab"]
 [ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="6_by3km"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="7_8cvv3"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="8_4ctxh"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
+[ext_resource type="PackedScene" uid="uid://bochmo20r0iqe" path="res://game-06/obstacle.tscn" id="10_0r6ub"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
 
 [sub_resource type="Resource" id="Resource_mcdt0"]
@@ -87,9 +87,6 @@ distance = -30.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_um3wv"]
 normal = Vector2(1, 0)
 distance = -60.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_be137"]
-size = Vector2(71, 419)
 
 [sub_resource type="Resource" id="Resource_on3rr"]
 script = ExtResource("8_an3ek")
@@ -213,10 +210,8 @@ autoscroll = Vector2(-100, 0)
 texture = ExtResource("1_1fkef")
 centered = false
 
-[node name="Coin" type="Sprite2D" parent="."]
-position = Vector2(413.597, 305.681)
-scale = Vector2(0.147097, 0.147097)
-texture = ExtResource("2_bcxue")
+[node name="Coin" parent="." instance=ExtResource("2_2m1wf")]
+position = Vector2(428, 300)
 
 [node name="Ship" parent="." instance=ExtResource("3_43t81")]
 position = Vector2(157, 236)
@@ -243,25 +238,10 @@ shape = SubResource("WorldBoundaryShape2D_ox1xw")
 position = Vector2(0, 276)
 shape = SubResource("WorldBoundaryShape2D_um3wv")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." groups=["obstacles"]]
-collision_mask = 0
-gravity_scale = 0.0
-linear_velocity = Vector2(-100, 0)
+[node name="Obstacle" parent="." instance=ExtResource("10_0r6ub")]
+position = Vector2(574, 263)
 
-[node name="Obstacle" type="Sprite2D" parent="RigidBody2D"]
-position = Vector2(563.597, 220.681)
-scale = Vector2(0.515775, 0.515775)
-texture = ExtResource("3_w1gab")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(561.5, -44)
-shape = SubResource("RectangleShape2D_be137")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(562, 479.5)
-shape = SubResource("RectangleShape2D_be137")
-
-[node name="BlockCode" type="Node" parent="RigidBody2D"]
+[node name="BlockCode" type="Node" parent="Obstacle"]
 script = ExtResource("6_by3km")
 block_script = SubResource("Resource_tb6g7")
 
