@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6umuob7nsko3"]
+[gd_scene load_steps=22 format=3 uid="uid://c6umuob7nsko3"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_312dy"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="1_imuk3"]
@@ -6,40 +6,106 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_1i25q"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="5_7t0qk"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="6_fmqgp"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="6_pdd8d"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="7_k8x14"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be137"]
 size = Vector2(80, 419)
 
-[sub_resource type="Resource" id="Resource_46ps4"]
+[sub_resource type="Resource" id="Resource_1dqus"]
 script = ExtResource("5_7t0qk")
 name = &"queue_free"
 children = Array[ExtResource("5_7t0qk")]([])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_t5ugp"]
+[sub_resource type="Resource" id="Resource_jryw2"]
 script = ExtResource("5_7t0qk")
 name = &"define_method"
-children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_46ps4")])
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_1dqus")])
 arguments = {
 "method_name": &"delete"
 }
 
-[sub_resource type="Resource" id="Resource_wn5d4"]
+[sub_resource type="Resource" id="Resource_o47tg"]
 script = ExtResource("4_1i25q")
-root = SubResource("Resource_t5ugp")
+root = SubResource("Resource_jryw2")
 canvas_position = Vector2(325, 50)
 
 [sub_resource type="Resource" id="Resource_usbhe"]
 script = ExtResource("6_fmqgp")
 script_inherits = "RigidBody2D"
-block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_wn5d4")])
+block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_o47tg")])
 variables = Array[ExtResource("7_k8x14")]([])
 generated_script = "extends RigidBody2D
 
 
 func delete():
 	queue_free()
+
+"
+version = 0
+
+[sub_resource type="Resource" id="Resource_v600f"]
+script = ExtResource("6_pdd8d")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_y5wrl"]
+script = ExtResource("6_pdd8d")
+name = &"is_node_in_group"
+arguments = {
+"group": "Ship",
+"node": SubResource("Resource_v600f")
+}
+
+[sub_resource type="Resource" id="Resource_i5lpx"]
+script = ExtResource("6_pdd8d")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_yvfsu"]
+script = ExtResource("5_7t0qk")
+name = &"call_method_node"
+children = Array[ExtResource("5_7t0qk")]([])
+arguments = {
+"method_name": "explode",
+"node": SubResource("Resource_i5lpx")
+}
+
+[sub_resource type="Resource" id="Resource_kxi3a"]
+script = ExtResource("5_7t0qk")
+name = &"if"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_yvfsu")])
+arguments = {
+"condition": SubResource("Resource_y5wrl")
+}
+
+[sub_resource type="Resource" id="Resource_3o8xk"]
+script = ExtResource("5_7t0qk")
+name = &"area2d_on_entered"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_kxi3a")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_hsih6"]
+script = ExtResource("4_1i25q")
+root = SubResource("Resource_3o8xk")
+canvas_position = Vector2(100, 325)
+
+[sub_resource type="Resource" id="Resource_ykn7p"]
+script = ExtResource("6_fmqgp")
+script_inherits = "Area2D"
+block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_hsih6")])
+variables = Array[ExtResource("7_k8x14")]([])
+generated_script = "extends Area2D
+
+
+func _init():
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	if ((something).is_in_group('Ship')):
+		(something).call('explode')
 
 "
 version = 0
@@ -83,3 +149,16 @@ shape = SubResource("RectangleShape2D_be137")
 [node name="BlockCode" type="Node" parent="."]
 script = ExtResource("3_ypf55")
 block_script = SubResource("Resource_usbhe")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-128, 478, -94, 271, -53, 106, -13, 37, 28, 44, 49, 133, 58, 283, 62, 480)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-128, -509, -112, -382, -73, -231, -62, -212, -53, -129, -7, -70, 30, -90, 46, -185, 67, -398, 62, -515)
+
+[node name="BlockCode" type="Node" parent="Area2D"]
+script = ExtResource("3_ypf55")
+block_script = SubResource("Resource_ykn7p")
