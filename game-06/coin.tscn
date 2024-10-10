@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://fvdldxg5au17"]
+[gd_scene load_steps=30 format=3 uid="uid://fvdldxg5au17"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_og0d8"]
 [ext_resource type="Texture2D" uid="uid://djqy6w0vissy2" path="res://game-06/graphics/glow.png" id="2_p4myk"]
@@ -9,20 +9,20 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="7_qi5iu"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="8_vi8nk"]
 
-[sub_resource type="Resource" id="Resource_wsb4e"]
+[sub_resource type="Resource" id="Resource_5xqg4"]
 script = ExtResource("6_mye12")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_3qae6"]
+[sub_resource type="Resource" id="Resource_valxk"]
 script = ExtResource("6_mye12")
 name = &"is_node_in_group"
 arguments = {
 "group": "Ship",
-"node": SubResource("Resource_wsb4e")
+"node": SubResource("Resource_5xqg4")
 }
 
-[sub_resource type="Resource" id="Resource_mvff5"]
+[sub_resource type="Resource" id="Resource_7gne3"]
 script = ExtResource("5_yr5t4")
 name = &"call_method_group"
 children = Array[ExtResource("5_yr5t4")]([])
@@ -31,29 +31,45 @@ arguments = {
 "method_name": "increase_score"
 }
 
-[sub_resource type="Resource" id="Resource_xp2rk"]
-script = ExtResource("5_yr5t4")
-name = &"if"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_mvff5")])
+[sub_resource type="Resource" id="Resource_0dcx1"]
+script = ExtResource("6_mye12")
+name = &"get_node"
 arguments = {
-"condition": SubResource("Resource_3qae6")
+"path": NodePath("../AnimationPlayer")
 }
 
-[sub_resource type="Resource" id="Resource_wl3r2"]
+[sub_resource type="Resource" id="Resource_k7tdt"]
+script = ExtResource("5_yr5t4")
+name = &"call_method_node"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"method_name": "play_taken",
+"node": SubResource("Resource_0dcx1")
+}
+
+[sub_resource type="Resource" id="Resource_7udox"]
+script = ExtResource("5_yr5t4")
+name = &"if"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_7gne3"), SubResource("Resource_k7tdt")])
+arguments = {
+"condition": SubResource("Resource_valxk")
+}
+
+[sub_resource type="Resource" id="Resource_rhpn1"]
 script = ExtResource("5_yr5t4")
 name = &"area2d_on_entered"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_xp2rk")])
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_7udox")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_f166u"]
+[sub_resource type="Resource" id="Resource_hf26b"]
 script = ExtResource("4_xb1ij")
-root = SubResource("Resource_wl3r2")
+root = SubResource("Resource_rhpn1")
 canvas_position = Vector2(75, 100)
 
 [sub_resource type="Resource" id="Resource_1tgsl"]
 script = ExtResource("7_qi5iu")
 script_inherits = "Area2D"
-block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_f166u")])
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_hf26b")])
 variables = Array[ExtResource("8_vi8nk")]([])
 generated_script = "extends Area2D
 
@@ -65,6 +81,7 @@ func _on_body_entered(something: Node2D):
 
 	if ((something).is_in_group('Ship')):
 		get_tree().call_group('Score', 'increase_score')
+		(get_node(\"../AnimationPlayer\")).call('play_taken')
 
 "
 version = 0
@@ -181,7 +198,7 @@ _data = {
 "taken": SubResource("Animation_w16q0")
 }
 
-[sub_resource type="Resource" id="Resource_7p0wd"]
+[sub_resource type="Resource" id="Resource_infm5"]
 script = ExtResource("5_yr5t4")
 name = &"animationplayer_play"
 children = Array[ExtResource("5_yr5t4")]([])
@@ -190,76 +207,32 @@ arguments = {
 "direction": "forward"
 }
 
-[sub_resource type="Resource" id="Resource_6aufk"]
+[sub_resource type="Resource" id="Resource_p20b7"]
 script = ExtResource("5_yr5t4")
 name = &"define_method"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_7p0wd")])
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_infm5")])
 arguments = {
-"method_name": &"on_taken"
+"method_name": &"play_taken"
 }
 
-[sub_resource type="Resource" id="Resource_8gxqa"]
+[sub_resource type="Resource" id="Resource_jksg0"]
 script = ExtResource("4_xb1ij")
-root = SubResource("Resource_6aufk")
+root = SubResource("Resource_p20b7")
 canvas_position = Vector2(125, 125)
-
-[sub_resource type="Resource" id="Resource_qafg2"]
-script = ExtResource("6_mye12")
-name = &"is_input_actioned"
-arguments = {
-"action": "just_released",
-"action_name": &"ui_accept"
-}
-
-[sub_resource type="Resource" id="Resource_r1716"]
-script = ExtResource("5_yr5t4")
-name = &"animationplayer_play"
-children = Array[ExtResource("5_yr5t4")]([])
-arguments = {
-"animation": "taken",
-"direction": "forward"
-}
-
-[sub_resource type="Resource" id="Resource_xw4k3"]
-script = ExtResource("5_yr5t4")
-name = &"if"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_r1716")])
-arguments = {
-"condition": SubResource("Resource_qafg2")
-}
-
-[sub_resource type="Resource" id="Resource_tq86u"]
-script = ExtResource("5_yr5t4")
-name = &"process"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_xw4k3")])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_scyf1"]
-script = ExtResource("4_xb1ij")
-root = SubResource("Resource_tq86u")
-canvas_position = Vector2(450, 175)
 
 [sub_resource type="Resource" id="Resource_18qip"]
 script = ExtResource("7_qi5iu")
 script_inherits = "AnimationPlayer"
-block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_8gxqa"), SubResource("Resource_scyf1")])
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_jksg0")])
 variables = Array[ExtResource("8_vi8nk")]([])
 generated_script = "extends AnimationPlayer
 
 
-func on_taken():
+func play_taken():
 	if 'forward' == \"forward\":
 		play('taken')
 	else:
 		play_backwards('taken')
-
-
-func _process(delta):
-	if (Input.is_action_just_released('ui_accept')):
-		if 'forward' == \"forward\":
-			play('taken')
-		else:
-			play_backwards('taken')
 
 
 "
