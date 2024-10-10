@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="PackedScene" uid="uid://cdbjayvnqq488" path="res://game-06/coin.tscn" id="2_2m1wf"]
-[ext_resource type="PackedScene" path="res://game-06/ship.tscn" id="3_43t81"]
+[ext_resource type="PackedScene" uid="uid://dps3xjhs2ssns" path="res://game-06/ship.tscn" id="3_43t81"]
 [ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="6_by3km"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="7_8cvv3"]
