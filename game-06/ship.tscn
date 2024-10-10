@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dps3xjhs2ssns"]
+[gd_scene load_steps=36 format=3 uid="uid://dps3xjhs2ssns"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_rrros"]
 [ext_resource type="Texture2D" uid="uid://dqobtlpqjmouw" path="res://game-06/graphics/engine.svg" id="2_qdvvn"]
@@ -71,22 +71,6 @@ tracks/3/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_4jhbx"]
-resource_name = "wobble"
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-0.0523599, 0.0523599]
-}
-
 [sub_resource type="Animation" id="Animation_byuum"]
 resource_name = "crash"
 length = 5.0
@@ -142,6 +126,22 @@ tracks/3/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_4jhbx"]
+resource_name = "wobble"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.0523599, 0.0523599]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_86tyj"]
 _data = {
 "RESET": SubResource("Animation_rp8jp"),
@@ -149,7 +149,7 @@ _data = {
 "wobble": SubResource("Animation_4jhbx")
 }
 
-[sub_resource type="Resource" id="Resource_mxyoo"]
+[sub_resource type="Resource" id="Resource_fwfbt"]
 script = ExtResource("6_rpoob")
 name = &"animationplayer_play"
 children = Array[ExtResource("6_rpoob")]([])
@@ -159,18 +159,18 @@ arguments = {
 "wait_mode": "until done"
 }
 
-[sub_resource type="Resource" id="Resource_dcua4"]
+[sub_resource type="Resource" id="Resource_of65a"]
 script = ExtResource("6_rpoob")
 name = &"ready"
-children = Array[ExtResource("6_rpoob")]([SubResource("Resource_mxyoo")])
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_fwfbt")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_i3gig"]
+[sub_resource type="Resource" id="Resource_6gy71"]
 script = ExtResource("5_8ag0i")
-root = SubResource("Resource_dcua4")
+root = SubResource("Resource_of65a")
 canvas_position = Vector2(54, 47)
 
-[sub_resource type="Resource" id="Resource_hjyv3"]
+[sub_resource type="Resource" id="Resource_uojjp"]
 script = ExtResource("6_rpoob")
 name = &"animationplayer_play"
 children = Array[ExtResource("6_rpoob")]([])
@@ -180,7 +180,7 @@ arguments = {
 "wait_mode": "until done"
 }
 
-[sub_resource type="Resource" id="Resource_btnwv"]
+[sub_resource type="Resource" id="Resource_7sqdd"]
 script = ExtResource("6_rpoob")
 name = &"call_method_group"
 children = Array[ExtResource("6_rpoob")]([])
@@ -189,38 +189,38 @@ arguments = {
 "method_name": "game_over"
 }
 
-[sub_resource type="Resource" id="Resource_2qloa"]
+[sub_resource type="Resource" id="Resource_k3l3i"]
 script = ExtResource("11_d0d2t")
 name = &"get_node"
 arguments = {
 "path": NodePath("..")
 }
 
-[sub_resource type="Resource" id="Resource_pab2b"]
+[sub_resource type="Resource" id="Resource_xnd4j"]
 script = ExtResource("6_rpoob")
 name = &"queue_free_node"
 children = Array[ExtResource("6_rpoob")]([])
 arguments = {
-"node": SubResource("Resource_2qloa")
+"node": SubResource("Resource_k3l3i")
 }
 
-[sub_resource type="Resource" id="Resource_egjyw"]
+[sub_resource type="Resource" id="Resource_sfyj6"]
 script = ExtResource("6_rpoob")
 name = &"define_method"
-children = Array[ExtResource("6_rpoob")]([SubResource("Resource_hjyv3"), SubResource("Resource_btnwv"), SubResource("Resource_pab2b")])
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_uojjp"), SubResource("Resource_7sqdd"), SubResource("Resource_xnd4j")])
 arguments = {
 "method_name": &"crash"
 }
 
-[sub_resource type="Resource" id="Resource_67bpc"]
+[sub_resource type="Resource" id="Resource_y4k1i"]
 script = ExtResource("5_8ag0i")
-root = SubResource("Resource_egjyw")
-canvas_position = Vector2(250, 350)
+root = SubResource("Resource_sfyj6")
+canvas_position = Vector2(50, 175)
 
 [sub_resource type="Resource" id="Resource_gtmbp"]
 script = ExtResource("8_ui4ru")
 script_inherits = "AnimationPlayer"
-block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_i3gig"), SubResource("Resource_67bpc")])
+block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_6gy71"), SubResource("Resource_y4k1i")])
 variables = Array[ExtResource("9_5ylav")]([])
 generated_script = "extends AnimationPlayer
 
@@ -248,7 +248,7 @@ func crash():
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_wq7sh"]
+[sub_resource type="Resource" id="Resource_fscym"]
 script = ExtResource("6_rpoob")
 name = &"simplecharacter_move"
 children = Array[ExtResource("6_rpoob")]([])
@@ -257,83 +257,56 @@ arguments = {
 "player": "player_1"
 }
 
-[sub_resource type="Resource" id="Resource_xpsqv"]
-script = ExtResource("11_d0d2t")
-name = &"is_input_actioned"
-arguments = {
-"action": "just_pressed",
-"action_name": &"player_1_a"
-}
-
-[sub_resource type="Resource" id="Resource_msafw"]
-script = ExtResource("6_rpoob")
-name = &"call_method_group"
-children = Array[ExtResource("6_rpoob")]([])
-arguments = {
-"group": "lasers",
-"method_name": "fire"
-}
-
-[sub_resource type="Resource" id="Resource_2kj3p"]
-script = ExtResource("6_rpoob")
-name = &"if"
-children = Array[ExtResource("6_rpoob")]([SubResource("Resource_msafw")])
-arguments = {
-"condition": SubResource("Resource_xpsqv")
-}
-
-[sub_resource type="Resource" id="Resource_7c2cl"]
+[sub_resource type="Resource" id="Resource_mixdy"]
 script = ExtResource("6_rpoob")
 name = &"process"
-children = Array[ExtResource("6_rpoob")]([SubResource("Resource_wq7sh"), SubResource("Resource_2kj3p")])
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_fscym")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_a6ruw"]
+[sub_resource type="Resource" id="Resource_prapw"]
 script = ExtResource("5_8ag0i")
-root = SubResource("Resource_7c2cl")
+root = SubResource("Resource_mixdy")
 canvas_position = Vector2(75, 50)
 
-[sub_resource type="Resource" id="Resource_sq5ey"]
+[sub_resource type="Resource" id="Resource_7wmbg"]
 script = ExtResource("11_d0d2t")
 name = &"get_node"
 arguments = {
 "path": NodePath("AnimationPlayer")
 }
 
-[sub_resource type="Resource" id="Resource_oupna"]
+[sub_resource type="Resource" id="Resource_n4qna"]
 script = ExtResource("6_rpoob")
 name = &"call_method_node"
 children = Array[ExtResource("6_rpoob")]([])
 arguments = {
 "method_name": "crash",
-"node": SubResource("Resource_sq5ey")
+"node": SubResource("Resource_7wmbg")
 }
 
-[sub_resource type="Resource" id="Resource_mnsle"]
+[sub_resource type="Resource" id="Resource_gxptt"]
 script = ExtResource("6_rpoob")
 name = &"define_method"
-children = Array[ExtResource("6_rpoob")]([SubResource("Resource_oupna")])
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_n4qna")])
 arguments = {
 "method_name": &"crash"
 }
 
-[sub_resource type="Resource" id="Resource_tw1cx"]
+[sub_resource type="Resource" id="Resource_rsc6w"]
 script = ExtResource("5_8ag0i")
-root = SubResource("Resource_mnsle")
-canvas_position = Vector2(250, 400)
+root = SubResource("Resource_gxptt")
+canvas_position = Vector2(75, 175)
 
 [sub_resource type="Resource" id="Resource_0xoh2"]
 script = ExtResource("8_ui4ru")
 script_inherits = "SimpleCharacter"
-block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_a6ruw"), SubResource("Resource_tw1cx")])
+block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_prapw"), SubResource("Resource_rsc6w")])
 variables = Array[ExtResource("9_5ylav")]([])
 generated_script = "extends SimpleCharacter
 
 
 func _process(delta):
 	move_with_player_buttons('player_1', 'top-down', delta)
-	if (Input.is_action_just_pressed('player_1_a')):
-		get_tree().call_group('lasers', 'fire')
 
 func crash():
 	(get_node(\"AnimationPlayer\")).call('crash')
