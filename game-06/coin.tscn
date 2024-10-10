@@ -9,20 +9,20 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="7_qi5iu"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="8_vi8nk"]
 
-[sub_resource type="Resource" id="Resource_xaj6d"]
+[sub_resource type="Resource" id="Resource_wsb4e"]
 script = ExtResource("6_mye12")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_tsnde"]
+[sub_resource type="Resource" id="Resource_3qae6"]
 script = ExtResource("6_mye12")
 name = &"is_node_in_group"
 arguments = {
 "group": "Ship",
-"node": SubResource("Resource_xaj6d")
+"node": SubResource("Resource_wsb4e")
 }
 
-[sub_resource type="Resource" id="Resource_gqibk"]
+[sub_resource type="Resource" id="Resource_mvff5"]
 script = ExtResource("5_yr5t4")
 name = &"call_method_group"
 children = Array[ExtResource("5_yr5t4")]([])
@@ -31,54 +31,29 @@ arguments = {
 "method_name": "increase_score"
 }
 
-[sub_resource type="Resource" id="Resource_qfprd"]
-script = ExtResource("5_yr5t4")
-name = &"queue_free"
-children = Array[ExtResource("5_yr5t4")]([])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_ijx5k"]
+[sub_resource type="Resource" id="Resource_xp2rk"]
 script = ExtResource("5_yr5t4")
 name = &"if"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_gqibk"), SubResource("Resource_qfprd")])
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_mvff5")])
 arguments = {
-"condition": SubResource("Resource_tsnde")
+"condition": SubResource("Resource_3qae6")
 }
 
-[sub_resource type="Resource" id="Resource_0vjer"]
+[sub_resource type="Resource" id="Resource_wl3r2"]
 script = ExtResource("5_yr5t4")
 name = &"area2d_on_entered"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_ijx5k")])
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_xp2rk")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_2sdye"]
+[sub_resource type="Resource" id="Resource_f166u"]
 script = ExtResource("4_xb1ij")
-root = SubResource("Resource_0vjer")
+root = SubResource("Resource_wl3r2")
 canvas_position = Vector2(75, 100)
-
-[sub_resource type="Resource" id="Resource_xt7p3"]
-script = ExtResource("5_yr5t4")
-name = &"queue_free"
-children = Array[ExtResource("5_yr5t4")]([])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_bsa3k"]
-script = ExtResource("5_yr5t4")
-name = &"define_method"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_xt7p3")])
-arguments = {
-"method_name": &"delete"
-}
-
-[sub_resource type="Resource" id="Resource_p7ak3"]
-script = ExtResource("4_xb1ij")
-root = SubResource("Resource_bsa3k")
-canvas_position = Vector2(725, 100)
 
 [sub_resource type="Resource" id="Resource_1tgsl"]
 script = ExtResource("7_qi5iu")
 script_inherits = "Area2D"
-block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_2sdye"), SubResource("Resource_p7ak3")])
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_f166u")])
 variables = Array[ExtResource("8_vi8nk")]([])
 generated_script = "extends Area2D
 
@@ -90,10 +65,6 @@ func _on_body_entered(something: Node2D):
 
 	if ((something).is_in_group('Ship')):
 		get_tree().call_group('Score', 'increase_score')
-		queue_free()
-
-func delete():
-	queue_free()
 
 "
 version = 0
@@ -294,7 +265,42 @@ func _process(delta):
 "
 version = 0
 
-[node name="Coin" type="RigidBody2D"]
+[sub_resource type="Resource" id="Resource_y50rn"]
+script = ExtResource("5_yr5t4")
+name = &"queue_free"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_i8l1h"]
+script = ExtResource("5_yr5t4")
+name = &"define_method"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_y50rn")])
+arguments = {
+"method_name": &"delete"
+}
+
+[sub_resource type="Resource" id="Resource_apy7v"]
+script = ExtResource("4_xb1ij")
+root = SubResource("Resource_i8l1h")
+canvas_position = Vector2(300, 50)
+
+[sub_resource type="Resource" id="Resource_fqhct"]
+script = ExtResource("7_qi5iu")
+script_inherits = "RigidBody2D"
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_apy7v")])
+variables = Array[ExtResource("8_vi8nk")]([])
+generated_script = "extends RigidBody2D
+
+
+func delete():
+	queue_free()
+
+"
+version = 0
+
+[node name="Coin" type="RigidBody2D" groups=["coins"]]
+collision_layer = 2
+collision_mask = 0
 gravity_scale = 0.0
 linear_velocity = Vector2(-200, 0)
 linear_damp_mode = 1
@@ -334,3 +340,7 @@ libraries = {
 [node name="BlockCode" type="Node" parent="AnimationPlayer"]
 script = ExtResource("3_fm8j6")
 block_script = SubResource("Resource_18qip")
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("3_fm8j6")
+block_script = SubResource("Resource_fqhct")

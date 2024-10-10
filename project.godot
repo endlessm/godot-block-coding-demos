@@ -38,6 +38,8 @@ enabled=PackedStringArray("res://addons/block_code/plugin.cfg")
 lasers=""
 Ship=""
 Score=""
+coins=""
+obstacles=""
 
 [input]
 

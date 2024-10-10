@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=47 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="PackedScene" uid="uid://fvdldxg5au17" path="res://game-06/coin.tscn" id="2_2m1wf"]
@@ -90,39 +90,6 @@ distance = -30.0
 normal = Vector2(1, 0)
 distance = -60.0
 
-[sub_resource type="Resource" id="Resource_on3rr"]
-script = ExtResource("8_an3ek")
-name = &"queue_free"
-children = Array[ExtResource("8_an3ek")]([])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_5aard"]
-script = ExtResource("8_an3ek")
-name = &"define_method"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_on3rr")])
-arguments = {
-"method_name": &"delete"
-}
-
-[sub_resource type="Resource" id="Resource_skbg6"]
-script = ExtResource("7_8cvv3")
-root = SubResource("Resource_5aard")
-canvas_position = Vector2(125, 100)
-
-[sub_resource type="Resource" id="Resource_tb6g7"]
-script = ExtResource("9_a8xal")
-script_inherits = "RigidBody2D"
-block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_skbg6")])
-variables = Array[ExtResource("10_pjdut")]([])
-generated_script = "extends RigidBody2D
-
-
-func delete():
-	queue_free()
-
-"
-version = 0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a01j5"]
 size = Vector2(63, 572)
 
@@ -137,56 +104,77 @@ generated_script = "extends CollisionShape2D
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_atom3"]
+[sub_resource type="Resource" id="Resource_a4r1w"]
 script = ExtResource("8_4ctxh")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_1ehqn"]
+[sub_resource type="Resource" id="Resource_rv5og"]
 script = ExtResource("8_4ctxh")
 name = &"is_node_in_group"
 arguments = {
 "group": "obstacles",
-"node": SubResource("Resource_atom3")
+"node": SubResource("Resource_a4r1w")
 }
 
-[sub_resource type="Resource" id="Resource_0mdue"]
+[sub_resource type="Resource" id="Resource_hjfth"]
 script = ExtResource("8_4ctxh")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_a8ecr"]
+[sub_resource type="Resource" id="Resource_6jau1"]
+script = ExtResource("8_4ctxh")
+name = &"is_node_in_group"
+arguments = {
+"group": "coins",
+"node": SubResource("Resource_hjfth")
+}
+
+[sub_resource type="Resource" id="Resource_xg1wv"]
+script = ExtResource("8_4ctxh")
+name = &"or"
+arguments = {
+"bool1": SubResource("Resource_rv5og"),
+"bool2": SubResource("Resource_6jau1")
+}
+
+[sub_resource type="Resource" id="Resource_x5mj5"]
+script = ExtResource("8_4ctxh")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_3ml1n"]
 script = ExtResource("8_an3ek")
 name = &"call_method_node"
 children = Array[ExtResource("8_an3ek")]([])
 arguments = {
 "method_name": "delete",
-"node": SubResource("Resource_0mdue")
+"node": SubResource("Resource_x5mj5")
 }
 
-[sub_resource type="Resource" id="Resource_2oej7"]
+[sub_resource type="Resource" id="Resource_6je0i"]
 script = ExtResource("8_an3ek")
 name = &"if"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_a8ecr")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_3ml1n")])
 arguments = {
-"condition": SubResource("Resource_1ehqn")
+"condition": SubResource("Resource_xg1wv")
 }
 
-[sub_resource type="Resource" id="Resource_1o51t"]
+[sub_resource type="Resource" id="Resource_a57hc"]
 script = ExtResource("8_an3ek")
 name = &"area2d_on_entered"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_2oej7")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_6je0i")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_bcpcc"]
+[sub_resource type="Resource" id="Resource_7bfvp"]
 script = ExtResource("7_8cvv3")
-root = SubResource("Resource_1o51t")
+root = SubResource("Resource_a57hc")
 canvas_position = Vector2(25, 50)
 
 [sub_resource type="Resource" id="Resource_acnid"]
 script = ExtResource("9_a8xal")
 script_inherits = "Area2D"
-block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_bcpcc")])
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_7bfvp")])
 variables = Array[ExtResource("10_pjdut")]([])
 generated_script = "extends Area2D
 
@@ -196,39 +184,77 @@ func _init():
 
 func _on_body_entered(something: Node2D):
 
-	if ((something).is_in_group('obstacles')):
+	if (((something).is_in_group('obstacles')) or ((something).is_in_group('coins'))):
 		(something).call('delete')
 
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_576c1"]
+[sub_resource type="Resource" id="Resource_6746h"]
 script = ExtResource("8_an3ek")
 name = &"simplespawner_start_spawning"
 children = Array[ExtResource("8_an3ek")]([])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_v8do1"]
+[sub_resource type="Resource" id="Resource_pbf2l"]
 script = ExtResource("8_an3ek")
 name = &"ready"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_576c1")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_6746h")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_3jeyb"]
+[sub_resource type="Resource" id="Resource_hmo60"]
 script = ExtResource("7_8cvv3")
-root = SubResource("Resource_v8do1")
+root = SubResource("Resource_pbf2l")
 canvas_position = Vector2(54, 47)
+
+[sub_resource type="Resource" id="Resource_0uj88"]
+script = ExtResource("8_4ctxh")
+name = &"randf_range"
+arguments = {
+"from": 0.0,
+"to": 550.0
+}
+
+[sub_resource type="Resource" id="Resource_qpfhn"]
+script = ExtResource("8_4ctxh")
+name = &"vector2"
+arguments = {
+"x": 1000.0,
+"y": SubResource("Resource_0uj88")
+}
+
+[sub_resource type="Resource" id="Resource_5r4fg"]
+script = ExtResource("8_an3ek")
+name = &"Node2D_set_position"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {
+"value": SubResource("Resource_qpfhn")
+}
+
+[sub_resource type="Resource" id="Resource_pt1y3"]
+script = ExtResource("8_an3ek")
+name = &"process"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_5r4fg")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_q3exc"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_pt1y3")
+canvas_position = Vector2(375, 75)
 
 [sub_resource type="Resource" id="Resource_mx5s8"]
 script = ExtResource("9_a8xal")
 script_inherits = "SimpleSpawner"
-block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_3jeyb")])
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_hmo60"), SubResource("Resource_q3exc")])
 variables = Array[ExtResource("10_pjdut")]([])
 generated_script = "extends SimpleSpawner
 
 
 func _ready():
 	spawn_start()
+
+func _process(delta):
+	position = (Vector2(1000, (randf_range(0, 550))))
 
 "
 version = 0
@@ -249,10 +275,6 @@ offset_left = 24.0
 offset_top = 16.0
 offset_right = 64.0
 offset_bottom = 16.0
-
-[node name="Coin" parent="." instance=ExtResource("2_2m1wf")]
-position = Vector2(428, 300)
-collision_layer = 2
 
 [node name="Ship" parent="." instance=ExtResource("3_43t81")]
 position = Vector2(157, 236)
@@ -278,13 +300,6 @@ shape = SubResource("WorldBoundaryShape2D_ox1xw")
 [node name="LeftWall" type="CollisionShape2D" parent="Walls"]
 position = Vector2(0, 276)
 shape = SubResource("WorldBoundaryShape2D_um3wv")
-
-[node name="Obstacle" parent="." instance=ExtResource("10_0r6ub")]
-position = Vector2(574, 263)
-
-[node name="BlockCode2" type="Node" parent="Obstacle"]
-script = ExtResource("6_by3km")
-block_script = SubResource("Resource_tb6g7")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_2umo5")

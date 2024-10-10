@@ -44,8 +44,9 @@ func delete():
 "
 version = 0
 
-[node name="Obstacle" type="RigidBody2D"]
+[node name="Obstacle" type="RigidBody2D" groups=["obstacles"]]
 position = Vector2(0, 26)
+collision_layer = 2
 collision_mask = 0
 gravity_scale = 0.0
 linear_velocity = Vector2(-200, 0)
