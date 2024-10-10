@@ -276,6 +276,7 @@ centered = false
 
 [node name="Ship" parent="." instance=ExtResource("3_43t81")]
 position = Vector2(157, 236)
+collision_mask = 3
 
 [node name="BlockCode" type="Node" parent="Ship"]
 script = ExtResource("6_by3km")
