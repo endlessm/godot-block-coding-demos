@@ -78,7 +78,11 @@ const _SETTINGS_FOR_CLASS_PROPERTY = {
 	},
 	"CPUParticles2D":
 	{
-		"emitting": {"category": "Lifecycle | Spawn"},
+		"emitting":
+		{
+			"category": "Lifecycle | Spawn",
+			"has_change": false,
+		},
 	},
 }
 
