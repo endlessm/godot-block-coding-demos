@@ -153,7 +153,7 @@ _data = {
 "wobble": SubResource("Animation_4jhbx")
 }
 
-[sub_resource type="Resource" id="Resource_fwfbt"]
+[sub_resource type="Resource" id="Resource_0cghc"]
 script = ExtResource("6_rpoob")
 name = &"animationplayer_play"
 children = Array[ExtResource("6_rpoob")]([])
@@ -163,18 +163,27 @@ arguments = {
 "wait_mode": "until done"
 }
 
-[sub_resource type="Resource" id="Resource_of65a"]
+[sub_resource type="Resource" id="Resource_fycp7"]
 script = ExtResource("6_rpoob")
 name = &"ready"
-children = Array[ExtResource("6_rpoob")]([SubResource("Resource_fwfbt")])
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_0cghc")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_6gy71"]
+[sub_resource type="Resource" id="Resource_kuyvu"]
 script = ExtResource("5_8ag0i")
-root = SubResource("Resource_of65a")
+root = SubResource("Resource_fycp7")
 canvas_position = Vector2(54, 47)
 
-[sub_resource type="Resource" id="Resource_uojjp"]
+[sub_resource type="Resource" id="Resource_juy0s"]
+script = ExtResource("6_rpoob")
+name = &"call_method_group"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"group": "Music",
+"method_name": "stop_music"
+}
+
+[sub_resource type="Resource" id="Resource_v40kv"]
 script = ExtResource("6_rpoob")
 name = &"animationplayer_play"
 children = Array[ExtResource("6_rpoob")]([])
@@ -184,7 +193,7 @@ arguments = {
 "wait_mode": "until done"
 }
 
-[sub_resource type="Resource" id="Resource_7sqdd"]
+[sub_resource type="Resource" id="Resource_d6c1l"]
 script = ExtResource("6_rpoob")
 name = &"call_method_group"
 children = Array[ExtResource("6_rpoob")]([])
@@ -193,38 +202,38 @@ arguments = {
 "method_name": "game_over"
 }
 
-[sub_resource type="Resource" id="Resource_k3l3i"]
+[sub_resource type="Resource" id="Resource_n61mn"]
 script = ExtResource("11_d0d2t")
 name = &"get_node"
 arguments = {
 "path": NodePath("..")
 }
 
-[sub_resource type="Resource" id="Resource_xnd4j"]
+[sub_resource type="Resource" id="Resource_wercy"]
 script = ExtResource("6_rpoob")
 name = &"queue_free_node"
 children = Array[ExtResource("6_rpoob")]([])
 arguments = {
-"node": SubResource("Resource_k3l3i")
+"node": SubResource("Resource_n61mn")
 }
 
-[sub_resource type="Resource" id="Resource_sfyj6"]
+[sub_resource type="Resource" id="Resource_lywxo"]
 script = ExtResource("6_rpoob")
 name = &"define_method"
-children = Array[ExtResource("6_rpoob")]([SubResource("Resource_uojjp"), SubResource("Resource_7sqdd"), SubResource("Resource_xnd4j")])
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_juy0s"), SubResource("Resource_v40kv"), SubResource("Resource_d6c1l"), SubResource("Resource_wercy")])
 arguments = {
 "method_name": &"crash"
 }
 
-[sub_resource type="Resource" id="Resource_y4k1i"]
+[sub_resource type="Resource" id="Resource_rrur4"]
 script = ExtResource("5_8ag0i")
-root = SubResource("Resource_sfyj6")
-canvas_position = Vector2(50, 175)
+root = SubResource("Resource_lywxo")
+canvas_position = Vector2(250, 550)
 
 [sub_resource type="Resource" id="Resource_gtmbp"]
 script = ExtResource("8_ui4ru")
 script_inherits = "AnimationPlayer"
-block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_6gy71"), SubResource("Resource_y4k1i")])
+block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_kuyvu"), SubResource("Resource_rrur4")])
 variables = Array[ExtResource("9_5ylav")]([])
 generated_script = "extends AnimationPlayer
 
@@ -239,6 +248,7 @@ func _ready():
 
 
 func crash():
+	get_tree().call_group('Music', 'stop_music')
 	if 'forward' == \"forward\":
 		play('crash')
 	else:

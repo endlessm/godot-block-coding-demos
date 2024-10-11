@@ -41,6 +41,7 @@ Score=""
 coins=""
 obstacles=""
 Overlay=""
+Music=""
 
 [input]
 
