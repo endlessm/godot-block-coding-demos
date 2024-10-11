@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dps3xjhs2ssns"]
+[gd_scene load_steps=37 format=3 uid="uid://dps3xjhs2ssns"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_rrros"]
 [ext_resource type="Texture2D" uid="uid://dqobtlpqjmouw" path="res://game-06/graphics/engine.svg" id="2_qdvvn"]
@@ -13,8 +13,12 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="11_d0d2t"]
 
 [sub_resource type="Curve" id="Curve_j0da6"]
-_data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_f4wxx"]
+offsets = PackedFloat32Array(0.383721, 1)
+colors = PackedColorArray(0.52641, 0.698991, 0.743304, 1, 0.231715, 0.389956, 0.433398, 0)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_babat"]
 radius = 19.0
@@ -331,6 +335,8 @@ linear_accel_max = 100.0
 scale_amount_min = 0.5
 scale_amount_max = 0.75
 scale_amount_curve = SubResource("Curve_j0da6")
+color = Color(1, 1, 1, 0.807)
+color_ramp = SubResource("Gradient_f4wxx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-8, -6)
