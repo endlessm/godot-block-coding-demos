@@ -1,81 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://c6umuob7nsko3"]
+[gd_scene load_steps=4 format=3 uid="uid://c6umuob7nsko3"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_312dy"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="1_imuk3"]
-[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_ypf55"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_1i25q"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="5_7t0qk"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="6_fmqgp"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="6_pdd8d"]
-[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="7_k8x14"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be137"]
 size = Vector2(80, 419)
-
-[sub_resource type="Resource" id="Resource_rx164"]
-script = ExtResource("6_pdd8d")
-name = &"area2d_on_entered:something"
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_35sq6"]
-script = ExtResource("6_pdd8d")
-name = &"is_node_in_group"
-arguments = {
-"group": "Ship",
-"node": SubResource("Resource_rx164")
-}
-
-[sub_resource type="Resource" id="Resource_r3ssq"]
-script = ExtResource("6_pdd8d")
-name = &"area2d_on_entered:something"
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_d7wjj"]
-script = ExtResource("5_7t0qk")
-name = &"call_method_node"
-children = Array[ExtResource("5_7t0qk")]([])
-arguments = {
-"method_name": "crash",
-"node": SubResource("Resource_r3ssq")
-}
-
-[sub_resource type="Resource" id="Resource_lvj17"]
-script = ExtResource("5_7t0qk")
-name = &"if"
-children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_d7wjj")])
-arguments = {
-"condition": SubResource("Resource_35sq6")
-}
-
-[sub_resource type="Resource" id="Resource_2ksyw"]
-script = ExtResource("5_7t0qk")
-name = &"area2d_on_entered"
-children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_lvj17")])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_twggb"]
-script = ExtResource("4_1i25q")
-root = SubResource("Resource_2ksyw")
-canvas_position = Vector2(100, 325)
-
-[sub_resource type="Resource" id="Resource_ykn7p"]
-script = ExtResource("6_fmqgp")
-script_inherits = "Area2D"
-block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_twggb")])
-variables = Array[ExtResource("7_k8x14")]([])
-generated_script = "extends Area2D
-
-
-func _init():
-	body_entered.connect(_on_body_entered)
-
-func _on_body_entered(something: Node2D):
-
-	if ((something).is_in_group('Ship')):
-		(something).call('crash')
-
-"
-version = 0
 
 [node name="Obstacle" type="RigidBody2D" groups=["obstacles"]]
 position = Vector2(0, 26)
@@ -121,7 +50,3 @@ polygon = PackedVector2Array(-128, 478, -94, 271, -53, 106, -13, 37, 28, 44, 49,
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(-128, -509, -112, -382, -73, -231, -62, -212, -53, -129, -7, -70, 30, -90, 46, -185, 67, -398, 62, -515)
-
-[node name="BlockCode" type="Node" parent="Area2D"]
-script = ExtResource("3_ypf55")
-block_script = SubResource("Resource_ykn7p")

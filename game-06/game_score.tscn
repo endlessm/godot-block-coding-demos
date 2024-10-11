@@ -1,52 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://csbi7tcvjhju4"]
+[gd_scene load_steps=2 format=3 uid="uid://csbi7tcvjhju4"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_scoring/simple_scoring.gd" id="1_shdt2"]
-[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_0uhx2"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="3_cn1l0"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_x54nn"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_6j3ss"]
-[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_o71en"]
-
-[sub_resource type="Resource" id="Resource_hgycj"]
-script = ExtResource("4_x54nn")
-name = &"simplescoring_change_score"
-children = Array[ExtResource("4_x54nn")]([])
-arguments = {
-"score": 1
-}
-
-[sub_resource type="Resource" id="Resource_hurc1"]
-script = ExtResource("4_x54nn")
-name = &"define_method"
-children = Array[ExtResource("4_x54nn")]([SubResource("Resource_hgycj")])
-arguments = {
-"method_name": &"increase_score"
-}
-
-[sub_resource type="Resource" id="Resource_7l2kr"]
-script = ExtResource("3_cn1l0")
-root = SubResource("Resource_hurc1")
-canvas_position = Vector2(100, 50)
-
-[sub_resource type="Resource" id="Resource_5elog"]
-script = ExtResource("5_6j3ss")
-script_inherits = "SimpleScoring"
-block_serialization_trees = Array[ExtResource("3_cn1l0")]([SubResource("Resource_7l2kr")])
-variables = Array[ExtResource("6_o71en")]([])
-generated_script = "extends SimpleScoring
-
-
-func increase_score():
-	score += 1
-
-"
-version = 0
 
 [node name="SimpleScoring" type="Node2D" groups=["Score", "hud"]]
 position = Vector2(140, 4)
 scale = Vector2(0.29, 0.29)
 script = ExtResource("1_shdt2")
-
-[node name="BlockCode" type="Node" parent="."]
-script = ExtResource("2_0uhx2")
-block_script = SubResource("Resource_5elog")
