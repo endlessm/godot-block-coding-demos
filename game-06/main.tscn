@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="PackedScene" uid="uid://crt1rd7wivci5" path="res://game-06/hud.tscn" id="2_xum6x"]
 [ext_resource type="PackedScene" uid="uid://dps3xjhs2ssns" path="res://game-06/ship.tscn" id="3_43t81"]
+[ext_resource type="PackedScene" uid="uid://gnt2v6lcbfy8" path="res://game-06/delete_zone.tscn" id="5_w8srf"]
 [ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6eqcx"]
@@ -19,9 +20,6 @@ distance = -30.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_um3wv"]
 normal = Vector2(1, 0)
 distance = -60.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a01j5"]
-size = Vector2(63, 572)
 
 [node name="Main" type="Node2D"]
 
@@ -63,9 +61,4 @@ shape = SubResource("WorldBoundaryShape2D_um3wv")
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="." groups=["Music"]]
 stream = ExtResource("6_2umo5")
 
-[node name="Deadzone" type="Area2D" parent="."]
-position = Vector2(-72, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Deadzone"]
-position = Vector2(-32, 276)
-shape = SubResource("RectangleShape2D_a01j5")
+[node name="DeleteZone" parent="." instance=ExtResource("5_w8srf")]

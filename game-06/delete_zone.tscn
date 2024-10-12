@@ -1,0 +1,107 @@
+[gd_scene load_steps=19 format=3 uid="uid://gnt2v6lcbfy8"]
+
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="1_186v6"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="2_o30xg"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_r202k"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="4_fvx5u"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_xtvrb"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_jugay"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a01j5"]
+size = Vector2(63, 572)
+
+[sub_resource type="Resource" id="Resource_8hfdb"]
+script = ExtResource("4_fvx5u")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_mqvvi"]
+script = ExtResource("4_fvx5u")
+name = &"is_node_in_group"
+arguments = {
+"group": "obstacles",
+"node": SubResource("Resource_8hfdb")
+}
+
+[sub_resource type="Resource" id="Resource_ctqra"]
+script = ExtResource("4_fvx5u")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_fyjku"]
+script = ExtResource("4_fvx5u")
+name = &"is_node_in_group"
+arguments = {
+"group": "coins",
+"node": SubResource("Resource_ctqra")
+}
+
+[sub_resource type="Resource" id="Resource_328uy"]
+script = ExtResource("4_fvx5u")
+name = &"or"
+arguments = {
+"bool1": SubResource("Resource_mqvvi"),
+"bool2": SubResource("Resource_fyjku")
+}
+
+[sub_resource type="Resource" id="Resource_xcnru"]
+script = ExtResource("4_fvx5u")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_vw20w"]
+script = ExtResource("3_r202k")
+name = &"queue_free_node"
+children = Array[ExtResource("3_r202k")]([])
+arguments = {
+"node": SubResource("Resource_xcnru")
+}
+
+[sub_resource type="Resource" id="Resource_tvs2b"]
+script = ExtResource("3_r202k")
+name = &"if"
+children = Array[ExtResource("3_r202k")]([SubResource("Resource_vw20w")])
+arguments = {
+"condition": SubResource("Resource_328uy")
+}
+
+[sub_resource type="Resource" id="Resource_3odwo"]
+script = ExtResource("3_r202k")
+name = &"area2d_on_entered"
+children = Array[ExtResource("3_r202k")]([SubResource("Resource_tvs2b")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_v7uxb"]
+script = ExtResource("2_o30xg")
+root = SubResource("Resource_3odwo")
+canvas_position = Vector2(75, 75)
+
+[sub_resource type="Resource" id="Resource_ys44c"]
+script = ExtResource("5_xtvrb")
+script_inherits = "Area2D"
+block_serialization_trees = Array[ExtResource("2_o30xg")]([SubResource("Resource_v7uxb")])
+variables = Array[ExtResource("6_jugay")]([])
+generated_script = "extends Area2D
+
+
+func _init():
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	if (((something).is_in_group('obstacles')) or ((something).is_in_group('coins'))):
+		(something).queue_free()
+
+"
+version = 0
+
+[node name="DeleteZone" type="Area2D"]
+position = Vector2(-72, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-32, 276)
+shape = SubResource("RectangleShape2D_a01j5")
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("1_186v6")
+block_script = SubResource("Resource_ys44c")
