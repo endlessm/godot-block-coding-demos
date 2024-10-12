@@ -60,5 +60,7 @@ shape = SubResource("WorldBoundaryShape2D_um3wv")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="." groups=["Music"]]
 stream = ExtResource("6_2umo5")
+volume_db = -10.0
+autoplay = true
 
 [node name="DeleteZone" parent="." instance=ExtResource("5_w8srf")]
