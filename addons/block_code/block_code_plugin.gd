@@ -1,5 +1,6 @@
 @tool
 extends EditorPlugin
+
 const MainPanelScene := preload("res://addons/block_code/ui/main_panel.tscn")
 const MainPanel = preload("res://addons/block_code/ui/main_panel.gd")
 const Types = preload("res://addons/block_code/types/types.gd")
@@ -24,8 +25,6 @@ const DISABLED_CLASSES := [
 	"ParameterBlock",
 	"StatementBlock",
 	"SnapPoint",
-	"BlockSerialization",
-	"BlockSerializedProperties",
 	"BlockScriptSerialization",
 	"CategoryFactory",
 ]
@@ -95,14 +94,8 @@ func _exit_tree():
 
 
 func _ready():
-	connect("scene_changed", _on_scene_changed)
 	editor_inspector.connect("edited_object_changed", _on_editor_inspector_edited_object_changed)
-	_on_scene_changed(EditorInterface.get_edited_scene_root())
 	_on_editor_inspector_edited_object_changed()
-
-
-func _on_scene_changed(scene_root: Node):
-	main_panel.switch_scene(scene_root)
 
 
 func _on_editor_inspector_edited_object_changed():
@@ -145,7 +138,7 @@ func select_block_code_node(block_code: BlockCode):
 	if not is_block_code_editable(block_code):
 		block_code = null
 
-	if _selected_block_code:
+	if is_instance_valid(_selected_block_code):
 		_selected_block_code.tree_entered.disconnect(_on_selected_block_code_changed)
 		_selected_block_code.tree_exited.disconnect(_on_selected_block_code_changed)
 		_selected_block_code.property_list_changed.disconnect(_on_selected_block_code_changed)
@@ -153,7 +146,7 @@ func select_block_code_node(block_code: BlockCode):
 
 	_selected_block_code = block_code
 
-	if _selected_block_code:
+	if is_instance_valid(_selected_block_code):
 		_selected_block_code.tree_entered.connect(_on_selected_block_code_changed)
 		_selected_block_code.tree_exited.connect(_on_selected_block_code_changed)
 		_selected_block_code.property_list_changed.connect(_on_selected_block_code_changed)
