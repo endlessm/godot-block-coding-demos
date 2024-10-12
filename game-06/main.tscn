@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=34 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="PackedScene" uid="uid://fvdldxg5au17" path="res://game-06/coin.tscn" id="2_2m1wf"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
 [ext_resource type="PackedScene" uid="uid://c6umuob7nsko3" path="res://game-06/obstacle.tscn" id="10_0r6ub"]
+[ext_resource type="PackedScene" uid="uid://8c82g1tm467r" path="res://game-06/delete_zone.tscn" id="10_alyif"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
 [ext_resource type="Script" path="res://addons/block_code/simple_spawner/simple_spawner.gd" id="13_jo5u2"]
 
@@ -72,94 +73,6 @@ func _ready():
 
 func stop_music():
 	queue_free()
-
-"
-version = 0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a01j5"]
-size = Vector2(63, 572)
-
-[sub_resource type="Resource" id="Resource_mk0vj"]
-script = ExtResource("8_4ctxh")
-name = &"area2d_on_entered:something"
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_fmqtw"]
-script = ExtResource("8_4ctxh")
-name = &"is_node_in_group"
-arguments = {
-"group": "obstacles",
-"node": SubResource("Resource_mk0vj")
-}
-
-[sub_resource type="Resource" id="Resource_g2hwt"]
-script = ExtResource("8_4ctxh")
-name = &"area2d_on_entered:something"
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_42fs8"]
-script = ExtResource("8_4ctxh")
-name = &"is_node_in_group"
-arguments = {
-"group": "coins",
-"node": SubResource("Resource_g2hwt")
-}
-
-[sub_resource type="Resource" id="Resource_udbj4"]
-script = ExtResource("8_4ctxh")
-name = &"or"
-arguments = {
-"bool1": SubResource("Resource_fmqtw"),
-"bool2": SubResource("Resource_42fs8")
-}
-
-[sub_resource type="Resource" id="Resource_eh3b3"]
-script = ExtResource("8_4ctxh")
-name = &"area2d_on_entered:something"
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_wyh2h"]
-script = ExtResource("8_an3ek")
-name = &"queue_free_node"
-children = Array[ExtResource("8_an3ek")]([])
-arguments = {
-"node": SubResource("Resource_eh3b3")
-}
-
-[sub_resource type="Resource" id="Resource_ylq2w"]
-script = ExtResource("8_an3ek")
-name = &"if"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_wyh2h")])
-arguments = {
-"condition": SubResource("Resource_udbj4")
-}
-
-[sub_resource type="Resource" id="Resource_8c3wf"]
-script = ExtResource("8_an3ek")
-name = &"area2d_on_entered"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_ylq2w")])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_fnhl3"]
-script = ExtResource("7_8cvv3")
-root = SubResource("Resource_8c3wf")
-canvas_position = Vector2(25, 50)
-
-[sub_resource type="Resource" id="Resource_acnid"]
-script = ExtResource("9_a8xal")
-script_inherits = "Area2D"
-block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_fnhl3")])
-variables = Array[ExtResource("10_pjdut")]([])
-generated_script = "extends Area2D
-
-
-func _init():
-	body_entered.connect(_on_body_entered)
-
-func _on_body_entered(something: Node2D):
-
-	if (((something).is_in_group('obstacles')) or ((something).is_in_group('coins'))):
-		(something).queue_free()
 
 "
 version = 0
@@ -277,16 +190,7 @@ stream = ExtResource("6_2umo5")
 script = ExtResource("6_by3km")
 block_script = SubResource("Resource_l8ekv")
 
-[node name="Deadzone" type="Area2D" parent="."]
-position = Vector2(-72, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Deadzone"]
-position = Vector2(-32, 276)
-shape = SubResource("RectangleShape2D_a01j5")
-
-[node name="BlockCode" type="Node" parent="Deadzone"]
-script = ExtResource("6_by3km")
-block_script = SubResource("Resource_acnid")
+[node name="DeleteZone" parent="." instance=ExtResource("10_alyif")]
 
 [node name="SimpleSpawner" type="Node2D" parent="."]
 position = Vector2(1000, 275)
