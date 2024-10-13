@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c6umuob7nsko3"]
+[gd_scene load_steps=54 format=3 uid="uid://c6umuob7nsko3"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_312dy"]
 [ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="1_imuk3"]
@@ -12,56 +12,56 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be137"]
 size = Vector2(80, 419)
 
-[sub_resource type="Resource" id="Resource_rx164"]
+[sub_resource type="Resource" id="Resource_0yd1q"]
 script = ExtResource("6_pdd8d")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_35sq6"]
+[sub_resource type="Resource" id="Resource_3o30n"]
 script = ExtResource("6_pdd8d")
 name = &"is_node_in_group"
 arguments = {
 "group": "Ship",
-"node": SubResource("Resource_rx164")
+"node": SubResource("Resource_0yd1q")
 }
 
-[sub_resource type="Resource" id="Resource_r3ssq"]
+[sub_resource type="Resource" id="Resource_ns5w7"]
 script = ExtResource("6_pdd8d")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_d7wjj"]
+[sub_resource type="Resource" id="Resource_v73k8"]
 script = ExtResource("5_7t0qk")
 name = &"call_method_node"
 children = Array[ExtResource("5_7t0qk")]([])
 arguments = {
 "method_name": "crash",
-"node": SubResource("Resource_r3ssq")
+"node": SubResource("Resource_ns5w7")
 }
 
-[sub_resource type="Resource" id="Resource_lvj17"]
+[sub_resource type="Resource" id="Resource_q676t"]
 script = ExtResource("5_7t0qk")
 name = &"if"
-children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_d7wjj")])
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_v73k8")])
 arguments = {
-"condition": SubResource("Resource_35sq6")
+"condition": SubResource("Resource_3o30n")
 }
 
-[sub_resource type="Resource" id="Resource_2ksyw"]
+[sub_resource type="Resource" id="Resource_vec4w"]
 script = ExtResource("5_7t0qk")
 name = &"area2d_on_entered"
-children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_lvj17")])
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_q676t")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_twggb"]
+[sub_resource type="Resource" id="Resource_naiyf"]
 script = ExtResource("4_1i25q")
-root = SubResource("Resource_2ksyw")
+root = SubResource("Resource_vec4w")
 canvas_position = Vector2(100, 325)
 
 [sub_resource type="Resource" id="Resource_ykn7p"]
 script = ExtResource("6_fmqgp")
 script_inherits = "Area2D"
-block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_twggb")])
+block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_naiyf")])
 variables = Array[ExtResource("7_k8x14")]([])
 generated_script = "extends Area2D
 
@@ -73,6 +73,289 @@ func _on_body_entered(something: Node2D):
 
 	if ((something).is_in_group('Ship')):
 		(something).call('crash')
+
+"
+version = 0
+
+[sub_resource type="Resource" id="Resource_qn14w"]
+script = ExtResource("6_pdd8d")
+name = &"Node2D_get_position"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_7cuto"]
+script = ExtResource("6_pdd8d")
+name = &"vector2_y"
+arguments = {
+"vector2": SubResource("Resource_qn14w")
+}
+
+[sub_resource type="Resource" id="Resource_0n4n2"]
+script = ExtResource("6_pdd8d")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_7cuto"),
+"float2": 500.0,
+"op": ">"
+}
+
+[sub_resource type="Resource" id="Resource_g4xsa"]
+script = ExtResource("6_pdd8d")
+name = &"and"
+arguments = {
+"bool1": SubResource("Resource_0n4n2"),
+"bool2": true
+}
+
+[sub_resource type="Resource" id="Resource_f112h"]
+script = ExtResource("6_pdd8d")
+name = &"vector2"
+arguments = {
+"x": -200.0,
+"y": -75.0
+}
+
+[sub_resource type="Resource" id="Resource_sg1br"]
+script = ExtResource("5_7t0qk")
+name = &"RigidBody2D_set_linear_velocity"
+children = Array[ExtResource("5_7t0qk")]([])
+arguments = {
+"value": SubResource("Resource_f112h")
+}
+
+[sub_resource type="Resource" id="Resource_j1gli"]
+script = ExtResource("5_7t0qk")
+name = &"if"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_sg1br")])
+arguments = {
+"condition": SubResource("Resource_g4xsa")
+}
+
+[sub_resource type="Resource" id="Resource_ae4t0"]
+script = ExtResource("6_pdd8d")
+name = &"Node2D_get_position"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_xywah"]
+script = ExtResource("6_pdd8d")
+name = &"vector2_y"
+arguments = {
+"vector2": SubResource("Resource_ae4t0")
+}
+
+[sub_resource type="Resource" id="Resource_ftu2o"]
+script = ExtResource("6_pdd8d")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_xywah"),
+"float2": 50.0,
+"op": "<"
+}
+
+[sub_resource type="Resource" id="Resource_o5pku"]
+script = ExtResource("6_pdd8d")
+name = &"or"
+arguments = {
+"bool1": false,
+"bool2": SubResource("Resource_ftu2o")
+}
+
+[sub_resource type="Resource" id="Resource_7tjsv"]
+script = ExtResource("5_7t0qk")
+name = &"RigidBody2D_set_linear_velocity"
+children = Array[ExtResource("5_7t0qk")]([])
+arguments = {
+"value": Vector2(-200, 75)
+}
+
+[sub_resource type="Resource" id="Resource_fqusk"]
+script = ExtResource("5_7t0qk")
+name = &"else_if"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_7tjsv")])
+arguments = {
+"condition": SubResource("Resource_o5pku")
+}
+
+[sub_resource type="Resource" id="Resource_h58iw"]
+script = ExtResource("5_7t0qk")
+name = &"process"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_j1gli"), SubResource("Resource_fqusk")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_6dqwq"]
+script = ExtResource("4_1i25q")
+root = SubResource("Resource_h58iw")
+canvas_position = Vector2(-375, -300)
+
+[sub_resource type="Resource" id="Resource_5sece"]
+script = ExtResource("6_pdd8d")
+name = &"randf_range"
+arguments = {
+"from": 0.0,
+"to": 1.0
+}
+
+[sub_resource type="Resource" id="Resource_20eok"]
+script = ExtResource("6_pdd8d")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_5sece"),
+"float2": 0.5,
+"op": ">"
+}
+
+[sub_resource type="Resource" id="Resource_0eucd"]
+script = ExtResource("5_7t0qk")
+name = &"set_var_moveUp"
+children = Array[ExtResource("5_7t0qk")]([])
+arguments = {
+"value": false
+}
+
+[sub_resource type="Resource" id="Resource_5nm0p"]
+script = ExtResource("5_7t0qk")
+name = &"if"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_0eucd")])
+arguments = {
+"condition": SubResource("Resource_20eok")
+}
+
+[sub_resource type="Resource" id="Resource_q5c1f"]
+script = ExtResource("5_7t0qk")
+name = &"set_var_moveUp"
+children = Array[ExtResource("5_7t0qk")]([])
+arguments = {
+"value": true
+}
+
+[sub_resource type="Resource" id="Resource_hm60h"]
+script = ExtResource("5_7t0qk")
+name = &"else"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_q5c1f")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_sd6c1"]
+script = ExtResource("6_pdd8d")
+name = &"randf_range"
+arguments = {
+"from": 0.0,
+"to": 1.0
+}
+
+[sub_resource type="Resource" id="Resource_47bho"]
+script = ExtResource("5_7t0qk")
+name = &"set_var_randomMovement"
+children = Array[ExtResource("5_7t0qk")]([])
+arguments = {
+"value": SubResource("Resource_sd6c1")
+}
+
+[sub_resource type="Resource" id="Resource_gmpi4"]
+script = ExtResource("6_pdd8d")
+name = &"get_var_randomMovement"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_gefy0"]
+script = ExtResource("6_pdd8d")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_gmpi4"),
+"float2": 0.5,
+"op": ">"
+}
+
+[sub_resource type="Resource" id="Resource_chbpm"]
+script = ExtResource("6_pdd8d")
+name = &"get_var_moveUp"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_27ldt"]
+script = ExtResource("5_7t0qk")
+name = &"RigidBody2D_change_linear_velocity"
+children = Array[ExtResource("5_7t0qk")]([])
+arguments = {
+"value": Vector2(0, -75)
+}
+
+[sub_resource type="Resource" id="Resource_5656d"]
+script = ExtResource("5_7t0qk")
+name = &"if"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_27ldt")])
+arguments = {
+"condition": SubResource("Resource_chbpm")
+}
+
+[sub_resource type="Resource" id="Resource_atb7v"]
+script = ExtResource("5_7t0qk")
+name = &"RigidBody2D_change_linear_velocity"
+children = Array[ExtResource("5_7t0qk")]([])
+arguments = {
+"value": Vector2(0, 75)
+}
+
+[sub_resource type="Resource" id="Resource_egrjv"]
+script = ExtResource("5_7t0qk")
+name = &"else"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_atb7v")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_kjlmu"]
+script = ExtResource("5_7t0qk")
+name = &"if"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_5656d"), SubResource("Resource_egrjv")])
+arguments = {
+"condition": SubResource("Resource_gefy0")
+}
+
+[sub_resource type="Resource" id="Resource_x7dd8"]
+script = ExtResource("5_7t0qk")
+name = &"ready"
+children = Array[ExtResource("5_7t0qk")]([SubResource("Resource_5nm0p"), SubResource("Resource_hm60h"), SubResource("Resource_47bho"), SubResource("Resource_kjlmu")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_g5tk6"]
+script = ExtResource("4_1i25q")
+root = SubResource("Resource_x7dd8")
+canvas_position = Vector2(-125, 100)
+
+[sub_resource type="Resource" id="Resource_qsb7o"]
+script = ExtResource("7_k8x14")
+var_name = "randomMovement"
+var_type = 3
+
+[sub_resource type="Resource" id="Resource_j8tem"]
+script = ExtResource("7_k8x14")
+var_name = "moveUp"
+var_type = 1
+
+[sub_resource type="Resource" id="Resource_gxchm"]
+script = ExtResource("6_fmqgp")
+script_inherits = "RigidBody2D"
+block_serialization_trees = Array[ExtResource("4_1i25q")]([SubResource("Resource_6dqwq"), SubResource("Resource_g5tk6")])
+variables = Array[ExtResource("7_k8x14")]([SubResource("Resource_qsb7o"), SubResource("Resource_j8tem")])
+generated_script = "extends RigidBody2D
+
+var randomMovement: float
+
+var moveUp: bool
+
+
+func _process(delta):
+	if ((((position).y) > 500) and true):
+		linear_velocity = (Vector2(-200, -75))
+	elif (false or (((position).y) < 50)):
+		linear_velocity = Vector2(-200, 75)
+
+func _ready():
+	if ((randf_range(0, 1)) > 0.5):
+		moveUp = false
+	else:
+		moveUp = true
+	randomMovement = (randf_range(0, 1))
+	if ((randomMovement) > 0.5):
+		if (moveUp):
+			linear_velocity += Vector2(0, -75)
+		else:
+			linear_velocity += Vector2(0, 75)
 
 "
 version = 0
@@ -125,3 +408,7 @@ polygon = PackedVector2Array(-128, -509, -112, -382, -73, -231, -62, -212, -53, 
 [node name="BlockCode" type="Node" parent="Area2D"]
 script = ExtResource("3_ypf55")
 block_script = SubResource("Resource_ykn7p")
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("3_ypf55")
+block_script = SubResource("Resource_gxchm")

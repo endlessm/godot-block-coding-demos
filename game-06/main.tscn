@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://da28ei7q3d34p"]
+[gd_scene load_steps=52 format=3 uid="uid://da28ei7q3d34p"]
 
 [ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
 [ext_resource type="PackedScene" uid="uid://fvdldxg5au17" path="res://game-06/coin.tscn" id="2_2m1wf"]
@@ -164,24 +164,24 @@ func _on_body_entered(something: Node2D):
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_6746h"]
+[sub_resource type="Resource" id="Resource_fbrq5"]
 script = ExtResource("8_an3ek")
 name = &"simplespawner_start_spawning"
 children = Array[ExtResource("8_an3ek")]([])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_pbf2l"]
+[sub_resource type="Resource" id="Resource_761mx"]
 script = ExtResource("8_an3ek")
 name = &"ready"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_6746h")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_fbrq5")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_hmo60"]
+[sub_resource type="Resource" id="Resource_iq7nm"]
 script = ExtResource("7_8cvv3")
-root = SubResource("Resource_pbf2l")
+root = SubResource("Resource_761mx")
 canvas_position = Vector2(54, 47)
 
-[sub_resource type="Resource" id="Resource_0uj88"]
+[sub_resource type="Resource" id="Resource_opluj"]
 script = ExtResource("8_4ctxh")
 name = &"randf_range"
 arguments = {
@@ -189,37 +189,84 @@ arguments = {
 "to": 550.0
 }
 
-[sub_resource type="Resource" id="Resource_qpfhn"]
+[sub_resource type="Resource" id="Resource_3dui4"]
 script = ExtResource("8_4ctxh")
 name = &"vector2"
 arguments = {
 "x": 1000.0,
-"y": SubResource("Resource_0uj88")
+"y": SubResource("Resource_opluj")
 }
 
-[sub_resource type="Resource" id="Resource_5r4fg"]
+[sub_resource type="Resource" id="Resource_nrtxq"]
 script = ExtResource("8_an3ek")
 name = &"Node2D_set_position"
 children = Array[ExtResource("8_an3ek")]([])
 arguments = {
-"value": SubResource("Resource_qpfhn")
+"value": SubResource("Resource_3dui4")
 }
 
-[sub_resource type="Resource" id="Resource_pt1y3"]
+[sub_resource type="Resource" id="Resource_xffkh"]
 script = ExtResource("8_an3ek")
 name = &"process"
-children = Array[ExtResource("8_an3ek")]([SubResource("Resource_5r4fg")])
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_nrtxq")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_q3exc"]
+[sub_resource type="Resource" id="Resource_ruvo7"]
 script = ExtResource("7_8cvv3")
-root = SubResource("Resource_pt1y3")
+root = SubResource("Resource_xffkh")
 canvas_position = Vector2(375, 75)
+
+[sub_resource type="Resource" id="Resource_v8yhv"]
+script = ExtResource("8_4ctxh")
+name = &"simplespawner_get_spawn_frequency"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_pk6km"]
+script = ExtResource("8_4ctxh")
+name = &"pow"
+arguments = {
+"base": SubResource("Resource_v8yhv"),
+"exp": 0.85
+}
+
+[sub_resource type="Resource" id="Resource_hgoye"]
+script = ExtResource("8_an3ek")
+name = &"simplespawner_set_spawn_frequency"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {
+"new_frequency": SubResource("Resource_pk6km")
+}
+
+[sub_resource type="Resource" id="Resource_xy42h"]
+script = ExtResource("8_4ctxh")
+name = &"simplespawner_get_spawn_frequency"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_f3wc1"]
+script = ExtResource("8_an3ek")
+name = &"print"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {
+"text": SubResource("Resource_xy42h")
+}
+
+[sub_resource type="Resource" id="Resource_cytfa"]
+script = ExtResource("8_an3ek")
+name = &"define_method"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_hgoye"), SubResource("Resource_f3wc1")])
+arguments = {
+"method_name": &"increase_spawn_rate"
+}
+
+[sub_resource type="Resource" id="Resource_c2i3s"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_cytfa")
+canvas_position = Vector2(100, 350)
 
 [sub_resource type="Resource" id="Resource_mx5s8"]
 script = ExtResource("9_a8xal")
 script_inherits = "SimpleSpawner"
-block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_hmo60"), SubResource("Resource_q3exc")])
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_iq7nm"), SubResource("Resource_ruvo7"), SubResource("Resource_c2i3s")])
 variables = Array[ExtResource("10_pjdut")]([])
 generated_script = "extends SimpleSpawner
 
@@ -229,6 +276,10 @@ func _ready():
 
 func _process(delta):
 	position = (Vector2(1000, (randf_range(0, 550))))
+
+func increase_spawn_rate():
+	do_set_spawn_frequency((pow((spawn_frequency), 0.85)))
+	print((spawn_frequency))
 
 "
 version = 0
@@ -288,7 +339,7 @@ shape = SubResource("RectangleShape2D_a01j5")
 script = ExtResource("6_by3km")
 block_script = SubResource("Resource_acnid")
 
-[node name="SimpleSpawner" type="Node2D" parent="."]
+[node name="SimpleSpawner" type="Node2D" parent="." groups=["spawner"]]
 position = Vector2(1000, 275)
 script = ExtResource("13_jo5u2")
 scenes = Array[PackedScene]([ExtResource("2_2m1wf"), ExtResource("10_0r6ub")])

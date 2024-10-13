@@ -43,6 +43,7 @@ coins=""
 obstacles=""
 Overlay=""
 Music=""
+spawner=""
 
 [input]
 

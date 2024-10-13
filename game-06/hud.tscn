@@ -32,7 +32,7 @@ texture = SubResource("GradientTexture2D_admu3")
 font = ExtResource("7_7m1de")
 font_size = 40
 
-[sub_resource type="Resource" id="Resource_7f4as"]
+[sub_resource type="Resource" id="Resource_myfnk"]
 script = ExtResource("4_i4vdi")
 name = &"CanvasItem_set_visible"
 children = Array[ExtResource("4_i4vdi")]([])
@@ -40,23 +40,23 @@ arguments = {
 "value": true
 }
 
-[sub_resource type="Resource" id="Resource_5emim"]
+[sub_resource type="Resource" id="Resource_r7ne3"]
 script = ExtResource("4_i4vdi")
 name = &"define_method"
-children = Array[ExtResource("4_i4vdi")]([SubResource("Resource_7f4as")])
+children = Array[ExtResource("4_i4vdi")]([SubResource("Resource_myfnk")])
 arguments = {
 "method_name": &"game_over"
 }
 
-[sub_resource type="Resource" id="Resource_krpes"]
+[sub_resource type="Resource" id="Resource_58xwm"]
 script = ExtResource("3_yjmq7")
-root = SubResource("Resource_5emim")
-canvas_position = Vector2(50, 50)
+root = SubResource("Resource_r7ne3")
+canvas_position = Vector2(75, 50)
 
 [sub_resource type="Resource" id="Resource_d5bk8"]
 script = ExtResource("5_gl83s")
 script_inherits = "PanelContainer"
-block_serialization_trees = Array[ExtResource("3_yjmq7")]([SubResource("Resource_krpes")])
+block_serialization_trees = Array[ExtResource("3_yjmq7")]([SubResource("Resource_58xwm")])
 variables = Array[ExtResource("6_70vs7")]([])
 generated_script = "extends PanelContainer
 

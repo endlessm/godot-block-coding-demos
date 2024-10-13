@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://fvdldxg5au17"]
+[gd_scene load_steps=34 format=3 uid="uid://fvdldxg5au17"]
 
 [ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_og0d8"]
 [ext_resource type="Texture2D" uid="uid://djqy6w0vissy2" path="res://game-06/graphics/glow.png" id="2_p4myk"]
@@ -9,20 +9,20 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="7_qi5iu"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="8_vi8nk"]
 
-[sub_resource type="Resource" id="Resource_2wbve"]
+[sub_resource type="Resource" id="Resource_wylb0"]
 script = ExtResource("6_mye12")
 name = &"area2d_on_entered:something"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_54nqn"]
+[sub_resource type="Resource" id="Resource_x004a"]
 script = ExtResource("6_mye12")
 name = &"is_node_in_group"
 arguments = {
 "group": "Ship",
-"node": SubResource("Resource_2wbve")
+"node": SubResource("Resource_wylb0")
 }
 
-[sub_resource type="Resource" id="Resource_gghg0"]
+[sub_resource type="Resource" id="Resource_g7afc"]
 script = ExtResource("5_yr5t4")
 name = &"call_method_group"
 children = Array[ExtResource("5_yr5t4")]([])
@@ -31,23 +31,23 @@ arguments = {
 "method_name": "increase_score"
 }
 
-[sub_resource type="Resource" id="Resource_0lkm3"]
+[sub_resource type="Resource" id="Resource_vnucj"]
 script = ExtResource("6_mye12")
 name = &"get_node"
 arguments = {
 "path": NodePath("../AnimationPlayer")
 }
 
-[sub_resource type="Resource" id="Resource_88rbs"]
+[sub_resource type="Resource" id="Resource_pegsp"]
 script = ExtResource("5_yr5t4")
 name = &"call_method_node"
 children = Array[ExtResource("5_yr5t4")]([])
 arguments = {
 "method_name": "play_taken",
-"node": SubResource("Resource_0lkm3")
+"node": SubResource("Resource_vnucj")
 }
 
-[sub_resource type="Resource" id="Resource_4xsc8"]
+[sub_resource type="Resource" id="Resource_xtl6a"]
 script = ExtResource("5_yr5t4")
 name = &"play_sound"
 children = Array[ExtResource("5_yr5t4")]([])
@@ -57,26 +57,35 @@ arguments = {
 "pitch": 1.0
 }
 
-[sub_resource type="Resource" id="Resource_sqbea"]
+[sub_resource type="Resource" id="Resource_mocci"]
 script = ExtResource("5_yr5t4")
-name = &"if"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_gghg0"), SubResource("Resource_88rbs"), SubResource("Resource_4xsc8")])
+name = &"call_method_group"
+children = Array[ExtResource("5_yr5t4")]([])
 arguments = {
-"condition": SubResource("Resource_54nqn")
+"group": "spawner",
+"method_name": "increase_spawn_rate"
 }
 
-[sub_resource type="Resource" id="Resource_8sciy"]
+[sub_resource type="Resource" id="Resource_37vjb"]
+script = ExtResource("5_yr5t4")
+name = &"if"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_g7afc"), SubResource("Resource_pegsp"), SubResource("Resource_xtl6a"), SubResource("Resource_mocci")])
+arguments = {
+"condition": SubResource("Resource_x004a")
+}
+
+[sub_resource type="Resource" id="Resource_jf4y7"]
 script = ExtResource("5_yr5t4")
 name = &"area2d_on_entered"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_sqbea")])
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_37vjb")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_pni3d"]
+[sub_resource type="Resource" id="Resource_rrq73"]
 script = ExtResource("4_xb1ij")
-root = SubResource("Resource_8sciy")
+root = SubResource("Resource_jf4y7")
 canvas_position = Vector2(75, 100)
 
-[sub_resource type="Resource" id="Resource_2vwen"]
+[sub_resource type="Resource" id="Resource_tjpsh"]
 script = ExtResource("5_yr5t4")
 name = &"load_sound"
 children = Array[ExtResource("5_yr5t4")]([])
@@ -85,21 +94,21 @@ arguments = {
 "name": "Ding"
 }
 
-[sub_resource type="Resource" id="Resource_lhmd8"]
+[sub_resource type="Resource" id="Resource_pa5ws"]
 script = ExtResource("5_yr5t4")
 name = &"ready"
-children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_2vwen")])
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_tjpsh")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_s1kdp"]
+[sub_resource type="Resource" id="Resource_o48cr"]
 script = ExtResource("4_xb1ij")
-root = SubResource("Resource_lhmd8")
+root = SubResource("Resource_pa5ws")
 canvas_position = Vector2(350, 625)
 
 [sub_resource type="Resource" id="Resource_1tgsl"]
 script = ExtResource("7_qi5iu")
 script_inherits = "Area2D"
-block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_pni3d"), SubResource("Resource_s1kdp")])
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_rrq73"), SubResource("Resource_o48cr")])
 variables = Array[ExtResource("8_vi8nk")]([])
 generated_script = "extends Area2D
 
@@ -117,6 +126,7 @@ func _on_body_entered(something: Node2D):
 		__sound_node_1.pitch_scale = 1
 		__sound_node_1.play()
 
+		get_tree().call_group('spawner', 'increase_spawn_rate')
 
 func _ready():
 	var __sound_1 = AudioStreamPlayer.new()
