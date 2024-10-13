@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dps3xjhs2ssns"]
+[gd_scene load_steps=48 format=3 uid="uid://dps3xjhs2ssns"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_rrros"]
 [ext_resource type="Texture2D" uid="uid://dqobtlpqjmouw" path="res://game-06/graphics/engine.svg" id="2_qdvvn"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="8_ui4ru"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="9_5ylav"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="11_d0d2t"]
+[ext_resource type="Script" path="res://addons/block_code/simple_spawner/simple_spawner.gd" id="12_12re8"]
+[ext_resource type="PackedScene" uid="uid://dq6j2vuq5a3oi" path="res://game-06/missile.tscn" id="13_6hmw0"]
 
 [sub_resource type="Curve" id="Curve_j0da6"]
 _data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -328,6 +330,68 @@ func crash():
 "
 version = 0
 
+[sub_resource type="Resource" id="Resource_o66dy"]
+script = ExtResource("6_rpoob")
+name = &"ready"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_6cig5"]
+script = ExtResource("5_8ag0i")
+root = SubResource("Resource_o66dy")
+canvas_position = Vector2(54, 47)
+
+[sub_resource type="Resource" id="Resource_85ivy"]
+script = ExtResource("11_d0d2t")
+name = &"is_input_actioned"
+arguments = {
+"action": "just_released",
+"action_name": &"ui_accept"
+}
+
+[sub_resource type="Resource" id="Resource_cuuy3"]
+script = ExtResource("6_rpoob")
+name = &"simplespawner_spawn_once"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_1g1fm"]
+script = ExtResource("6_rpoob")
+name = &"if"
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_cuuy3")])
+arguments = {
+"condition": SubResource("Resource_85ivy")
+}
+
+[sub_resource type="Resource" id="Resource_pca48"]
+script = ExtResource("6_rpoob")
+name = &"process"
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_1g1fm")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_jx87p"]
+script = ExtResource("5_8ag0i")
+root = SubResource("Resource_pca48")
+canvas_position = Vector2(75, 125)
+
+[sub_resource type="Resource" id="Resource_tkae2"]
+script = ExtResource("8_ui4ru")
+script_inherits = "SimpleSpawner"
+block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_6cig5"), SubResource("Resource_jx87p")])
+variables = Array[ExtResource("9_5ylav")]([])
+generated_script = "extends SimpleSpawner
+
+
+func _ready():
+	pass
+
+func _process(delta):
+	if (Input.is_action_just_released('ui_accept')):
+		spawn_once()
+
+"
+version = 0
+
 [node name="SimpleCharacter" type="CharacterBody2D" groups=["Ship", "affected_by_gravity"]]
 script = ExtResource("1_rrros")
 speed = Vector2(400, 400)
@@ -377,3 +441,12 @@ block_script = SubResource("Resource_gtmbp")
 [node name="BlockCode" type="Node" parent="."]
 script = ExtResource("4_i1022")
 block_script = SubResource("Resource_0xoh2")
+
+[node name="SimpleSpawner" type="Node2D" parent="."]
+script = ExtResource("12_12re8")
+scenes = Array[PackedScene]([ExtResource("13_6hmw0")])
+spawn_parent = 1
+
+[node name="BlockCode" type="Node" parent="SimpleSpawner"]
+script = ExtResource("4_i1022")
+block_script = SubResource("Resource_tkae2")

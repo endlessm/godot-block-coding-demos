@@ -1,0 +1,230 @@
+[gd_scene load_steps=37 format=3 uid="uid://dq6j2vuq5a3oi"]
+
+[ext_resource type="Texture2D" uid="uid://ckre7g8q0t1s1" path="res://game-05/ball.png" id="1_63s6k"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_cfb8m"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="3_d1jpr"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_gu35m"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="5_1u4u4"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="6_s22x2"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="7_ykniq"]
+
+[sub_resource type="Resource" id="Resource_dqlak"]
+script = ExtResource("4_gu35m")
+name = &"set_var_time"
+children = Array[ExtResource("4_gu35m")]([])
+arguments = {
+"value": 0.0
+}
+
+[sub_resource type="Resource" id="Resource_v1hyu"]
+script = ExtResource("4_gu35m")
+name = &"ready"
+children = Array[ExtResource("4_gu35m")]([SubResource("Resource_dqlak")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_i8pgu"]
+script = ExtResource("3_d1jpr")
+root = SubResource("Resource_v1hyu")
+canvas_position = Vector2(50, 25)
+
+[sub_resource type="Resource" id="Resource_vgtr5"]
+script = ExtResource("5_1u4u4")
+name = &"get_var_have_pos"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_jibb8"]
+script = ExtResource("5_1u4u4")
+name = &"not"
+arguments = {
+"bool": SubResource("Resource_vgtr5")
+}
+
+[sub_resource type="Resource" id="Resource_0o63v"]
+script = ExtResource("4_gu35m")
+name = &"set_var_have_pos"
+children = Array[ExtResource("4_gu35m")]([])
+arguments = {
+"value": true
+}
+
+[sub_resource type="Resource" id="Resource_d1106"]
+script = ExtResource("5_1u4u4")
+name = &"Node2D_get_position"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_idvwd"]
+script = ExtResource("4_gu35m")
+name = &"set_var_spawn_pos"
+children = Array[ExtResource("4_gu35m")]([])
+arguments = {
+"value": SubResource("Resource_d1106")
+}
+
+[sub_resource type="Resource" id="Resource_uunfr"]
+script = ExtResource("4_gu35m")
+name = &"if"
+children = Array[ExtResource("4_gu35m")]([SubResource("Resource_0o63v"), SubResource("Resource_idvwd")])
+arguments = {
+"condition": SubResource("Resource_jibb8")
+}
+
+[sub_resource type="Resource" id="Resource_un1gg"]
+script = ExtResource("5_1u4u4")
+name = &"get_var_time"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_ybbi0"]
+script = ExtResource("5_1u4u4")
+name = &"add"
+arguments = {
+"a": SubResource("Resource_un1gg"),
+"b": 1.5
+}
+
+[sub_resource type="Resource" id="Resource_m083k"]
+script = ExtResource("4_gu35m")
+name = &"set_var_time"
+children = Array[ExtResource("4_gu35m")]([])
+arguments = {
+"value": SubResource("Resource_ybbi0")
+}
+
+[sub_resource type="Resource" id="Resource_em68o"]
+script = ExtResource("5_1u4u4")
+name = &"Node2D_get_position"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_sy2hj"]
+script = ExtResource("5_1u4u4")
+name = &"vector2_x"
+arguments = {
+"vector2": SubResource("Resource_em68o")
+}
+
+[sub_resource type="Resource" id="Resource_2b114"]
+script = ExtResource("5_1u4u4")
+name = &"add"
+arguments = {
+"a": SubResource("Resource_sy2hj"),
+"b": 1.0
+}
+
+[sub_resource type="Resource" id="Resource_nxe2n"]
+script = ExtResource("5_1u4u4")
+name = &"get_var_spawn_pos"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_w7in4"]
+script = ExtResource("5_1u4u4")
+name = &"vector2_y"
+arguments = {
+"vector2": SubResource("Resource_nxe2n")
+}
+
+[sub_resource type="Resource" id="Resource_hares"]
+script = ExtResource("5_1u4u4")
+name = &"get_var_time"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_c4mu3"]
+script = ExtResource("5_1u4u4")
+name = &"sin"
+arguments = {
+"angle": SubResource("Resource_hares")
+}
+
+[sub_resource type="Resource" id="Resource_hfxlq"]
+script = ExtResource("5_1u4u4")
+name = &"multiply"
+arguments = {
+"a": SubResource("Resource_c4mu3"),
+"b": 100.0
+}
+
+[sub_resource type="Resource" id="Resource_dm04o"]
+script = ExtResource("5_1u4u4")
+name = &"add"
+arguments = {
+"a": SubResource("Resource_w7in4"),
+"b": SubResource("Resource_hfxlq")
+}
+
+[sub_resource type="Resource" id="Resource_2g63g"]
+script = ExtResource("5_1u4u4")
+name = &"vector2"
+arguments = {
+"x": SubResource("Resource_2b114"),
+"y": SubResource("Resource_dm04o")
+}
+
+[sub_resource type="Resource" id="Resource_qnd2k"]
+script = ExtResource("4_gu35m")
+name = &"Node2D_set_position"
+children = Array[ExtResource("4_gu35m")]([])
+arguments = {
+"value": SubResource("Resource_2g63g")
+}
+
+[sub_resource type="Resource" id="Resource_feexc"]
+script = ExtResource("4_gu35m")
+name = &"process"
+children = Array[ExtResource("4_gu35m")]([SubResource("Resource_uunfr"), SubResource("Resource_m083k"), SubResource("Resource_qnd2k")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_wolav"]
+script = ExtResource("3_d1jpr")
+root = SubResource("Resource_feexc")
+canvas_position = Vector2(50, 300)
+
+[sub_resource type="Resource" id="Resource_e77c3"]
+script = ExtResource("7_ykniq")
+var_name = "time"
+var_type = 3
+
+[sub_resource type="Resource" id="Resource_i8dmi"]
+script = ExtResource("7_ykniq")
+var_name = "spawn_pos"
+var_type = 5
+
+[sub_resource type="Resource" id="Resource_xuehi"]
+script = ExtResource("7_ykniq")
+var_name = "have_pos"
+var_type = 1
+
+[sub_resource type="Resource" id="Resource_b1gru"]
+script = ExtResource("6_s22x2")
+script_inherits = "Sprite2D"
+block_serialization_trees = Array[ExtResource("3_d1jpr")]([SubResource("Resource_i8pgu"), SubResource("Resource_wolav")])
+variables = Array[ExtResource("7_ykniq")]([SubResource("Resource_e77c3"), SubResource("Resource_i8dmi"), SubResource("Resource_xuehi")])
+generated_script = "extends Sprite2D
+
+var time: float
+
+var spawn_pos: Vector2
+
+var have_pos: bool
+
+
+func _ready():
+	time = 0
+
+func _process(delta):
+	if (not (have_pos)):
+		have_pos = true
+		spawn_pos = (position)
+	time = ((time) + 1.5)
+	position = (Vector2((((position).x) + 1), (((spawn_pos).y) + ((sin(deg_to_rad((time)))) * 100))))
+
+"
+version = 0
+
+[node name="Missile" type="Sprite2D"]
+modulate = Color(1, 0.25, 0.25, 1)
+top_level = true
+texture = ExtResource("1_63s6k")
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("2_cfb8m")
+block_script = SubResource("Resource_b1gru")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

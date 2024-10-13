@@ -10,6 +10,7 @@ const Types = preload("res://addons/block_code/types/types.gd")
 enum SpawnParent {
 	THIS,  ## Spawned scenes are children of this node
 	SCENE,  ## Spawned scenes are children of the scene
+	PARENT,
 }
 enum LimitBehavior { REPLACE, NO_SPAWN }
 
@@ -105,6 +106,9 @@ func spawn_once():
 		SpawnParent.SCENE:
 			get_tree().current_scene.add_child(spawned)
 			spawned.position = global_position
+		SpawnParent.PARENT:
+			spawned.global_position = get_parent().global_position 
+			get_parent().add_child(spawned)
 
 
 func do_set_spawn_frequency(new_frequency: float):
