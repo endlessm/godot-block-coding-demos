@@ -37,12 +37,17 @@ enabled=PackedStringArray("res://addons/block_code/plugin.cfg")
 [global_group]
 
 lasers=""
-Ship=""
 Score=""
 coins=""
 obstacles=""
 Overlay=""
 Music=""
+Ship=""
+blue_door_animation=""
+camera_zoom_animation=""
+peew_ani=""
+ship_hit_animation=""
+tutorial_animations=""
 
 [input]
 

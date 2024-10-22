@@ -1,13 +1,13 @@
-[gd_scene load_steps=86 format=3 uid="uid://ddfb835oqodiu"]
+[gd_scene load_steps=56 format=3 uid="uid://ddfb835oqodiu"]
 
 [ext_resource type="Texture2D" uid="uid://87d7l331isgd" path="res://game-05/message.png" id="1_7um2v"]
 [ext_resource type="FontFile" uid="uid://0a8howkelk56" path="res://game-05/font/Orbitron-Bold.ttf" id="2_e6uk8"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_rqupr"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_4febl"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_ygl4a"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="5_3n7ul"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="6_d0ag8"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="6_dkfcx"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="7_2rbra"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="7_sqcke"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="8_icrju"]
 
 [sub_resource type="Animation" id="Animation_v547r"]
 length = 0.001
@@ -572,504 +572,353 @@ _data = {
 "you_win": SubResource("Animation_fjdtp")
 }
 
-[sub_resource type="Resource" id="Resource_b0aen"]
-script = ExtResource("5_3n7ul")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_jpsy1"]
-script = ExtResource("6_d0ag8")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_xu8g4"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"animation": "tutorial_start",
-"direction": SubResource("Resource_jpsy1")
-}]]
-
-[sub_resource type="Resource" id="Resource_dbsrv"]
+[sub_resource type="Resource" id="Resource_rmcev"]
 script = ExtResource("4_ygl4a")
 name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_xu8g4")
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {
+"animation": "tutorial_start",
+"direction": "forward",
+"wait_mode": "until done"
+}
 
-[sub_resource type="Resource" id="Resource_1h6wi"]
+[sub_resource type="Resource" id="Resource_1pndw"]
 script = ExtResource("4_ygl4a")
 name = &"ready"
-position = Vector2(54, 47)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_dbsrv")]]
-block_serialized_properties = SubResource("Resource_b0aen")
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_rmcev")])
+arguments = {}
 
-[sub_resource type="Resource" id="Resource_rnd0j"]
-script = ExtResource("5_3n7ul")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "play_tutorial_goal"
-}]]
+[sub_resource type="Resource" id="Resource_op5b0"]
+script = ExtResource("4_4febl")
+root = SubResource("Resource_1pndw")
+canvas_position = Vector2(54, 47)
 
-[sub_resource type="Resource" id="Resource_4t1xr"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_l6ptb"]
-script = ExtResource("6_d0ag8")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_qebgr"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"animation": "tutorial_goal",
-"direction": SubResource("Resource_l6ptb")
-}]]
-
-[sub_resource type="Resource" id="Resource_bs6lg"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_qebgr")
-
-[sub_resource type="Resource" id="Resource_etvel"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_stop"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_bs6lg")]]
-block_serialized_properties = SubResource("Resource_4t1xr")
-
-[sub_resource type="Resource" id="Resource_frn14"]
-script = ExtResource("4_ygl4a")
-name = &"define_method"
-position = Vector2(50, 225)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_etvel")]]
-block_serialized_properties = SubResource("Resource_rnd0j")
-
-[sub_resource type="Resource" id="Resource_ds7vc"]
-script = ExtResource("5_3n7ul")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_758cl"]
-script = ExtResource("5_3n7ul")
-block_class = &"ControlBlock"
-serialized_props = [["scope", ""], ["param_input_strings_array", [{
-"condition": false
-}]]]
-
-[sub_resource type="Resource" id="Resource_t54da"]
-script = ExtResource("6_d0ag8")
-selected = 21
-items = ["ui_accept", "ui_select", "ui_cancel", "ui_focus_next", "ui_focus_prev", "ui_left", "ui_right", "ui_up", "ui_down", "ui_page_up", "ui_page_down", "ui_home", "ui_end", "ui_cut", "ui_copy", "ui_paste", "ui_undo", "ui_redo", "ui_text_completion_query", "ui_text_completion_accept", "ui_text_completion_replace", "ui_text_newline", "ui_text_newline_blank", "ui_text_newline_above", "ui_text_indent", "ui_text_dedent", "ui_text_backspace", "ui_text_backspace_word", "ui_text_backspace_word.macos", "ui_text_backspace_all_to_left", "ui_text_backspace_all_to_left.macos", "ui_text_delete", "ui_text_delete_word", "ui_text_delete_word.macos", "ui_text_delete_all_to_right", "ui_text_delete_all_to_right.macos", "ui_text_caret_left", "ui_text_caret_word_left", "ui_text_caret_word_left.macos", "ui_text_caret_right", "ui_text_caret_word_right", "ui_text_caret_word_right.macos", "ui_text_caret_up", "ui_text_caret_down", "ui_text_caret_line_start", "ui_text_caret_line_start.macos", "ui_text_caret_line_end", "ui_text_caret_line_end.macos", "ui_text_caret_page_up", "ui_text_caret_page_down", "ui_text_caret_document_start", "ui_text_caret_document_start.macos", "ui_text_caret_document_end", "ui_text_caret_document_end.macos", "ui_text_caret_add_below", "ui_text_caret_add_below.macos", "ui_text_caret_add_above", "ui_text_caret_add_above.macos", "ui_text_scroll_up", "ui_text_scroll_up.macos", "ui_text_scroll_down", "ui_text_scroll_down.macos", "ui_text_select_all", "ui_text_select_word_under_caret", "ui_text_select_word_under_caret.macos", "ui_text_add_selection_for_next_occurrence", "ui_text_skip_selection_for_next_occurrence", "ui_text_clear_carets_and_selection", "ui_text_toggle_insert_mode", "ui_menu", "ui_text_submit", "ui_graph_duplicate", "ui_graph_delete", "ui_filedialog_up_one_level", "ui_filedialog_refresh", "ui_filedialog_show_hidden", "ui_swap_input_direction", "player_1_select", "player_1_a"]
-
-[sub_resource type="Resource" id="Resource_fk5dt"]
-script = ExtResource("6_d0ag8")
-selected = 2
-items = ["pressed", "just_pressed", "just_released"]
-
-[sub_resource type="Resource" id="Resource_y68uq"]
-script = ExtResource("5_3n7ul")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"action": SubResource("Resource_fk5dt"),
-"action_name": SubResource("Resource_t54da")
-}]]
-
-[sub_resource type="Resource" id="Resource_atix6"]
-script = ExtResource("4_ygl4a")
+[sub_resource type="Resource" id="Resource_5moya"]
+script = ExtResource("6_dkfcx")
 name = &"is_input_actioned"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_y68uq")
+arguments = {
+"action": "just_released",
+"action_name": &"ui_text_newline"
+}
 
-[sub_resource type="Resource" id="Resource_yho5d"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_1uxrx"]
+[sub_resource type="Resource" id="Resource_fdeco"]
 script = ExtResource("4_ygl4a")
 name = &"animationplayer_stop"
-position = Vector2(20, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_yho5d")
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {}
 
-[sub_resource type="Resource" id="Resource_hi2ri"]
+[sub_resource type="Resource" id="Resource_0plnf"]
 script = ExtResource("4_ygl4a")
 name = &"if"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_atix6")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_1uxrx")]]
-block_serialized_properties = SubResource("Resource_758cl")
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_fdeco")])
+arguments = {
+"condition": SubResource("Resource_5moya")
+}
 
-[sub_resource type="Resource" id="Resource_w8obb"]
+[sub_resource type="Resource" id="Resource_q6tcy"]
 script = ExtResource("4_ygl4a")
 name = &"process"
-position = Vector2(500, 175)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_hi2ri")]]
-block_serialized_properties = SubResource("Resource_ds7vc")
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_0plnf")])
+arguments = {}
 
-[sub_resource type="Resource" id="Resource_o1dlf"]
-script = ExtResource("5_3n7ul")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "play_you_win"
-}]]
+[sub_resource type="Resource" id="Resource_m86sn"]
+script = ExtResource("4_4febl")
+root = SubResource("Resource_q6tcy")
+canvas_position = Vector2(625, 50)
 
-[sub_resource type="Resource" id="Resource_vi4mv"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_gpwch"]
-script = ExtResource("6_d0ag8")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_40ouy"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"animation": "you_win",
-"direction": SubResource("Resource_gpwch")
-}]]
-
-[sub_resource type="Resource" id="Resource_sxwvu"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_40ouy")
-
-[sub_resource type="Resource" id="Resource_dm3vu"]
+[sub_resource type="Resource" id="Resource_2fhp5"]
 script = ExtResource("4_ygl4a")
 name = &"animationplayer_stop"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_sxwvu")]]
-block_serialized_properties = SubResource("Resource_vi4mv")
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {}
 
-[sub_resource type="Resource" id="Resource_f8cq0"]
-script = ExtResource("4_ygl4a")
-name = &"define_method"
-position = Vector2(50, 400)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_dm3vu")]]
-block_serialized_properties = SubResource("Resource_o1dlf")
-
-[sub_resource type="Resource" id="Resource_vvejr"]
-script = ExtResource("5_3n7ul")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "play_game_over"
-}]]
-
-[sub_resource type="Resource" id="Resource_caewh"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_t176t"]
-script = ExtResource("6_d0ag8")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_j3tj3"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"animation": "game_over",
-"direction": SubResource("Resource_t176t")
-}]]
-
-[sub_resource type="Resource" id="Resource_70ktp"]
+[sub_resource type="Resource" id="Resource_ej8u4"]
 script = ExtResource("4_ygl4a")
 name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_j3tj3")
-
-[sub_resource type="Resource" id="Resource_fsdih"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_stop"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_70ktp")]]
-block_serialized_properties = SubResource("Resource_caewh")
-
-[sub_resource type="Resource" id="Resource_gmcph"]
-script = ExtResource("4_ygl4a")
-name = &"define_method"
-position = Vector2(450, 475)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_fsdih")]]
-block_serialized_properties = SubResource("Resource_vvejr")
-
-[sub_resource type="Resource" id="Resource_7gv16"]
-script = ExtResource("5_3n7ul")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "play_blue_key_taken"
-}]]
-
-[sub_resource type="Resource" id="Resource_vj3pl"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_flbh2"]
-script = ExtResource("6_d0ag8")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_rcxfs"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"animation": "blue_key_taken",
-"direction": SubResource("Resource_flbh2")
-}]]
-
-[sub_resource type="Resource" id="Resource_ng71r"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_rcxfs")
-
-[sub_resource type="Resource" id="Resource_pd2el"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_stop"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_ng71r")]]
-block_serialized_properties = SubResource("Resource_vj3pl")
-
-[sub_resource type="Resource" id="Resource_v1sd0"]
-script = ExtResource("4_ygl4a")
-name = &"define_method"
-position = Vector2(75, 650)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_pd2el")]]
-block_serialized_properties = SubResource("Resource_7gv16")
-
-[sub_resource type="Resource" id="Resource_6pi6o"]
-script = ExtResource("5_3n7ul")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "get_hit"
-}]]
-
-[sub_resource type="Resource" id="Resource_aryjo"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_7pf5o"]
-script = ExtResource("6_d0ag8")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_jk7lp"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"animation": "got_hit",
-"direction": SubResource("Resource_7pf5o")
-}]]
-
-[sub_resource type="Resource" id="Resource_raxdr"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_jk7lp")
-
-[sub_resource type="Resource" id="Resource_2httc"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_stop"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_raxdr")]]
-block_serialized_properties = SubResource("Resource_aryjo")
-
-[sub_resource type="Resource" id="Resource_s8f8s"]
-script = ExtResource("4_ygl4a")
-name = &"define_method"
-position = Vector2(875, 575)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_2httc")]]
-block_serialized_properties = SubResource("Resource_6pi6o")
-
-[sub_resource type="Resource" id="Resource_gcnbr"]
-script = ExtResource("5_3n7ul")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "play_blue_key_needed"
-}]]
-
-[sub_resource type="Resource" id="Resource_uyxsb"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_21ibg"]
-script = ExtResource("6_d0ag8")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_wxy88"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"animation": "blue_key_needed",
-"direction": SubResource("Resource_21ibg")
-}]]
-
-[sub_resource type="Resource" id="Resource_52wv7"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_wxy88")
-
-[sub_resource type="Resource" id="Resource_bqmdj"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_stop"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_52wv7")]]
-block_serialized_properties = SubResource("Resource_uyxsb")
-
-[sub_resource type="Resource" id="Resource_oqr0l"]
-script = ExtResource("4_ygl4a")
-name = &"define_method"
-position = Vector2(525, 775)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_bqmdj")]]
-block_serialized_properties = SubResource("Resource_gcnbr")
-
-[sub_resource type="Resource" id="Resource_pofje"]
-script = ExtResource("5_3n7ul")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "blaster_item_taken"
-}]]
-
-[sub_resource type="Resource" id="Resource_w2oo8"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_8i5ep"]
-script = ExtResource("6_d0ag8")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_ebji5"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {
 "animation": "tutorial_blaster",
-"direction": SubResource("Resource_8i5ep")
-}]]
+"direction": "forward",
+"wait_mode": "until done"
+}
 
-[sub_resource type="Resource" id="Resource_qjdbm"]
-script = ExtResource("5_3n7ul")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"text": "Hello"
-}]]
-
-[sub_resource type="Resource" id="Resource_h2qko"]
-script = ExtResource("4_ygl4a")
-name = &"print"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_qjdbm")
-
-[sub_resource type="Resource" id="Resource_a1jb7"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_h2qko")]]
-block_serialized_properties = SubResource("Resource_ebji5")
-
-[sub_resource type="Resource" id="Resource_j1dft"]
-script = ExtResource("4_ygl4a")
-name = &"animationplayer_stop"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_a1jb7")]]
-block_serialized_properties = SubResource("Resource_w2oo8")
-
-[sub_resource type="Resource" id="Resource_i3x8e"]
+[sub_resource type="Resource" id="Resource_aw0kg"]
 script = ExtResource("4_ygl4a")
 name = &"define_method"
-position = Vector2(950, 825)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_j1dft")]]
-block_serialized_properties = SubResource("Resource_pofje")
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_2fhp5"), SubResource("Resource_ej8u4")])
+arguments = {
+"method_name": &"play_tutorial_blaster"
+}
 
-[sub_resource type="Resource" id="Resource_4gtcd"]
+[sub_resource type="Resource" id="Resource_cu2ay"]
+script = ExtResource("4_4febl")
+root = SubResource("Resource_aw0kg")
+canvas_position = Vector2(700, 350)
+
+[sub_resource type="Resource" id="Resource_7m6i2"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_stop"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_8e2ud"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {
+"animation": "you_win",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_gh1a4"]
+script = ExtResource("4_ygl4a")
+name = &"define_method"
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_7m6i2"), SubResource("Resource_8e2ud")])
+arguments = {
+"method_name": &"play_you_win"
+}
+
+[sub_resource type="Resource" id="Resource_ju1fd"]
+script = ExtResource("4_4febl")
+root = SubResource("Resource_gh1a4")
+canvas_position = Vector2(-150, 350)
+
+[sub_resource type="Resource" id="Resource_6nbxd"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_stop"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_iare3"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {
+"animation": "tutorial_goal",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_h4fs3"]
+script = ExtResource("4_ygl4a")
+name = &"define_method"
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_6nbxd"), SubResource("Resource_iare3")])
+arguments = {
+"method_name": &"play_tutorial_goal"
+}
+
+[sub_resource type="Resource" id="Resource_oggdw"]
+script = ExtResource("4_4febl")
+root = SubResource("Resource_h4fs3")
+canvas_position = Vector2(-250, 175)
+
+[sub_resource type="Resource" id="Resource_yt2re"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_stop"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_7cj13"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {
+"animation": "game_over",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_1edcw"]
+script = ExtResource("4_ygl4a")
+name = &"define_method"
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_yt2re"), SubResource("Resource_7cj13")])
+arguments = {
+"method_name": &"play_game_over"
+}
+
+[sub_resource type="Resource" id="Resource_ib1ss"]
+script = ExtResource("4_4febl")
+root = SubResource("Resource_1edcw")
+canvas_position = Vector2(-400, 550)
+
+[sub_resource type="Resource" id="Resource_rn0qh"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_stop"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_hw3al"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {
+"animation": "got_hit",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_bk1mj"]
+script = ExtResource("4_ygl4a")
+name = &"define_method"
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_rn0qh"), SubResource("Resource_hw3al")])
+arguments = {
+"method_name": &"play_got_hit"
+}
+
+[sub_resource type="Resource" id="Resource_i8ihj"]
+script = ExtResource("4_4febl")
+root = SubResource("Resource_bk1mj")
+canvas_position = Vector2(-325, 725)
+
+[sub_resource type="Resource" id="Resource_5k8fh"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_stop"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_w3i8g"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {
+"animation": "blue_key_needed",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_tg4jp"]
+script = ExtResource("4_ygl4a")
+name = &"define_method"
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_5k8fh"), SubResource("Resource_w3i8g")])
+arguments = {
+"method_name": &"play_blue_key_needed"
+}
+
+[sub_resource type="Resource" id="Resource_51pfr"]
+script = ExtResource("4_4febl")
+root = SubResource("Resource_tg4jp")
+canvas_position = Vector2(225, 625)
+
+[sub_resource type="Resource" id="Resource_scwkq"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_stop"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_ayuxy"]
+script = ExtResource("4_ygl4a")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_ygl4a")]([])
+arguments = {
+"animation": "blue_key_taken",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_s7ih4"]
+script = ExtResource("4_ygl4a")
+name = &"define_method"
+children = Array[ExtResource("4_ygl4a")]([SubResource("Resource_scwkq"), SubResource("Resource_ayuxy")])
+arguments = {
+"method_name": &"play_blue_key_taken"
+}
+
+[sub_resource type="Resource" id="Resource_nxdd7"]
+script = ExtResource("4_4febl")
+root = SubResource("Resource_s7ih4")
+canvas_position = Vector2(300, 825)
+
+[sub_resource type="Resource" id="Resource_ebq1y"]
 script = ExtResource("7_sqcke")
 script_inherits = "AnimationPlayer"
-block_trees = Array[ExtResource("4_ygl4a")]([SubResource("Resource_1h6wi"), SubResource("Resource_frn14"), SubResource("Resource_w8obb"), SubResource("Resource_f8cq0"), SubResource("Resource_gmcph"), SubResource("Resource_v1sd0"), SubResource("Resource_s8f8s"), SubResource("Resource_oqr0l"), SubResource("Resource_i3x8e")])
-variables = Array[ExtResource("8_icrju")]([])
+block_serialization_trees = Array[ExtResource("4_4febl")]([SubResource("Resource_op5b0"), SubResource("Resource_m86sn"), SubResource("Resource_cu2ay"), SubResource("Resource_ju1fd"), SubResource("Resource_oggdw"), SubResource("Resource_ib1ss"), SubResource("Resource_i8ihj"), SubResource("Resource_51pfr"), SubResource("Resource_nxdd7")])
+variables = Array[ExtResource("7_2rbra")]([])
 generated_script = "extends AnimationPlayer
 
 
 func _ready():
-	if \"ahead\" == \"ahead\":
+	if 'forward' == \"forward\":
 		play('tutorial_start')
 	else:
 		play_backwards('tutorial_start')
+	if 'until done' == \"until done\":
+		await animation_finished
 
-func play_tutorial_goal():
-	stop()
-	if \"ahead\" == \"ahead\":
-		play('tutorial_goal')
-	else:
-		play_backwards('tutorial_goal')
 
 func _process(delta):
-	if Input.is_action_just_released(\"ui_text_newline\"):
+	if (Input.is_action_just_released('ui_text_newline')):
 		stop()
 
-func play_you_win():
+func play_tutorial_blaster():
 	stop()
-	if \"ahead\" == \"ahead\":
-		play('you_win')
-	else:
-		play_backwards('you_win')
-
-func play_game_over():
-	stop()
-	if \"ahead\" == \"ahead\":
-		play('game_over')
-	else:
-		play_backwards('game_over')
-
-func play_blue_key_taken():
-	stop()
-	if \"ahead\" == \"ahead\":
-		play('blue_key_taken')
-	else:
-		play_backwards('blue_key_taken')
-
-func get_hit():
-	stop()
-	if \"ahead\" == \"ahead\":
-		play('got_hit')
-	else:
-		play_backwards('got_hit')
-
-func play_blue_key_needed():
-	stop()
-	if \"ahead\" == \"ahead\":
-		play('blue_key_needed')
-	else:
-		play_backwards('blue_key_needed')
-
-func blaster_item_taken():
-	stop()
-	if \"ahead\" == \"ahead\":
+	if 'forward' == \"forward\":
 		play('tutorial_blaster')
 	else:
 		play_backwards('tutorial_blaster')
-	print('Hello')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+
+func play_you_win():
+	stop()
+	if 'forward' == \"forward\":
+		play('you_win')
+	else:
+		play_backwards('you_win')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+
+func play_tutorial_goal():
+	stop()
+	if 'forward' == \"forward\":
+		play('tutorial_goal')
+	else:
+		play_backwards('tutorial_goal')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+
+func play_game_over():
+	stop()
+	if 'forward' == \"forward\":
+		play('game_over')
+	else:
+		play_backwards('game_over')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+
+func play_got_hit():
+	stop()
+	if 'forward' == \"forward\":
+		play('got_hit')
+	else:
+		play_backwards('got_hit')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+
+func play_blue_key_needed():
+	stop()
+	if 'forward' == \"forward\":
+		play('blue_key_needed')
+	else:
+		play_backwards('blue_key_needed')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+
+func play_blue_key_taken():
+	stop()
+	if 'forward' == \"forward\":
+		play('blue_key_taken')
+	else:
+		play_backwards('blue_key_taken')
+	if 'until done' == \"until done\":
+		await animation_finished
+
 
 "
 version = 0
@@ -1361,11 +1210,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(1, 0, 0.11, 0.482)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["blaster_item_listener", "tutorial_anis"]]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["tutorial_animations"]]
 libraries = {
 "": SubResource("AnimationLibrary_3gym7")
 }
 
 [node name="BlockCode" type="Node" parent="AnimationPlayer"]
 script = ExtResource("3_rqupr")
-block_script = SubResource("Resource_4gtcd")
+block_script = SubResource("Resource_ebq1y")
