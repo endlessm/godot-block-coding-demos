@@ -1,7 +1,6 @@
-[gd_scene load_steps=131 format=3 uid="uid://8st4scqt06l8"]
+[gd_scene load_steps=130 format=3 uid="uid://8st4scqt06l8"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_vu6uw"]
-[ext_resource type="SpriteFrames" uid="uid://bo581k1esb50n" path="res://game-03/components/player/spriteframes-red.tres" id="2_msaml"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_x0qit"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_ckbst"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_mcw5b"]
@@ -1106,13 +1105,6 @@ version = 0
 collision_layer = 3
 collision_mask = 5
 script = ExtResource("1_vu6uw")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-unique_name_in_owner = true
-visible = false
-sprite_frames = ExtResource("2_msaml")
-animation = &"hit"
-autoplay = "walk_right"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("9_d5cr6")
