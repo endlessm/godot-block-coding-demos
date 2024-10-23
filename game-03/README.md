@@ -35,3 +35,6 @@ life.
 
 When the player enters an enemy's HitArea or drops down into the Dangerzone, the
 lives' score decreases one. If there is no more life, shows "You Lose!" label.
+
+When the player stands on the floating platform (the player enters a thin area
+on top of the platform), it triggers shake platform animation and drops down.
