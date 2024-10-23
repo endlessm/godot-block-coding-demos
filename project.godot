@@ -50,6 +50,7 @@ camera_zoom_animation=""
 peew_ani=""
 ship_hit_animation=""
 tutorial_animations=""
+Ball=""
 
 [input]
 
