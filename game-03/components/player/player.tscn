@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=3 uid="uid://8st4scqt06l8"]
+[gd_scene load_steps=131 format=3 uid="uid://8st4scqt06l8"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_vu6uw"]
 [ext_resource type="SpriteFrames" uid="uid://bo581k1esb50n" path="res://game-03/components/player/spriteframes-red.tres" id="2_msaml"]
@@ -39,7 +39,19 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_7m0y0"]
 resource_name = "hit"
-length = 0.2
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
 
 [sub_resource type="Animation" id="Animation_mnmxn"]
 resource_name = "idle"
@@ -158,21 +170,21 @@ _data = {
 "walk_right": SubResource("Animation_1w8at")
 }
 
-[sub_resource type="Resource" id="Resource_t14ct"]
+[sub_resource type="Resource" id="Resource_1nk7h"]
 script = ExtResource("6_c3puh")
 name = &"get_var_move_state"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_5qu8g"]
+[sub_resource type="Resource" id="Resource_k0tjt"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_t14ct"),
+"float1": SubResource("Resource_1nk7h"),
 "float2": 0.0,
 "op": "!="
 }
 
-[sub_resource type="Resource" id="Resource_s8ff2"]
+[sub_resource type="Resource" id="Resource_s0t8s"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_move_state"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -180,7 +192,7 @@ arguments = {
 "value": 0
 }
 
-[sub_resource type="Resource" id="Resource_fhl7k"]
+[sub_resource type="Resource" id="Resource_gur35"]
 script = ExtResource("4_mcw5b")
 name = &"animationplayer_play"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -190,42 +202,42 @@ arguments = {
 "wait_mode": "until done"
 }
 
-[sub_resource type="Resource" id="Resource_c158m"]
+[sub_resource type="Resource" id="Resource_ym0j0"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_s8ff2"), SubResource("Resource_fhl7k")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_s0t8s"), SubResource("Resource_gur35")])
 arguments = {
-"condition": SubResource("Resource_5qu8g")
+"condition": SubResource("Resource_k0tjt")
 }
 
-[sub_resource type="Resource" id="Resource_h8x7w"]
+[sub_resource type="Resource" id="Resource_y0yvm"]
 script = ExtResource("4_mcw5b")
 name = &"define_method"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_c158m")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_ym0j0")])
 arguments = {
 "method_name": &"be_idle"
 }
 
-[sub_resource type="Resource" id="Resource_0u11q"]
+[sub_resource type="Resource" id="Resource_wcepv"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_h8x7w")
+root = SubResource("Resource_y0yvm")
 canvas_position = Vector2(425, 50)
 
-[sub_resource type="Resource" id="Resource_wpg5w"]
+[sub_resource type="Resource" id="Resource_3wj3g"]
 script = ExtResource("6_c3puh")
 name = &"get_var_move_state"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_o2udd"]
+[sub_resource type="Resource" id="Resource_x4ihf"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_wpg5w"),
+"float1": SubResource("Resource_3wj3g"),
 "float2": 1.0,
 "op": "!="
 }
 
-[sub_resource type="Resource" id="Resource_f5r4o"]
+[sub_resource type="Resource" id="Resource_44svf"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_move_state"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -233,7 +245,7 @@ arguments = {
 "value": 1
 }
 
-[sub_resource type="Resource" id="Resource_lgxs5"]
+[sub_resource type="Resource" id="Resource_b536v"]
 script = ExtResource("4_mcw5b")
 name = &"animationplayer_play"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -243,42 +255,42 @@ arguments = {
 "wait_mode": "in the background"
 }
 
-[sub_resource type="Resource" id="Resource_b3jpk"]
+[sub_resource type="Resource" id="Resource_4mbsq"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_f5r4o"), SubResource("Resource_lgxs5")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_44svf"), SubResource("Resource_b536v")])
 arguments = {
-"condition": SubResource("Resource_o2udd")
+"condition": SubResource("Resource_x4ihf")
 }
 
-[sub_resource type="Resource" id="Resource_n5doc"]
+[sub_resource type="Resource" id="Resource_irflf"]
 script = ExtResource("4_mcw5b")
 name = &"define_method"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_b3jpk")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_4mbsq")])
 arguments = {
 "method_name": &"walk_right"
 }
 
-[sub_resource type="Resource" id="Resource_oj2g3"]
+[sub_resource type="Resource" id="Resource_1htfx"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_n5doc")
+root = SubResource("Resource_irflf")
 canvas_position = Vector2(425, 300)
 
-[sub_resource type="Resource" id="Resource_yiktq"]
+[sub_resource type="Resource" id="Resource_tdv0q"]
 script = ExtResource("6_c3puh")
 name = &"get_var_move_state"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_ns5h3"]
+[sub_resource type="Resource" id="Resource_vxymr"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_yiktq"),
+"float1": SubResource("Resource_tdv0q"),
 "float2": 2.0,
 "op": "!="
 }
 
-[sub_resource type="Resource" id="Resource_ta3rb"]
+[sub_resource type="Resource" id="Resource_7uumx"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_move_state"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -286,7 +298,7 @@ arguments = {
 "value": 2
 }
 
-[sub_resource type="Resource" id="Resource_ksnel"]
+[sub_resource type="Resource" id="Resource_72kvu"]
 script = ExtResource("4_mcw5b")
 name = &"animationplayer_play"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -296,42 +308,42 @@ arguments = {
 "wait_mode": "in the background"
 }
 
-[sub_resource type="Resource" id="Resource_663vv"]
+[sub_resource type="Resource" id="Resource_fn52r"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_ta3rb"), SubResource("Resource_ksnel")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_7uumx"), SubResource("Resource_72kvu")])
 arguments = {
-"condition": SubResource("Resource_ns5h3")
+"condition": SubResource("Resource_vxymr")
 }
 
-[sub_resource type="Resource" id="Resource_q57ov"]
+[sub_resource type="Resource" id="Resource_gi7gf"]
 script = ExtResource("4_mcw5b")
 name = &"define_method"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_663vv")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_fn52r")])
 arguments = {
 "method_name": &"walk_left"
 }
 
-[sub_resource type="Resource" id="Resource_eykla"]
+[sub_resource type="Resource" id="Resource_vd8iy"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_q57ov")
+root = SubResource("Resource_gi7gf")
 canvas_position = Vector2(425, 550)
 
-[sub_resource type="Resource" id="Resource_ke4vu"]
+[sub_resource type="Resource" id="Resource_g1v4b"]
 script = ExtResource("6_c3puh")
 name = &"get_var_move_state"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_p7q4o"]
+[sub_resource type="Resource" id="Resource_53rdg"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_ke4vu"),
+"float1": SubResource("Resource_g1v4b"),
 "float2": 4.0,
 "op": "!="
 }
 
-[sub_resource type="Resource" id="Resource_44x1w"]
+[sub_resource type="Resource" id="Resource_lvo1l"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_move_state"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -339,7 +351,7 @@ arguments = {
 "value": 4
 }
 
-[sub_resource type="Resource" id="Resource_sesbo"]
+[sub_resource type="Resource" id="Resource_xuf3j"]
 script = ExtResource("4_mcw5b")
 name = &"animationplayer_play"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -349,42 +361,42 @@ arguments = {
 "wait_mode": "until done"
 }
 
-[sub_resource type="Resource" id="Resource_xgtuc"]
+[sub_resource type="Resource" id="Resource_knhw6"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_44x1w"), SubResource("Resource_sesbo")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_lvo1l"), SubResource("Resource_xuf3j")])
 arguments = {
-"condition": SubResource("Resource_p7q4o")
+"condition": SubResource("Resource_53rdg")
 }
 
-[sub_resource type="Resource" id="Resource_mk3yh"]
+[sub_resource type="Resource" id="Resource_eiy1s"]
 script = ExtResource("4_mcw5b")
 name = &"define_method"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_xgtuc")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_knhw6")])
 arguments = {
 "method_name": &"jump_down"
 }
 
-[sub_resource type="Resource" id="Resource_w4jdg"]
+[sub_resource type="Resource" id="Resource_lye1m"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_mk3yh")
+root = SubResource("Resource_eiy1s")
 canvas_position = Vector2(0, 400)
 
-[sub_resource type="Resource" id="Resource_5nfx7"]
+[sub_resource type="Resource" id="Resource_hc3vb"]
 script = ExtResource("6_c3puh")
 name = &"get_var_move_state"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_ehrd2"]
+[sub_resource type="Resource" id="Resource_rxn1x"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_5nfx7"),
+"float1": SubResource("Resource_hc3vb"),
 "float2": 3.0,
 "op": "!="
 }
 
-[sub_resource type="Resource" id="Resource_7k7u7"]
+[sub_resource type="Resource" id="Resource_gl72r"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_move_state"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -392,7 +404,7 @@ arguments = {
 "value": 3
 }
 
-[sub_resource type="Resource" id="Resource_n7236"]
+[sub_resource type="Resource" id="Resource_v46ic"]
 script = ExtResource("4_mcw5b")
 name = &"animationplayer_play"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -402,28 +414,28 @@ arguments = {
 "wait_mode": "until done"
 }
 
-[sub_resource type="Resource" id="Resource_hrtov"]
+[sub_resource type="Resource" id="Resource_osywg"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_7k7u7"), SubResource("Resource_n7236")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_gl72r"), SubResource("Resource_v46ic")])
 arguments = {
-"condition": SubResource("Resource_ehrd2")
+"condition": SubResource("Resource_rxn1x")
 }
 
-[sub_resource type="Resource" id="Resource_qlnyl"]
+[sub_resource type="Resource" id="Resource_tj7tt"]
 script = ExtResource("4_mcw5b")
 name = &"define_method"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_hrtov")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_osywg")])
 arguments = {
 "method_name": &"jump_up"
 }
 
-[sub_resource type="Resource" id="Resource_t7cxt"]
+[sub_resource type="Resource" id="Resource_j2jqb"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_qlnyl")
+root = SubResource("Resource_tj7tt")
 canvas_position = Vector2(0, 150)
 
-[sub_resource type="Resource" id="Resource_yrkm6"]
+[sub_resource type="Resource" id="Resource_15a3y"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_move_state"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -431,16 +443,69 @@ arguments = {
 "value": 0
 }
 
-[sub_resource type="Resource" id="Resource_oqvf3"]
+[sub_resource type="Resource" id="Resource_lddtv"]
 script = ExtResource("4_mcw5b")
 name = &"ready"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_yrkm6")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_15a3y")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_u6miu"]
+[sub_resource type="Resource" id="Resource_hlsl5"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_oqvf3")
+root = SubResource("Resource_lddtv")
 canvas_position = Vector2(0, 50)
+
+[sub_resource type="Resource" id="Resource_hf2aj"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_rxg3y"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_hf2aj"),
+"float2": 5.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_5s770"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 5
+}
+
+[sub_resource type="Resource" id="Resource_smrg0"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "hit",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_81o6c"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_5s770"), SubResource("Resource_smrg0")])
+arguments = {
+"condition": SubResource("Resource_rxg3y")
+}
+
+[sub_resource type="Resource" id="Resource_41cd3"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_81o6c")])
+arguments = {
+"method_name": &"be_hit"
+}
+
+[sub_resource type="Resource" id="Resource_dulgo"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_41cd3")
+canvas_position = Vector2(0, 650)
 
 [sub_resource type="Resource" id="Resource_n6pf8"]
 script = ExtResource("7_ubegq")
@@ -450,7 +515,7 @@ var_type = 2
 [sub_resource type="Resource" id="Resource_xi3ry"]
 script = ExtResource("6_eqqyd")
 script_inherits = "AnimationPlayer"
-block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_0u11q"), SubResource("Resource_oj2g3"), SubResource("Resource_eykla"), SubResource("Resource_w4jdg"), SubResource("Resource_t7cxt"), SubResource("Resource_u6miu")])
+block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_wcepv"), SubResource("Resource_1htfx"), SubResource("Resource_vd8iy"), SubResource("Resource_lye1m"), SubResource("Resource_j2jqb"), SubResource("Resource_hlsl5"), SubResource("Resource_dulgo")])
 variables = Array[ExtResource("7_ubegq")]([SubResource("Resource_n6pf8")])
 generated_script = "extends AnimationPlayer
 
@@ -514,6 +579,17 @@ func jump_up():
 
 func _ready():
 	move_state = 0
+
+func be_hit():
+	if ((move_state) != 5):
+		move_state = 5
+		if 'forward' == \"forward\":
+			play('hit')
+		else:
+			play_backwards('hit')
+		if 'until done' == \"until done\":
+			await animation_finished
+
 
 "
 version = 0
@@ -589,7 +665,7 @@ func _on_body_entered(something: Node2D):
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_bnqq7"]
+[sub_resource type="Resource" id="Resource_gx0un"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_is_playing"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -597,47 +673,18 @@ arguments = {
 "value": false
 }
 
-[sub_resource type="Resource" id="Resource_6ouhu"]
+[sub_resource type="Resource" id="Resource_wx0f2"]
 script = ExtResource("4_mcw5b")
 name = &"ready"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_bnqq7")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_gx0un")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_wj81h"]
+[sub_resource type="Resource" id="Resource_xjswj"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_6ouhu")
+root = SubResource("Resource_wx0f2")
 canvas_position = Vector2(25, 0)
 
-[sub_resource type="Resource" id="Resource_d0of3"]
-script = ExtResource("6_c3puh")
-name = &"vector2"
-arguments = {
-"x": 512.0,
-"y": 448.0
-}
-
-[sub_resource type="Resource" id="Resource_chjaj"]
-script = ExtResource("4_mcw5b")
-name = &"Node2D_set_position"
-children = Array[ExtResource("4_mcw5b")]([])
-arguments = {
-"value": SubResource("Resource_d0of3")
-}
-
-[sub_resource type="Resource" id="Resource_msncr"]
-script = ExtResource("4_mcw5b")
-name = &"define_method"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_chjaj")])
-arguments = {
-"method_name": &"reset_player"
-}
-
-[sub_resource type="Resource" id="Resource_0kpne"]
-script = ExtResource("4_ckbst")
-root = SubResource("Resource_msncr")
-canvas_position = Vector2(300, 0)
-
-[sub_resource type="Resource" id="Resource_xtl27"]
+[sub_resource type="Resource" id="Resource_phdcd"]
 script = ExtResource("6_c3puh")
 name = &"is_input_actioned"
 arguments = {
@@ -645,7 +692,7 @@ arguments = {
 "action_name": &"ui_accept"
 }
 
-[sub_resource type="Resource" id="Resource_ok26b"]
+[sub_resource type="Resource" id="Resource_t37tv"]
 script = ExtResource("4_mcw5b")
 name = &"set_var_is_playing"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -653,20 +700,20 @@ arguments = {
 "value": true
 }
 
-[sub_resource type="Resource" id="Resource_04hva"]
+[sub_resource type="Resource" id="Resource_1au78"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_ok26b")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_t37tv")])
 arguments = {
-"condition": SubResource("Resource_xtl27")
+"condition": SubResource("Resource_phdcd")
 }
 
-[sub_resource type="Resource" id="Resource_fb885"]
+[sub_resource type="Resource" id="Resource_whh0y"]
 script = ExtResource("6_c3puh")
 name = &"get_var_is_playing"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_xty8j"]
+[sub_resource type="Resource" id="Resource_n8k5b"]
 script = ExtResource("4_mcw5b")
 name = &"simplecharacter_move"
 children = Array[ExtResource("4_mcw5b")]([])
@@ -675,297 +722,342 @@ arguments = {
 "player": "player_1"
 }
 
-[sub_resource type="Resource" id="Resource_idvlw"]
+[sub_resource type="Resource" id="Resource_boej2"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_xty8j")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_n8k5b")])
 arguments = {
-"condition": SubResource("Resource_fb885")
+"condition": SubResource("Resource_whh0y")
 }
 
-[sub_resource type="Resource" id="Resource_ixvx2"]
+[sub_resource type="Resource" id="Resource_xucfj"]
 script = ExtResource("6_c3puh")
 name = &"CharacterBody2D_get_velocity"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_v5l8t"]
+[sub_resource type="Resource" id="Resource_s1je7"]
 script = ExtResource("6_c3puh")
 name = &"vector2_x"
 arguments = {
-"vector2": SubResource("Resource_ixvx2")
+"vector2": SubResource("Resource_xucfj")
 }
 
-[sub_resource type="Resource" id="Resource_gjcr2"]
+[sub_resource type="Resource" id="Resource_m4mix"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_v5l8t"),
+"float1": SubResource("Resource_s1je7"),
 "float2": 0.0,
 "op": "=="
 }
 
-[sub_resource type="Resource" id="Resource_adbqv"]
+[sub_resource type="Resource" id="Resource_dib6a"]
 script = ExtResource("6_c3puh")
 name = &"CharacterBody2D_get_velocity"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_xdd3i"]
+[sub_resource type="Resource" id="Resource_rua6r"]
 script = ExtResource("6_c3puh")
 name = &"vector2_y"
 arguments = {
-"vector2": SubResource("Resource_adbqv")
+"vector2": SubResource("Resource_dib6a")
 }
 
-[sub_resource type="Resource" id="Resource_iyd2h"]
+[sub_resource type="Resource" id="Resource_svfio"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_xdd3i"),
+"float1": SubResource("Resource_rua6r"),
 "float2": 0.0,
 "op": "=="
 }
 
-[sub_resource type="Resource" id="Resource_7nobj"]
+[sub_resource type="Resource" id="Resource_ndh4r"]
 script = ExtResource("6_c3puh")
 name = &"and"
 arguments = {
-"bool1": SubResource("Resource_gjcr2"),
-"bool2": SubResource("Resource_iyd2h")
+"bool1": SubResource("Resource_m4mix"),
+"bool2": SubResource("Resource_svfio")
 }
 
-[sub_resource type="Resource" id="Resource_lj7ca"]
+[sub_resource type="Resource" id="Resource_t88fj"]
 script = ExtResource("6_c3puh")
 name = &"get_node"
 arguments = {
 "path": NodePath("AnimationPlayer")
 }
 
-[sub_resource type="Resource" id="Resource_sk5yq"]
+[sub_resource type="Resource" id="Resource_1pgnc"]
 script = ExtResource("4_mcw5b")
 name = &"call_method_node"
 children = Array[ExtResource("4_mcw5b")]([])
 arguments = {
 "method_name": "be_idle",
-"node": SubResource("Resource_lj7ca")
+"node": SubResource("Resource_t88fj")
 }
 
-[sub_resource type="Resource" id="Resource_ktttq"]
+[sub_resource type="Resource" id="Resource_4vbry"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_sk5yq")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_1pgnc")])
 arguments = {
-"condition": SubResource("Resource_7nobj")
+"condition": SubResource("Resource_ndh4r")
 }
 
-[sub_resource type="Resource" id="Resource_pi7rt"]
+[sub_resource type="Resource" id="Resource_7t4va"]
 script = ExtResource("6_c3puh")
 name = &"characterbody2d_is_on_floor"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_dyyso"]
+[sub_resource type="Resource" id="Resource_bjo4s"]
 script = ExtResource("6_c3puh")
 name = &"CharacterBody2D_get_velocity"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_jmcuo"]
+[sub_resource type="Resource" id="Resource_5a0ni"]
 script = ExtResource("6_c3puh")
 name = &"vector2_x"
 arguments = {
-"vector2": SubResource("Resource_dyyso")
+"vector2": SubResource("Resource_bjo4s")
 }
 
-[sub_resource type="Resource" id="Resource_hypg1"]
+[sub_resource type="Resource" id="Resource_anmjq"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_jmcuo"),
+"float1": SubResource("Resource_5a0ni"),
 "float2": 0.0,
 "op": ">"
 }
 
-[sub_resource type="Resource" id="Resource_h41cv"]
+[sub_resource type="Resource" id="Resource_dpy7r"]
 script = ExtResource("6_c3puh")
 name = &"get_node"
 arguments = {
 "path": NodePath("AnimationPlayer")
 }
 
-[sub_resource type="Resource" id="Resource_dlgu1"]
+[sub_resource type="Resource" id="Resource_6dlbl"]
 script = ExtResource("4_mcw5b")
 name = &"call_method_node"
 children = Array[ExtResource("4_mcw5b")]([])
 arguments = {
 "method_name": "walk_right",
-"node": SubResource("Resource_h41cv")
+"node": SubResource("Resource_dpy7r")
 }
 
-[sub_resource type="Resource" id="Resource_7yegi"]
+[sub_resource type="Resource" id="Resource_yor7m"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_dlgu1")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_6dlbl")])
 arguments = {
-"condition": SubResource("Resource_hypg1")
+"condition": SubResource("Resource_anmjq")
 }
 
-[sub_resource type="Resource" id="Resource_yi3xo"]
+[sub_resource type="Resource" id="Resource_q57r4"]
 script = ExtResource("6_c3puh")
 name = &"CharacterBody2D_get_velocity"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_0mq5c"]
+[sub_resource type="Resource" id="Resource_pksm8"]
 script = ExtResource("6_c3puh")
 name = &"vector2_x"
 arguments = {
-"vector2": SubResource("Resource_yi3xo")
+"vector2": SubResource("Resource_q57r4")
 }
 
-[sub_resource type="Resource" id="Resource_kcxpl"]
+[sub_resource type="Resource" id="Resource_fmq5o"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_0mq5c"),
+"float1": SubResource("Resource_pksm8"),
 "float2": 0.0,
 "op": "<"
 }
 
-[sub_resource type="Resource" id="Resource_0p73i"]
+[sub_resource type="Resource" id="Resource_lirg3"]
 script = ExtResource("6_c3puh")
 name = &"get_node"
 arguments = {
 "path": NodePath("AnimationPlayer")
 }
 
-[sub_resource type="Resource" id="Resource_5sp2j"]
+[sub_resource type="Resource" id="Resource_8srxv"]
 script = ExtResource("4_mcw5b")
 name = &"call_method_node"
 children = Array[ExtResource("4_mcw5b")]([])
 arguments = {
 "method_name": "walk_left",
-"node": SubResource("Resource_0p73i")
+"node": SubResource("Resource_lirg3")
 }
 
-[sub_resource type="Resource" id="Resource_ceqx6"]
+[sub_resource type="Resource" id="Resource_7i23q"]
 script = ExtResource("4_mcw5b")
 name = &"else_if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_5sp2j")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_8srxv")])
 arguments = {
-"condition": SubResource("Resource_kcxpl")
+"condition": SubResource("Resource_fmq5o")
 }
 
-[sub_resource type="Resource" id="Resource_gqx56"]
+[sub_resource type="Resource" id="Resource_nfx6g"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_7yegi"), SubResource("Resource_ceqx6")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_yor7m"), SubResource("Resource_7i23q")])
 arguments = {
-"condition": SubResource("Resource_pi7rt")
+"condition": SubResource("Resource_7t4va")
 }
 
-[sub_resource type="Resource" id="Resource_7tewe"]
+[sub_resource type="Resource" id="Resource_ufe7y"]
 script = ExtResource("6_c3puh")
 name = &"CharacterBody2D_get_velocity"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_6mrv0"]
+[sub_resource type="Resource" id="Resource_rcwc7"]
 script = ExtResource("6_c3puh")
 name = &"vector2_y"
 arguments = {
-"vector2": SubResource("Resource_7tewe")
+"vector2": SubResource("Resource_ufe7y")
 }
 
-[sub_resource type="Resource" id="Resource_lpeqv"]
+[sub_resource type="Resource" id="Resource_kslff"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_6mrv0"),
+"float1": SubResource("Resource_rcwc7"),
 "float2": 0.0,
 "op": "<"
 }
 
-[sub_resource type="Resource" id="Resource_7mevj"]
+[sub_resource type="Resource" id="Resource_dsism"]
 script = ExtResource("6_c3puh")
 name = &"get_node"
 arguments = {
 "path": NodePath("AnimationPlayer")
 }
 
-[sub_resource type="Resource" id="Resource_hr8se"]
+[sub_resource type="Resource" id="Resource_4rgbi"]
 script = ExtResource("4_mcw5b")
 name = &"call_method_node"
 children = Array[ExtResource("4_mcw5b")]([])
 arguments = {
 "method_name": "jump_up",
-"node": SubResource("Resource_7mevj")
+"node": SubResource("Resource_dsism")
 }
 
-[sub_resource type="Resource" id="Resource_mbyxh"]
+[sub_resource type="Resource" id="Resource_vg0qd"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_hr8se")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_4rgbi")])
 arguments = {
-"condition": SubResource("Resource_lpeqv")
+"condition": SubResource("Resource_kslff")
 }
 
-[sub_resource type="Resource" id="Resource_kmelg"]
+[sub_resource type="Resource" id="Resource_ivtn3"]
 script = ExtResource("6_c3puh")
 name = &"CharacterBody2D_get_velocity"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_q730o"]
+[sub_resource type="Resource" id="Resource_5pnwy"]
 script = ExtResource("6_c3puh")
 name = &"vector2_y"
 arguments = {
-"vector2": SubResource("Resource_kmelg")
+"vector2": SubResource("Resource_ivtn3")
 }
 
-[sub_resource type="Resource" id="Resource_qevic"]
+[sub_resource type="Resource" id="Resource_fmedq"]
 script = ExtResource("6_c3puh")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_q730o"),
+"float1": SubResource("Resource_5pnwy"),
 "float2": 0.0,
 "op": ">"
 }
 
-[sub_resource type="Resource" id="Resource_pis0e"]
+[sub_resource type="Resource" id="Resource_c7p8w"]
 script = ExtResource("6_c3puh")
 name = &"get_node"
 arguments = {
 "path": NodePath("AnimationPlayer")
 }
 
-[sub_resource type="Resource" id="Resource_yu0sf"]
+[sub_resource type="Resource" id="Resource_lvra7"]
 script = ExtResource("4_mcw5b")
 name = &"call_method_node"
 children = Array[ExtResource("4_mcw5b")]([])
 arguments = {
 "method_name": "jump_down",
-"node": SubResource("Resource_pis0e")
+"node": SubResource("Resource_c7p8w")
 }
 
-[sub_resource type="Resource" id="Resource_0ebwn"]
+[sub_resource type="Resource" id="Resource_invbt"]
 script = ExtResource("4_mcw5b")
 name = &"else_if"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_yu0sf")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_lvra7")])
 arguments = {
-"condition": SubResource("Resource_qevic")
+"condition": SubResource("Resource_fmedq")
 }
 
-[sub_resource type="Resource" id="Resource_v1ifc"]
+[sub_resource type="Resource" id="Resource_ql1hb"]
 script = ExtResource("4_mcw5b")
 name = &"else"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_mbyxh"), SubResource("Resource_0ebwn")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_vg0qd"), SubResource("Resource_invbt")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_lm6nm"]
+[sub_resource type="Resource" id="Resource_wshyy"]
 script = ExtResource("4_mcw5b")
 name = &"process"
-children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_04hva"), SubResource("Resource_idvlw"), SubResource("Resource_ktttq"), SubResource("Resource_gqx56"), SubResource("Resource_v1ifc")])
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_1au78"), SubResource("Resource_boej2"), SubResource("Resource_4vbry"), SubResource("Resource_nfx6g"), SubResource("Resource_ql1hb")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_70rhs"]
+[sub_resource type="Resource" id="Resource_widc7"]
 script = ExtResource("4_ckbst")
-root = SubResource("Resource_lm6nm")
+root = SubResource("Resource_wshyy")
 canvas_position = Vector2(25, 100)
+
+[sub_resource type="Resource" id="Resource_43f8x"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_cskn5"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "be_hit",
+"node": SubResource("Resource_43f8x")
+}
+
+[sub_resource type="Resource" id="Resource_apvp5"]
+script = ExtResource("6_c3puh")
+name = &"vector2"
+arguments = {
+"x": 512.0,
+"y": 448.0
+}
+
+[sub_resource type="Resource" id="Resource_32s8y"]
+script = ExtResource("4_mcw5b")
+name = &"Node2D_set_position"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": SubResource("Resource_apvp5")
+}
+
+[sub_resource type="Resource" id="Resource_hv1r0"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_cskn5"), SubResource("Resource_32s8y")])
+arguments = {
+"method_name": &"reset_player"
+}
+
+[sub_resource type="Resource" id="Resource_gsl8k"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_hv1r0")
+canvas_position = Vector2(375, 0)
 
 [sub_resource type="Resource" id="Resource_hsh3i"]
 script = ExtResource("7_ubegq")
@@ -975,7 +1067,7 @@ var_type = 1
 [sub_resource type="Resource" id="Resource_ahm1y"]
 script = ExtResource("6_eqqyd")
 script_inherits = "SimpleCharacter"
-block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_wj81h"), SubResource("Resource_0kpne"), SubResource("Resource_70rhs")])
+block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_xjswj"), SubResource("Resource_widc7"), SubResource("Resource_gsl8k")])
 variables = Array[ExtResource("7_ubegq")]([SubResource("Resource_hsh3i")])
 generated_script = "extends SimpleCharacter
 
@@ -984,9 +1076,6 @@ var is_playing: bool
 
 func _ready():
 	is_playing = false
-
-func reset_player():
-	position = (Vector2(512, 448))
 
 func _process(delta):
 	if (Input.is_action_pressed('ui_accept')):
@@ -1005,6 +1094,10 @@ func _process(delta):
 			(get_node(\"AnimationPlayer\")).call('jump_up')
 		elif (((velocity).y) > 0):
 			(get_node(\"AnimationPlayer\")).call('jump_down')
+
+func reset_player():
+	(get_node(\"AnimationPlayer\")).call('be_hit')
+	position = (Vector2(512, 448))
 
 "
 version = 0
