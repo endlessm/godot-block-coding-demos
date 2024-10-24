@@ -19,10 +19,10 @@ tracks/0/path = NodePath("RigidBody2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(10, -5), Vector2(-10, -5), Vector2(-10, 5), Vector2(0, 5), Vector2(10, 5), Vector2(0, 0), Vector2(0, 600)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_o6p3a"]
