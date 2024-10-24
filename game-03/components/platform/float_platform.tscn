@@ -1,18 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://b7gyfmfo5wtm1"]
+[gd_scene load_steps=27 format=3 uid="uid://b7gyfmfo5wtm1"]
 
 [ext_resource type="TileSet" uid="uid://bmkax0b814rmy" path="res://game-03/spaces/tileset-a.tres" id="1_fn3w6"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_xy6in"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="3_6j5ma"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_r18qn"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="4_6iq68"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="5_83svu"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_a0j4o"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="5_koayc"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="6_773h0"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_yyx0f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5opsn"]
 size = Vector2(256, 112)
 
 [sub_resource type="Animation" id="Animation_vuag3"]
-length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -48,53 +47,131 @@ _data = {
 "shake": SubResource("Animation_o6p3a")
 }
 
-[sub_resource type="Resource" id="Resource_ajvdh"]
-script = ExtResource("4_6iq68")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "play_shake"
-}]]
-
-[sub_resource type="Resource" id="Resource_betlu"]
-script = ExtResource("5_koayc")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_ou5dh"]
-script = ExtResource("4_6iq68")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"animation": "shake",
-"direction": SubResource("Resource_betlu")
-}]]
-
-[sub_resource type="Resource" id="Resource_ym3c5"]
+[sub_resource type="Resource" id="Resource_71dy5"]
 script = ExtResource("3_r18qn")
 name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_ou5dh")
+children = Array[ExtResource("3_r18qn")]([])
+arguments = {
+"animation": "shake",
+"direction": "forward",
+"wait_mode": "until done"
+}
 
-[sub_resource type="Resource" id="Resource_m2it8"]
+[sub_resource type="Resource" id="Resource_wkip3"]
+script = ExtResource("5_83svu")
+name = &"get_node"
+arguments = {
+"path": NodePath("../..")
+}
+
+[sub_resource type="Resource" id="Resource_r4ifk"]
+script = ExtResource("3_r18qn")
+name = &"queue_free_node"
+children = Array[ExtResource("3_r18qn")]([])
+arguments = {
+"node": SubResource("Resource_wkip3")
+}
+
+[sub_resource type="Resource" id="Resource_15x7q"]
 script = ExtResource("3_r18qn")
 name = &"define_method"
-position = Vector2(125, 100)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_ym3c5")]]
-block_serialized_properties = SubResource("Resource_ajvdh")
+children = Array[ExtResource("3_r18qn")]([SubResource("Resource_71dy5"), SubResource("Resource_r4ifk")])
+arguments = {
+"method_name": &"play_shake"
+}
 
-[sub_resource type="Resource" id="Resource_ay1sf"]
+[sub_resource type="Resource" id="Resource_bvj0i"]
+script = ExtResource("3_6j5ma")
+root = SubResource("Resource_15x7q")
+canvas_position = Vector2(100, 75)
+
+[sub_resource type="Resource" id="Resource_6q7jc"]
 script = ExtResource("5_a0j4o")
 script_inherits = "AnimationPlayer"
-block_trees = Array[ExtResource("3_r18qn")]([SubResource("Resource_m2it8")])
-variables = Array[ExtResource("6_773h0")]([])
+block_serialization_trees = Array[ExtResource("3_6j5ma")]([SubResource("Resource_bvj0i")])
+variables = Array[ExtResource("6_yyx0f")]([])
 generated_script = "extends AnimationPlayer
 
 
 func play_shake():
-	if \"ahead\" == \"ahead\":
+	if 'forward' == \"forward\":
 		play('shake')
 	else:
 		play_backwards('shake')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+	(get_node(\"../..\")).queue_free()
+
+"
+version = 0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ufhb"]
+size = Vector2(256, 8)
+
+[sub_resource type="Resource" id="Resource_qh7d5"]
+script = ExtResource("5_83svu")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_e6pu7"]
+script = ExtResource("5_83svu")
+name = &"is_node_in_group"
+arguments = {
+"group": "player",
+"node": SubResource("Resource_qh7d5")
+}
+
+[sub_resource type="Resource" id="Resource_xq1nr"]
+script = ExtResource("5_83svu")
+name = &"get_node"
+arguments = {
+"path": NodePath("../RigidBody2D/AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_5a1us"]
+script = ExtResource("3_r18qn")
+name = &"call_method_node"
+children = Array[ExtResource("3_r18qn")]([])
+arguments = {
+"method_name": "play_shake",
+"node": SubResource("Resource_xq1nr")
+}
+
+[sub_resource type="Resource" id="Resource_d8dep"]
+script = ExtResource("3_r18qn")
+name = &"if"
+children = Array[ExtResource("3_r18qn")]([SubResource("Resource_5a1us")])
+arguments = {
+"condition": SubResource("Resource_e6pu7")
+}
+
+[sub_resource type="Resource" id="Resource_dm1fd"]
+script = ExtResource("3_r18qn")
+name = &"area2d_on_entered"
+children = Array[ExtResource("3_r18qn")]([SubResource("Resource_d8dep")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_jegfr"]
+script = ExtResource("3_6j5ma")
+root = SubResource("Resource_dm1fd")
+canvas_position = Vector2(75, 75)
+
+[sub_resource type="Resource" id="Resource_cri4e"]
+script = ExtResource("5_a0j4o")
+script_inherits = "Area2D"
+block_serialization_trees = Array[ExtResource("3_6j5ma")]([SubResource("Resource_jegfr")])
+variables = Array[ExtResource("6_yyx0f")]([])
+generated_script = "extends Area2D
+
+
+func _init():
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	if ((something).is_in_group('player')):
+		(get_node(\"../RigidBody2D/AnimationPlayer\")).call('play_shake')
 
 "
 version = 0
@@ -119,8 +196,17 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_gae7a")
 }
-autoplay = "RESET"
 
 [node name="BlockCode" type="Node" parent="RigidBody2D/AnimationPlayer"]
 script = ExtResource("2_xy6in")
-block_script = SubResource("Resource_ay1sf")
+block_script = SubResource("Resource_6q7jc")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_3ufhb")
+
+[node name="BlockCode" type="Node" parent="Area2D"]
+script = ExtResource("2_xy6in")
+block_script = SubResource("Resource_cri4e")
