@@ -1,9 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://coq6d3u6wnvs2"]
+[gd_scene load_steps=3 format=3 uid="uid://coq6d3u6wnvs2"]
 
 [ext_resource type="TileSet" uid="uid://bmkax0b814rmy" path="res://game-03/spaces/tileset-a.tres" id="1_3rwtc"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4vtk"]
-size = Vector2(256, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2vn2"]
 size = Vector2(256, 128)
@@ -17,13 +14,6 @@ collision_mask = 0
 mass = 1000.0
 freeze = true
 
-[node name="Area2D" type="Area2D" parent="RigidBody2D"]
-
-[node name="AreaCollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Area2D"]
-unique_name_in_owner = true
-position = Vector2(0, -16)
-shape = SubResource("RectangleShape2D_i4vtk")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 unique_name_in_owner = true
 position = Vector2(0, 64)
@@ -35,4 +25,3 @@ tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 10, 0, 1, 0, 0, 0, 0
 tile_set = ExtResource("1_3rwtc")
 
 [connection signal="body_entered" from="RigidBody2D" to="." method="_on_rigid_body_2d_body_entered"]
-[connection signal="body_entered" from="RigidBody2D/Area2D" to="." method="_on_area_2d_body_entered"]
