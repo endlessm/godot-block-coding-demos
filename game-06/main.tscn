@@ -1,42 +1,206 @@
-[gd_scene load_steps=7 format=3 uid="uid://ci147qf6s6jhg"]
+[gd_scene load_steps=34 format=3 uid="uid://da28ei7q3d34p"]
 
-[ext_resource type="Texture2D" uid="uid://2lkjiw4cpjo1" path="res://game-06/graphics/ship.png" id="1_be160"]
-[ext_resource type="Texture2D" uid="uid://c2kmueth1qo3q" path="res://game-06/graphics/coin.png" id="2_bcxue"]
-[ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="3_7g8jp"]
-[ext_resource type="Texture2D" uid="uid://sfab1iwfjhyc" path="res://game-06/graphics/obstacle.png" id="3_w1gab"]
+[ext_resource type="Texture2D" uid="uid://dtref83nk0xpi" path="res://game-06/graphics/alan-labisch-NJpQ85eQJDE-unsplash.jpg" id="1_1fkef"]
+[ext_resource type="PackedScene" uid="uid://fvdldxg5au17" path="res://game-06/coin.tscn" id="2_2m1wf"]
+[ext_resource type="PackedScene" uid="uid://crt1rd7wivci5" path="res://game-06/hud.tscn" id="2_xum6x"]
+[ext_resource type="PackedScene" uid="uid://dps3xjhs2ssns" path="res://game-06/ship.tscn" id="3_43t81"]
+[ext_resource type="AudioStream" uid="uid://didvrv0ccn5f0" path="res://game-06/Sounds/Cyborg Ninja.mp3" id="6_2umo5"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="6_by3km"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="7_8cvv3"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="8_4ctxh"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="8_an3ek"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="9_a8xal"]
+[ext_resource type="PackedScene" uid="uid://c6umuob7nsko3" path="res://game-06/obstacle.tscn" id="10_0r6ub"]
+[ext_resource type="PackedScene" uid="uid://8c82g1tm467r" path="res://game-06/delete_zone.tscn" id="10_alyif"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="10_pjdut"]
+[ext_resource type="Script" path="res://addons/block_code/simple_spawner/simple_spawner.gd" id="13_jo5u2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7voe"]
-size = Vector2(960, 20)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6eqcx"]
+normal = Vector2(0, 1)
+distance = -30.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1jur"]
-size = Vector2(960, 20)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0phyh"]
+normal = Vector2(-1, 0)
+distance = -60.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ox1xw"]
+distance = -30.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_um3wv"]
+normal = Vector2(1, 0)
+distance = -60.0
+
+[sub_resource type="Resource" id="Resource_4mjsn"]
+script = ExtResource("8_an3ek")
+name = &"ready"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_sr8pn"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_4mjsn")
+canvas_position = Vector2(54, 47)
+
+[sub_resource type="Resource" id="Resource_fpgwh"]
+script = ExtResource("8_an3ek")
+name = &"queue_free"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_gg121"]
+script = ExtResource("8_an3ek")
+name = &"define_method"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_fpgwh")])
+arguments = {
+"method_name": &"stop_music"
+}
+
+[sub_resource type="Resource" id="Resource_dupqt"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_gg121")
+canvas_position = Vector2(425, 275)
+
+[sub_resource type="Resource" id="Resource_l8ekv"]
+script = ExtResource("9_a8xal")
+script_inherits = "AudioStreamPlayer"
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_sr8pn"), SubResource("Resource_dupqt")])
+variables = Array[ExtResource("10_pjdut")]([])
+generated_script = "extends AudioStreamPlayer
+
+
+func _ready():
+	pass
+
+func stop_music():
+	queue_free()
+
+"
+version = 0
+
+[sub_resource type="Resource" id="Resource_txygt"]
+script = ExtResource("8_4ctxh")
+name = &"randf_range"
+arguments = {
+"from": 0.0,
+"to": 500.0
+}
+
+[sub_resource type="Resource" id="Resource_uvrms"]
+script = ExtResource("8_4ctxh")
+name = &"vector2"
+arguments = {
+"x": 1000.0,
+"y": SubResource("Resource_txygt")
+}
+
+[sub_resource type="Resource" id="Resource_lkbnt"]
+script = ExtResource("8_an3ek")
+name = &"Node2D_set_position"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {
+"value": SubResource("Resource_uvrms")
+}
+
+[sub_resource type="Resource" id="Resource_bmsl3"]
+script = ExtResource("8_an3ek")
+name = &"process"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_lkbnt")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_7j0vh"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_bmsl3")
+canvas_position = Vector2(75, 200)
+
+[sub_resource type="Resource" id="Resource_antkh"]
+script = ExtResource("8_an3ek")
+name = &"simplespawner_start_spawning"
+children = Array[ExtResource("8_an3ek")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_oaann"]
+script = ExtResource("8_an3ek")
+name = &"ready"
+children = Array[ExtResource("8_an3ek")]([SubResource("Resource_antkh")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_54w8b"]
+script = ExtResource("7_8cvv3")
+root = SubResource("Resource_oaann")
+canvas_position = Vector2(75, 50)
+
+[sub_resource type="Resource" id="Resource_mx5s8"]
+script = ExtResource("9_a8xal")
+script_inherits = "SimpleSpawner"
+block_serialization_trees = Array[ExtResource("7_8cvv3")]([SubResource("Resource_7j0vh"), SubResource("Resource_54w8b")])
+variables = Array[ExtResource("10_pjdut")]([])
+generated_script = "extends SimpleSpawner
+
+
+func _process(delta):
+	position = (Vector2(1000, (randf_range(0, 500))))
+
+func _ready():
+	spawn_start()
+
+"
+version = 0
 
 [node name="Main" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [540.0]
 
-[node name="Coin" type="Sprite2D" parent="."]
-position = Vector2(413.597, 305.681)
-scale = Vector2(0.147097, 0.147097)
-texture = ExtResource("2_bcxue")
+[node name="BackgroundStars" type="Parallax2D" parent="."]
+repeat_size = Vector2(2700, 0)
+autoscroll = Vector2(-100, 0)
 
-[node name="Obstacle" type="Sprite2D" parent="."]
-position = Vector2(563.597, 220.681)
-scale = Vector2(0.515775, 0.515775)
-texture = ExtResource("3_w1gab")
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundStars"]
+modulate = Color(0.628859, 0.628859, 0.628859, 1)
+texture = ExtResource("1_1fkef")
+centered = false
 
-[node name="SimpleCharacter" type="CharacterBody2D" parent="." groups=["affected_by_gravity"]]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_xum6x")]
+
+[node name="Ship" parent="." instance=ExtResource("3_43t81")]
 position = Vector2(157, 236)
-script = ExtResource("3_7g8jp")
-
-[node name="Ship" type="Sprite2D" parent="SimpleCharacter"]
-scale = Vector2(0.197971, 0.197971)
-texture = ExtResource("1_be160")
+collision_mask = 3
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
 position = Vector2(480, 0)
-shape = SubResource("RectangleShape2D_s7voe")
+shape = SubResource("WorldBoundaryShape2D_6eqcx")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(960, 274)
+shape = SubResource("WorldBoundaryShape2D_0phyh")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
 position = Vector2(480, 544)
-shape = SubResource("RectangleShape2D_m1jur")
+shape = SubResource("WorldBoundaryShape2D_ox1xw")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 276)
+shape = SubResource("WorldBoundaryShape2D_um3wv")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." groups=["Music"]]
+stream = ExtResource("6_2umo5")
+
+[node name="BlockCode" type="Node" parent="BackgroundMusic"]
+script = ExtResource("6_by3km")
+block_script = SubResource("Resource_l8ekv")
+
+[node name="DeleteZone" parent="." instance=ExtResource("10_alyif")]
+
+[node name="SimpleSpawner" type="Node2D" parent="."]
+position = Vector2(1000, 275)
+script = ExtResource("13_jo5u2")
+scenes = Array[PackedScene]([ExtResource("2_2m1wf"), ExtResource("10_0r6ub")])
+spawn_parent = 1
+spawn_frequency = 3.0
+spawn_limit = 0
+
+[node name="BlockCode" type="Node" parent="SimpleSpawner"]
+script = ExtResource("6_by3km")
+block_script = SubResource("Resource_mx5s8")

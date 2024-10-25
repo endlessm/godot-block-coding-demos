@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://didvrv0ccn5f0"
+path="res://.godot/imported/Cyborg Ninja.mp3-c9b85cdd49aa0a4436bad73a19a2cc08.mp3str"
+
+[deps]
+
+source_file="res://game-06/Sounds/Cyborg Ninja.mp3"
+dest_files=["res://.godot/imported/Cyborg Ninja.mp3-c9b85cdd49aa0a4436bad73a19a2cc08.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=160.0
+beat_count=0
+bar_beats=4

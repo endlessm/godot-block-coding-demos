@@ -1,119 +1,297 @@
-[gd_scene load_steps=18 format=3 uid="uid://beuisy5yrw0bq"]
+[gd_scene load_steps=38 format=3 uid="uid://beuisy5yrw0bq"]
 
-[ext_resource type="SpriteFrames" uid="uid://b3orjhfv6eeud" path="res://game-03/components/flag/flag-spriteframes-green.tres" id="2_l6hhd"]
+[ext_resource type="Texture2D" uid="uid://bwqhhtm1mdivu" path="res://game-03/assets/flag.png" id="1_1q124"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_p5gp7"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_23rwb"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="4_seder"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="3_jokul"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_46bls"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="6_j6jp8"]
-
-[sub_resource type="Resource" id="Resource_5umg0"]
-script = ExtResource("4_seder")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "raise_flag"
-}]]
-
-[sub_resource type="Resource" id="Resource_blx3e"]
-script = ExtResource("4_seder")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"value": false
-}]]
-
-[sub_resource type="Resource" id="Resource_dn3n6"]
-script = ExtResource("3_23rwb")
-name = &"CanvasItem_set_visible"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_blx3e")
-
-[sub_resource type="Resource" id="Resource_kl6ma"]
-script = ExtResource("3_23rwb")
-name = &"define_method"
-position = Vector2(50, 150)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_dn3n6")]]
-block_serialized_properties = SubResource("Resource_5umg0")
-
-[sub_resource type="Resource" id="Resource_7feiv"]
-script = ExtResource("5_46bls")
-script_inherits = "AnimatedSprite2D"
-block_trees = Array[ExtResource("3_23rwb")]([SubResource("Resource_kl6ma")])
-variables = Array[ExtResource("6_j6jp8")]([])
-generated_script = "extends AnimatedSprite2D
-
-
-func raise_flag():
-	visible = false
-
-"
-version = 0
-
-[sub_resource type="Resource" id="Resource_6v80f"]
-script = ExtResource("4_seder")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "raise_flag"
-}]]
-
-[sub_resource type="Resource" id="Resource_o05sx"]
-script = ExtResource("4_seder")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"value": true
-}]]
-
-[sub_resource type="Resource" id="Resource_5efax"]
-script = ExtResource("3_23rwb")
-name = &"CanvasItem_set_visible"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_o05sx")
-
-[sub_resource type="Resource" id="Resource_nqdov"]
-script = ExtResource("3_23rwb")
-name = &"define_method"
-position = Vector2(125, 100)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_5efax")]]
-block_serialized_properties = SubResource("Resource_6v80f")
-
-[sub_resource type="Resource" id="Resource_q3u75"]
-script = ExtResource("5_46bls")
-script_inherits = "AnimatedSprite2D"
-block_trees = Array[ExtResource("3_23rwb")]([SubResource("Resource_nqdov")])
-variables = Array[ExtResource("6_j6jp8")]([])
-generated_script = "extends AnimatedSprite2D
-
-
-func raise_flag():
-	visible = true
-
-"
-version = 0
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_ij0rl"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="7_d3v58"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3dfps"]
-size = Vector2(64, 128)
+size = Vector2(64, 121)
 
-[node name="Flag" type="Area2D"]
+[sub_resource type="Animation" id="Animation_3vqqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlagSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3w3cf"]
+resource_name = "flag_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlagSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_ywu0p"]
+resource_name = "flag_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlagSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iocbc"]
+_data = {
+"RESET": SubResource("Animation_3vqqv"),
+"flag_down": SubResource("Animation_3w3cf"),
+"flag_up": SubResource("Animation_ywu0p")
+}
+
+[sub_resource type="Resource" id="Resource_jrju4"]
+script = ExtResource("3_23rwb")
+name = &"animationplayer_play"
+children = Array[ExtResource("3_23rwb")]([])
+arguments = {
+"animation": "flag_up",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_4m8fa"]
+script = ExtResource("3_23rwb")
+name = &"define_method"
+children = Array[ExtResource("3_23rwb")]([SubResource("Resource_jrju4")])
+arguments = {
+"method_name": &"raise_flag"
+}
+
+[sub_resource type="Resource" id="Resource_np0y2"]
+script = ExtResource("3_jokul")
+root = SubResource("Resource_4m8fa")
+canvas_position = Vector2(50, 50)
+
+[sub_resource type="Resource" id="Resource_l2wyd"]
+script = ExtResource("5_46bls")
+script_inherits = "AnimationPlayer"
+block_serialization_trees = Array[ExtResource("3_jokul")]([SubResource("Resource_np0y2")])
+variables = Array[ExtResource("6_ij0rl")]([])
+generated_script = "extends AnimationPlayer
+
+
+func raise_flag():
+	if 'forward' == \"forward\":
+		play('flag_up')
+	else:
+		play_backwards('flag_up')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+
+"
+version = 0
+
+[sub_resource type="Resource" id="Resource_mdrlu"]
+script = ExtResource("7_d3v58")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_iyq5h"]
+script = ExtResource("7_d3v58")
+name = &"is_node_in_group"
+arguments = {
+"group": "player",
+"node": SubResource("Resource_mdrlu")
+}
+
+[sub_resource type="Resource" id="Resource_c0hgo"]
+script = ExtResource("7_d3v58")
+name = &"get_var_coins"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_m67hc"]
+script = ExtResource("7_d3v58")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_c0hgo"),
+"float2": 19.0,
+"op": ">="
+}
+
+[sub_resource type="Resource" id="Resource_b88fr"]
+script = ExtResource("7_d3v58")
+name = &"and"
+arguments = {
+"bool1": SubResource("Resource_iyq5h"),
+"bool2": SubResource("Resource_m67hc")
+}
+
+[sub_resource type="Resource" id="Resource_hcdis"]
+script = ExtResource("7_d3v58")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_2qy32"]
+script = ExtResource("3_23rwb")
+name = &"call_method_node"
+children = Array[ExtResource("3_23rwb")]([])
+arguments = {
+"method_name": "raise_flag",
+"node": SubResource("Resource_hcdis")
+}
+
+[sub_resource type="Resource" id="Resource_rjp1e"]
+script = ExtResource("3_23rwb")
+name = &"call_method_group"
+children = Array[ExtResource("3_23rwb")]([])
+arguments = {
+"group": "HUD",
+"method_name": "show_win"
+}
+
+[sub_resource type="Resource" id="Resource_vj6pj"]
+script = ExtResource("3_23rwb")
+name = &"if"
+children = Array[ExtResource("3_23rwb")]([SubResource("Resource_2qy32"), SubResource("Resource_rjp1e")])
+arguments = {
+"condition": SubResource("Resource_b88fr")
+}
+
+[sub_resource type="Resource" id="Resource_lvlds"]
+script = ExtResource("3_23rwb")
+name = &"area2d_on_entered"
+children = Array[ExtResource("3_23rwb")]([SubResource("Resource_vj6pj")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_easuf"]
+script = ExtResource("3_jokul")
+root = SubResource("Resource_lvlds")
+canvas_position = Vector2(50, 175)
+
+[sub_resource type="Resource" id="Resource_el4ao"]
+script = ExtResource("3_23rwb")
+name = &"set_var_coins"
+children = Array[ExtResource("3_23rwb")]([])
+arguments = {
+"value": 0
+}
+
+[sub_resource type="Resource" id="Resource_chyt0"]
+script = ExtResource("3_23rwb")
+name = &"ready"
+children = Array[ExtResource("3_23rwb")]([SubResource("Resource_el4ao")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_uhf31"]
+script = ExtResource("3_jokul")
+root = SubResource("Resource_chyt0")
+canvas_position = Vector2(50, 50)
+
+[sub_resource type="Resource" id="Resource_qyvd5"]
+script = ExtResource("7_d3v58")
+name = &"get_var_coins"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_xg1xp"]
+script = ExtResource("7_d3v58")
+name = &"add"
+arguments = {
+"a": SubResource("Resource_qyvd5"),
+"b": 1.0
+}
+
+[sub_resource type="Resource" id="Resource_yaalm"]
+script = ExtResource("3_23rwb")
+name = &"set_var_coins"
+children = Array[ExtResource("3_23rwb")]([])
+arguments = {
+"value": SubResource("Resource_xg1xp")
+}
+
+[sub_resource type="Resource" id="Resource_nppkl"]
+script = ExtResource("3_23rwb")
+name = &"define_method"
+children = Array[ExtResource("3_23rwb")]([SubResource("Resource_yaalm")])
+arguments = {
+"method_name": &"collect_a_coin"
+}
+
+[sub_resource type="Resource" id="Resource_ta188"]
+script = ExtResource("3_jokul")
+root = SubResource("Resource_nppkl")
+canvas_position = Vector2(450, 50)
+
+[sub_resource type="Resource" id="Resource_p75m1"]
+script = ExtResource("6_ij0rl")
+var_name = "coins"
+var_type = 2
+
+[sub_resource type="Resource" id="Resource_ohtwm"]
+script = ExtResource("5_46bls")
+script_inherits = "Area2D"
+block_serialization_trees = Array[ExtResource("3_jokul")]([SubResource("Resource_easuf"), SubResource("Resource_uhf31"), SubResource("Resource_ta188")])
+variables = Array[ExtResource("6_ij0rl")]([SubResource("Resource_p75m1")])
+generated_script = "extends Area2D
+
+var coins: int
+
+
+func _init():
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	if (((something).is_in_group('player')) and ((coins) >= 19)):
+		(get_node(\"AnimationPlayer\")).call('raise_flag')
+		get_tree().call_group('HUD', 'show_win')
+
+func _ready():
+	coins = 0
+
+func collect_a_coin():
+	coins = ((coins) + 1)
+
+"
+version = 0
+
+[node name="Flag" type="Area2D" groups=["HUD"]]
 collision_layer = 2
 
-[node name="Down" type="AnimatedSprite2D" parent="." groups=["flag"]]
-sprite_frames = ExtResource("2_l6hhd")
-animation = &"down"
-
-[node name="BlockCode" type="Node" parent="Down"]
-script = ExtResource("2_p5gp7")
-block_script = SubResource("Resource_7feiv")
-
-[node name="Up" type="AnimatedSprite2D" parent="." groups=["flag"]]
-visible = false
-sprite_frames = ExtResource("2_l6hhd")
-animation = &"up"
-
-[node name="BlockCode" type="Node" parent="Up"]
-script = ExtResource("2_p5gp7")
-block_script = SubResource("Resource_q3u75")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-32, 0)
+position = Vector2(-32, -6.5)
 shape = SubResource("RectangleShape2D_3dfps")
+
+[node name="FlagSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_1q124")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_iocbc")
+}
+autoplay = "flag_down"
+
+[node name="BlockCode" type="Node" parent="AnimationPlayer"]
+script = ExtResource("2_p5gp7")
+block_script = SubResource("Resource_l2wyd")
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("2_p5gp7")
+block_script = SubResource("Resource_ohtwm")

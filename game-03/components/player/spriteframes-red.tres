@@ -184,6 +184,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_hyo5x")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"walk_right",
 "speed": 10.0
 }]

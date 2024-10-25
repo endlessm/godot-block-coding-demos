@@ -50,10 +50,6 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="Demo01Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Speed runner"
-
 [node name="Demo02Button" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Split screen quest"
@@ -83,7 +79,6 @@ bbcode_enabled = true
 text = "[center]Press Escape during a demo to go back to this menu."
 fit_content = true
 
-[connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo01Button" to="." method="_on_demo_01_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo02Button" to="." method="_on_demo_02_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo03Button" to="." method="_on_demo_03_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Demo04Button" to="." method="_on_demo_04_button_pressed"]

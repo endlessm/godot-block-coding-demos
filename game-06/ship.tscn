@@ -1,0 +1,379 @@
+[gd_scene load_steps=37 format=3 uid="uid://dps3xjhs2ssns"]
+
+[ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_rrros"]
+[ext_resource type="Texture2D" uid="uid://dqobtlpqjmouw" path="res://game-06/graphics/engine.svg" id="2_qdvvn"]
+[ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="3_s1qof"]
+[ext_resource type="PackedScene" uid="uid://cmyx2g1new5rm" path="res://game-06/laser_gun.tscn" id="4_0x2nn"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="4_i1022"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="5_8ag0i"]
+[ext_resource type="AudioStream" uid="uid://c1kbhp3fuf4i6" path="res://game-06/Sounds/Crash.ogg" id="5_qyab4"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="6_rpoob"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="8_ui4ru"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="9_5ylav"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="11_d0d2t"]
+
+[sub_resource type="Curve" id="Curve_j0da6"]
+_data = [Vector2(0, 0.570571), 0.0, 0.0, 0, 0, Vector2(0.643836, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_f4wxx"]
+offsets = PackedFloat32Array(0.383721, 1)
+colors = PackedColorArray(0.52641, 0.698991, 0.743304, 1, 0.231715, 0.389956, 0.433398, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_babat"]
+radius = 19.0
+height = 70.0
+
+[sub_resource type="Animation" id="Animation_rp8jp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, -6)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CPUParticles2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_byuum"]
+resource_name = "crash"
+length = 5.0
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_qyab4")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 2.16667),
+"transitions": PackedFloat32Array(1, 0.287175, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.833333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-8, -6), Vector2(8, -6), Vector2(3, -6)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CPUParticles2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.16667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4jhbx"]
+resource_name = "wobble"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.0523599, 0.0523599]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_86tyj"]
+_data = {
+"RESET": SubResource("Animation_rp8jp"),
+"crash": SubResource("Animation_byuum"),
+"wobble": SubResource("Animation_4jhbx")
+}
+
+[sub_resource type="Resource" id="Resource_0cghc"]
+script = ExtResource("6_rpoob")
+name = &"animationplayer_play"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"animation": "wobble",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_fycp7"]
+script = ExtResource("6_rpoob")
+name = &"ready"
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_0cghc")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_kuyvu"]
+script = ExtResource("5_8ag0i")
+root = SubResource("Resource_fycp7")
+canvas_position = Vector2(54, 47)
+
+[sub_resource type="Resource" id="Resource_juy0s"]
+script = ExtResource("6_rpoob")
+name = &"call_method_group"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"group": "Music",
+"method_name": "stop_music"
+}
+
+[sub_resource type="Resource" id="Resource_v40kv"]
+script = ExtResource("6_rpoob")
+name = &"animationplayer_play"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"animation": "crash",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_d6c1l"]
+script = ExtResource("6_rpoob")
+name = &"call_method_group"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"group": "Overlay",
+"method_name": "game_over"
+}
+
+[sub_resource type="Resource" id="Resource_n61mn"]
+script = ExtResource("11_d0d2t")
+name = &"get_node"
+arguments = {
+"path": NodePath("..")
+}
+
+[sub_resource type="Resource" id="Resource_wercy"]
+script = ExtResource("6_rpoob")
+name = &"queue_free_node"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"node": SubResource("Resource_n61mn")
+}
+
+[sub_resource type="Resource" id="Resource_lywxo"]
+script = ExtResource("6_rpoob")
+name = &"define_method"
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_juy0s"), SubResource("Resource_v40kv"), SubResource("Resource_d6c1l"), SubResource("Resource_wercy")])
+arguments = {
+"method_name": &"crash"
+}
+
+[sub_resource type="Resource" id="Resource_rrur4"]
+script = ExtResource("5_8ag0i")
+root = SubResource("Resource_lywxo")
+canvas_position = Vector2(250, 550)
+
+[sub_resource type="Resource" id="Resource_gtmbp"]
+script = ExtResource("8_ui4ru")
+script_inherits = "AnimationPlayer"
+block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_kuyvu"), SubResource("Resource_rrur4")])
+variables = Array[ExtResource("9_5ylav")]([])
+generated_script = "extends AnimationPlayer
+
+
+func _ready():
+	if 'forward' == \"forward\":
+		play('wobble')
+	else:
+		play_backwards('wobble')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+
+func crash():
+	get_tree().call_group('Music', 'stop_music')
+	if 'forward' == \"forward\":
+		play('crash')
+	else:
+		play_backwards('crash')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+	get_tree().call_group('Overlay', 'game_over')
+	(get_node(\"..\")).queue_free()
+
+"
+version = 0
+
+[sub_resource type="Resource" id="Resource_fscym"]
+script = ExtResource("6_rpoob")
+name = &"simplecharacter_move"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"kind": "top-down",
+"player": "player_1"
+}
+
+[sub_resource type="Resource" id="Resource_mixdy"]
+script = ExtResource("6_rpoob")
+name = &"process"
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_fscym")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_prapw"]
+script = ExtResource("5_8ag0i")
+root = SubResource("Resource_mixdy")
+canvas_position = Vector2(75, 50)
+
+[sub_resource type="Resource" id="Resource_7wmbg"]
+script = ExtResource("11_d0d2t")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_n4qna"]
+script = ExtResource("6_rpoob")
+name = &"call_method_node"
+children = Array[ExtResource("6_rpoob")]([])
+arguments = {
+"method_name": "crash",
+"node": SubResource("Resource_7wmbg")
+}
+
+[sub_resource type="Resource" id="Resource_gxptt"]
+script = ExtResource("6_rpoob")
+name = &"define_method"
+children = Array[ExtResource("6_rpoob")]([SubResource("Resource_n4qna")])
+arguments = {
+"method_name": &"crash"
+}
+
+[sub_resource type="Resource" id="Resource_rsc6w"]
+script = ExtResource("5_8ag0i")
+root = SubResource("Resource_gxptt")
+canvas_position = Vector2(75, 175)
+
+[sub_resource type="Resource" id="Resource_0xoh2"]
+script = ExtResource("8_ui4ru")
+script_inherits = "SimpleCharacter"
+block_serialization_trees = Array[ExtResource("5_8ag0i")]([SubResource("Resource_prapw"), SubResource("Resource_rsc6w")])
+variables = Array[ExtResource("9_5ylav")]([])
+generated_script = "extends SimpleCharacter
+
+
+func _process(delta):
+	move_with_player_buttons('player_1', 'top-down', delta)
+
+func crash():
+	(get_node(\"AnimationPlayer\")).call('crash')
+
+"
+version = 0
+
+[node name="SimpleCharacter" type="CharacterBody2D" groups=["Ship", "affected_by_gravity"]]
+script = ExtResource("1_rrros")
+speed = Vector2(400, 400)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-54, -7)
+amount = 10
+texture = ExtResource("2_qdvvn")
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(-100, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 400.0
+linear_accel_max = 100.0
+scale_amount_min = 0.5
+scale_amount_max = 0.75
+scale_amount_curve = SubResource("Curve_j0da6")
+color = Color(1, 1, 1, 0.807)
+color_ramp = SubResource("Gradient_f4wxx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-8, -6)
+scale = Vector2(0.194135, 0.194135)
+texture = ExtResource("3_s1qof")
+region_enabled = true
+region_rect = Rect2(338.878, 351.521, 753.301, 389.432)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -4)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_babat")
+
+[node name="LaserGun" parent="." instance=ExtResource("4_0x2nn")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_86tyj")
+}
+speed_scale = 3.0
+
+[node name="BlockCode" type="Node" parent="AnimationPlayer"]
+script = ExtResource("4_i1022")
+block_script = SubResource("Resource_gtmbp")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("4_i1022")
+block_script = SubResource("Resource_0xoh2")

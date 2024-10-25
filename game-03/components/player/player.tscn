@@ -1,12 +1,597 @@
-[gd_scene load_steps=25 format=3 uid="uid://8st4scqt06l8"]
+[gd_scene load_steps=130 format=3 uid="uid://8st4scqt06l8"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_vu6uw"]
-[ext_resource type="SpriteFrames" uid="uid://bo581k1esb50n" path="res://game-03/components/player/spriteframes-red.tres" id="2_msaml"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_x0qit"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_ckbst"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_mcw5b"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="5_mhb5n"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="6_c3puh"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="6_eqqyd"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="7_uyqn1"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="7_ubegq"]
+[ext_resource type="Texture2D" uid="uid://de3owpoc205t0" path="res://game-03/assets/player-red.png" id="9_d5cr6"]
+
+[sub_resource type="Animation" id="Animation_82d58"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_7m0y0"]
+resource_name = "hit"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="Animation" id="Animation_mnmxn"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ud1om"]
+resource_name = "jump_down"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_8cvul"]
+resource_name = "jump_up"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_ux0x5"]
+resource_name = "walk_left"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1w8at"]
+resource_name = "walk_right"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_371pm"]
+_data = {
+"RESET": SubResource("Animation_82d58"),
+"hit": SubResource("Animation_7m0y0"),
+"idle": SubResource("Animation_mnmxn"),
+"jump_down": SubResource("Animation_ud1om"),
+"jump_up": SubResource("Animation_8cvul"),
+"walk_left": SubResource("Animation_ux0x5"),
+"walk_right": SubResource("Animation_1w8at")
+}
+
+[sub_resource type="Resource" id="Resource_1nk7h"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_k0tjt"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_1nk7h"),
+"float2": 0.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_s0t8s"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 0
+}
+
+[sub_resource type="Resource" id="Resource_gur35"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "idle",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_ym0j0"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_s0t8s"), SubResource("Resource_gur35")])
+arguments = {
+"condition": SubResource("Resource_k0tjt")
+}
+
+[sub_resource type="Resource" id="Resource_y0yvm"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_ym0j0")])
+arguments = {
+"method_name": &"be_idle"
+}
+
+[sub_resource type="Resource" id="Resource_wcepv"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_y0yvm")
+canvas_position = Vector2(425, 50)
+
+[sub_resource type="Resource" id="Resource_3wj3g"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_x4ihf"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_3wj3g"),
+"float2": 1.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_44svf"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 1
+}
+
+[sub_resource type="Resource" id="Resource_b536v"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "walk_right",
+"direction": "forward",
+"wait_mode": "in the background"
+}
+
+[sub_resource type="Resource" id="Resource_4mbsq"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_44svf"), SubResource("Resource_b536v")])
+arguments = {
+"condition": SubResource("Resource_x4ihf")
+}
+
+[sub_resource type="Resource" id="Resource_irflf"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_4mbsq")])
+arguments = {
+"method_name": &"walk_right"
+}
+
+[sub_resource type="Resource" id="Resource_1htfx"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_irflf")
+canvas_position = Vector2(425, 300)
+
+[sub_resource type="Resource" id="Resource_tdv0q"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_vxymr"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_tdv0q"),
+"float2": 2.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_7uumx"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 2
+}
+
+[sub_resource type="Resource" id="Resource_72kvu"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "walk_left",
+"direction": "forward",
+"wait_mode": "in the background"
+}
+
+[sub_resource type="Resource" id="Resource_fn52r"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_7uumx"), SubResource("Resource_72kvu")])
+arguments = {
+"condition": SubResource("Resource_vxymr")
+}
+
+[sub_resource type="Resource" id="Resource_gi7gf"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_fn52r")])
+arguments = {
+"method_name": &"walk_left"
+}
+
+[sub_resource type="Resource" id="Resource_vd8iy"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_gi7gf")
+canvas_position = Vector2(425, 550)
+
+[sub_resource type="Resource" id="Resource_g1v4b"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_53rdg"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_g1v4b"),
+"float2": 4.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_lvo1l"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 4
+}
+
+[sub_resource type="Resource" id="Resource_xuf3j"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "jump_down",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_knhw6"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_lvo1l"), SubResource("Resource_xuf3j")])
+arguments = {
+"condition": SubResource("Resource_53rdg")
+}
+
+[sub_resource type="Resource" id="Resource_eiy1s"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_knhw6")])
+arguments = {
+"method_name": &"jump_down"
+}
+
+[sub_resource type="Resource" id="Resource_lye1m"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_eiy1s")
+canvas_position = Vector2(0, 400)
+
+[sub_resource type="Resource" id="Resource_hc3vb"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_rxn1x"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_hc3vb"),
+"float2": 3.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_gl72r"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 3
+}
+
+[sub_resource type="Resource" id="Resource_v46ic"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "jump_up",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_osywg"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_gl72r"), SubResource("Resource_v46ic")])
+arguments = {
+"condition": SubResource("Resource_rxn1x")
+}
+
+[sub_resource type="Resource" id="Resource_tj7tt"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_osywg")])
+arguments = {
+"method_name": &"jump_up"
+}
+
+[sub_resource type="Resource" id="Resource_j2jqb"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_tj7tt")
+canvas_position = Vector2(0, 150)
+
+[sub_resource type="Resource" id="Resource_15a3y"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 0
+}
+
+[sub_resource type="Resource" id="Resource_lddtv"]
+script = ExtResource("4_mcw5b")
+name = &"ready"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_15a3y")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_hlsl5"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_lddtv")
+canvas_position = Vector2(0, 50)
+
+[sub_resource type="Resource" id="Resource_hf2aj"]
+script = ExtResource("6_c3puh")
+name = &"get_var_move_state"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_rxg3y"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_hf2aj"),
+"float2": 5.0,
+"op": "!="
+}
+
+[sub_resource type="Resource" id="Resource_5s770"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_move_state"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": 5
+}
+
+[sub_resource type="Resource" id="Resource_smrg0"]
+script = ExtResource("4_mcw5b")
+name = &"animationplayer_play"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"animation": "hit",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_81o6c"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_5s770"), SubResource("Resource_smrg0")])
+arguments = {
+"condition": SubResource("Resource_rxg3y")
+}
+
+[sub_resource type="Resource" id="Resource_41cd3"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_81o6c")])
+arguments = {
+"method_name": &"be_hit"
+}
+
+[sub_resource type="Resource" id="Resource_dulgo"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_41cd3")
+canvas_position = Vector2(0, 650)
+
+[sub_resource type="Resource" id="Resource_n6pf8"]
+script = ExtResource("7_ubegq")
+var_name = "move_state"
+var_type = 2
+
+[sub_resource type="Resource" id="Resource_xi3ry"]
+script = ExtResource("6_eqqyd")
+script_inherits = "AnimationPlayer"
+block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_wcepv"), SubResource("Resource_1htfx"), SubResource("Resource_vd8iy"), SubResource("Resource_lye1m"), SubResource("Resource_j2jqb"), SubResource("Resource_hlsl5"), SubResource("Resource_dulgo")])
+variables = Array[ExtResource("7_ubegq")]([SubResource("Resource_n6pf8")])
+generated_script = "extends AnimationPlayer
+
+var move_state: int
+
+
+func be_idle():
+	if ((move_state) != 0):
+		move_state = 0
+		if 'forward' == \"forward\":
+			play('idle')
+		else:
+			play_backwards('idle')
+		if 'until done' == \"until done\":
+			await animation_finished
+
+
+func walk_right():
+	if ((move_state) != 1):
+		move_state = 1
+		if 'forward' == \"forward\":
+			play('walk_right')
+		else:
+			play_backwards('walk_right')
+		if 'in the background' == \"until done\":
+			await animation_finished
+
+
+func walk_left():
+	if ((move_state) != 2):
+		move_state = 2
+		if 'forward' == \"forward\":
+			play('walk_left')
+		else:
+			play_backwards('walk_left')
+		if 'in the background' == \"until done\":
+			await animation_finished
+
+
+func jump_down():
+	if ((move_state) != 4):
+		move_state = 4
+		if 'forward' == \"forward\":
+			play('jump_down')
+		else:
+			play_backwards('jump_down')
+		if 'until done' == \"until done\":
+			await animation_finished
+
+
+func jump_up():
+	if ((move_state) != 3):
+		move_state = 3
+		if 'forward' == \"forward\":
+			play('jump_up')
+		else:
+			play_backwards('jump_up')
+		if 'until done' == \"until done\":
+			await animation_finished
+
+
+func _ready():
+	move_state = 0
+
+func be_hit():
+	if ((move_state) != 5):
+		move_state = 5
+		if 'forward' == \"forward\":
+			play('hit')
+		else:
+			play_backwards('hit')
+		if 'until done' == \"until done\":
+			await animation_finished
+
+
+"
+version = 0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2etyl"]
 radius = 31.0
@@ -15,116 +600,504 @@ height = 92.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8v66"]
 size = Vector2(62, 20)
 
-[sub_resource type="Resource" id="Resource_gm35k"]
-script = ExtResource("5_mhb5n")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
+[sub_resource type="Resource" id="Resource_xf1j0"]
+script = ExtResource("6_c3puh")
+name = &"area2d_on_entered:something"
+arguments = {}
 
-[sub_resource type="Resource" id="Resource_ta5ex"]
-script = ExtResource("5_mhb5n")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
-"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_eoxvq"]
-script = ExtResource("4_mcw5b")
-name = &"parameter_block"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_ta5ex")
-
-[sub_resource type="Resource" id="Resource_i4rmi"]
-script = ExtResource("5_mhb5n")
-block_class = &"ControlBlock"
-serialized_props = [["scope", ""], ["param_input_strings_array", [{
-"condition": false
-}]]]
-
-[sub_resource type="Resource" id="Resource_fo7i4"]
-script = ExtResource("5_mhb5n")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"group": "enemy",
-"node": ""
-}]]
-
-[sub_resource type="Resource" id="Resource_sbkqv"]
-script = ExtResource("5_mhb5n")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
-"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_8douo"]
-script = ExtResource("4_mcw5b")
-name = &"parameter_block"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_sbkqv")
-
-[sub_resource type="Resource" id="Resource_pmytx"]
-script = ExtResource("4_mcw5b")
+[sub_resource type="Resource" id="Resource_57tja"]
+script = ExtResource("6_c3puh")
 name = &"is_node_in_group"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_8douo")]]
-block_serialized_properties = SubResource("Resource_fo7i4")
+arguments = {
+"group": "enemy",
+"node": SubResource("Resource_xf1j0")
+}
 
-[sub_resource type="Resource" id="Resource_rn4eb"]
-script = ExtResource("5_mhb5n")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "vanish_enemy",
-"node": ""
-}]]
+[sub_resource type="Resource" id="Resource_fqba6"]
+script = ExtResource("6_c3puh")
+name = &"area2d_on_entered:something"
+arguments = {}
 
-[sub_resource type="Resource" id="Resource_xhgr6"]
-script = ExtResource("5_mhb5n")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
-"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_ktgid"]
+[sub_resource type="Resource" id="Resource_nfh3u"]
 script = ExtResource("4_mcw5b")
-name = &"parameter_block"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_xhgr6")
+name = &"queue_free_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"node": SubResource("Resource_fqba6")
+}
 
-[sub_resource type="Resource" id="Resource_f4h4g"]
-script = ExtResource("4_mcw5b")
-name = &"call_method_node"
-position = Vector2(20, 0)
-path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterInput33/SnapPoint"), SubResource("Resource_ktgid")]]
-block_serialized_properties = SubResource("Resource_rn4eb")
-
-[sub_resource type="Resource" id="Resource_10iba"]
+[sub_resource type="Resource" id="Resource_md1cf"]
 script = ExtResource("4_mcw5b")
 name = &"if"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_pmytx")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_f4h4g")]]
-block_serialized_properties = SubResource("Resource_i4rmi")
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_nfh3u")])
+arguments = {
+"condition": SubResource("Resource_57tja")
+}
 
-[sub_resource type="Resource" id="Resource_sxoca"]
+[sub_resource type="Resource" id="Resource_dyijn"]
 script = ExtResource("4_mcw5b")
 name = &"area2d_on_entered"
-position = Vector2(75, 75)
-path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_eoxvq")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_10iba")]]
-block_serialized_properties = SubResource("Resource_gm35k")
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_md1cf")])
+arguments = {}
 
-[sub_resource type="Resource" id="Resource_piwq0"]
+[sub_resource type="Resource" id="Resource_6s4om"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_dyijn")
+canvas_position = Vector2(75, 50)
+
+[sub_resource type="Resource" id="Resource_du3n1"]
 script = ExtResource("6_eqqyd")
 script_inherits = "Area2D"
-block_trees = Array[ExtResource("4_mcw5b")]([SubResource("Resource_sxoca")])
-variables = Array[ExtResource("7_uyqn1")]([])
+block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_6s4om")])
+variables = Array[ExtResource("7_ubegq")]([])
 generated_script = "extends Area2D
 
 
-func _on_body_entered(body: Node2D):
-
-	if body.is_in_group('enemy'):
-		body.call('vanish_enemy')
-
 func _init():
 	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	if ((something).is_in_group('enemy')):
+		(something).queue_free()
+
+"
+version = 0
+
+[sub_resource type="Resource" id="Resource_1e535"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_is_playing"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": false
+}
+
+[sub_resource type="Resource" id="Resource_ot3hl"]
+script = ExtResource("4_mcw5b")
+name = &"ready"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_1e535")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_d4l5n"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_ot3hl")
+canvas_position = Vector2(25, 0)
+
+[sub_resource type="Resource" id="Resource_dmhq3"]
+script = ExtResource("6_c3puh")
+name = &"is_input_actioned"
+arguments = {
+"action": "pressed",
+"action_name": &"ui_accept"
+}
+
+[sub_resource type="Resource" id="Resource_06cdi"]
+script = ExtResource("4_mcw5b")
+name = &"set_var_is_playing"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": true
+}
+
+[sub_resource type="Resource" id="Resource_0oop1"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_06cdi")])
+arguments = {
+"condition": SubResource("Resource_dmhq3")
+}
+
+[sub_resource type="Resource" id="Resource_atb1h"]
+script = ExtResource("6_c3puh")
+name = &"get_var_is_playing"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_af7so"]
+script = ExtResource("4_mcw5b")
+name = &"simplecharacter_move"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"kind": "platformer",
+"player": "player_1"
+}
+
+[sub_resource type="Resource" id="Resource_x502e"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_af7so")])
+arguments = {
+"condition": SubResource("Resource_atb1h")
+}
+
+[sub_resource type="Resource" id="Resource_b2x3w"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_skjo8"]
+script = ExtResource("6_c3puh")
+name = &"vector2_x"
+arguments = {
+"vector2": SubResource("Resource_b2x3w")
+}
+
+[sub_resource type="Resource" id="Resource_38546"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_skjo8"),
+"float2": 0.0,
+"op": "=="
+}
+
+[sub_resource type="Resource" id="Resource_gyx1w"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_lr4xo"]
+script = ExtResource("6_c3puh")
+name = &"vector2_y"
+arguments = {
+"vector2": SubResource("Resource_gyx1w")
+}
+
+[sub_resource type="Resource" id="Resource_s5typ"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_lr4xo"),
+"float2": 0.0,
+"op": "=="
+}
+
+[sub_resource type="Resource" id="Resource_ky60c"]
+script = ExtResource("6_c3puh")
+name = &"and"
+arguments = {
+"bool1": SubResource("Resource_38546"),
+"bool2": SubResource("Resource_s5typ")
+}
+
+[sub_resource type="Resource" id="Resource_pdfdk"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_n6j74"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "be_idle",
+"node": SubResource("Resource_pdfdk")
+}
+
+[sub_resource type="Resource" id="Resource_emt27"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_n6j74")])
+arguments = {
+"condition": SubResource("Resource_ky60c")
+}
+
+[sub_resource type="Resource" id="Resource_ggdjo"]
+script = ExtResource("6_c3puh")
+name = &"characterbody2d_is_on_floor"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_jiufe"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_2smut"]
+script = ExtResource("6_c3puh")
+name = &"vector2_x"
+arguments = {
+"vector2": SubResource("Resource_jiufe")
+}
+
+[sub_resource type="Resource" id="Resource_81pi6"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_2smut"),
+"float2": 0.0,
+"op": ">"
+}
+
+[sub_resource type="Resource" id="Resource_57mx7"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_cw3rr"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "walk_right",
+"node": SubResource("Resource_57mx7")
+}
+
+[sub_resource type="Resource" id="Resource_sy1fw"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_cw3rr")])
+arguments = {
+"condition": SubResource("Resource_81pi6")
+}
+
+[sub_resource type="Resource" id="Resource_nfp67"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_ogc2b"]
+script = ExtResource("6_c3puh")
+name = &"vector2_x"
+arguments = {
+"vector2": SubResource("Resource_nfp67")
+}
+
+[sub_resource type="Resource" id="Resource_cvwp5"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_ogc2b"),
+"float2": 0.0,
+"op": "<"
+}
+
+[sub_resource type="Resource" id="Resource_unrcn"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_pc16l"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "walk_left",
+"node": SubResource("Resource_unrcn")
+}
+
+[sub_resource type="Resource" id="Resource_ldcwy"]
+script = ExtResource("4_mcw5b")
+name = &"else_if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_pc16l")])
+arguments = {
+"condition": SubResource("Resource_cvwp5")
+}
+
+[sub_resource type="Resource" id="Resource_ljflk"]
+script = ExtResource("4_mcw5b")
+name = &"else_if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_sy1fw"), SubResource("Resource_ldcwy")])
+arguments = {
+"condition": SubResource("Resource_ggdjo")
+}
+
+[sub_resource type="Resource" id="Resource_pfmy6"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_hq7nk"]
+script = ExtResource("6_c3puh")
+name = &"vector2_y"
+arguments = {
+"vector2": SubResource("Resource_pfmy6")
+}
+
+[sub_resource type="Resource" id="Resource_4hmpx"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_hq7nk"),
+"float2": 0.0,
+"op": "<"
+}
+
+[sub_resource type="Resource" id="Resource_ng1gb"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_rneqc"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "jump_up",
+"node": SubResource("Resource_ng1gb")
+}
+
+[sub_resource type="Resource" id="Resource_mqdhf"]
+script = ExtResource("4_mcw5b")
+name = &"if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_rneqc")])
+arguments = {
+"condition": SubResource("Resource_4hmpx")
+}
+
+[sub_resource type="Resource" id="Resource_iaknb"]
+script = ExtResource("6_c3puh")
+name = &"CharacterBody2D_get_velocity"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_f1snu"]
+script = ExtResource("6_c3puh")
+name = &"vector2_y"
+arguments = {
+"vector2": SubResource("Resource_iaknb")
+}
+
+[sub_resource type="Resource" id="Resource_3p17o"]
+script = ExtResource("6_c3puh")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_f1snu"),
+"float2": 0.0,
+"op": ">"
+}
+
+[sub_resource type="Resource" id="Resource_sq7db"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_f43yv"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "jump_down",
+"node": SubResource("Resource_sq7db")
+}
+
+[sub_resource type="Resource" id="Resource_4jjlg"]
+script = ExtResource("4_mcw5b")
+name = &"else_if"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_f43yv")])
+arguments = {
+"condition": SubResource("Resource_3p17o")
+}
+
+[sub_resource type="Resource" id="Resource_kaa2k"]
+script = ExtResource("4_mcw5b")
+name = &"else"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_mqdhf"), SubResource("Resource_4jjlg")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_v1pkq"]
+script = ExtResource("4_mcw5b")
+name = &"process"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_0oop1"), SubResource("Resource_x502e"), SubResource("Resource_emt27"), SubResource("Resource_ljflk"), SubResource("Resource_kaa2k")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_7jcx5"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_v1pkq")
+canvas_position = Vector2(25, 100)
+
+[sub_resource type="Resource" id="Resource_y1yfh"]
+script = ExtResource("6_c3puh")
+name = &"get_node"
+arguments = {
+"path": NodePath("AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_wsn2p"]
+script = ExtResource("4_mcw5b")
+name = &"call_method_node"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"method_name": "be_hit",
+"node": SubResource("Resource_y1yfh")
+}
+
+[sub_resource type="Resource" id="Resource_ubnbh"]
+script = ExtResource("6_c3puh")
+name = &"vector2"
+arguments = {
+"x": 512.0,
+"y": 448.0
+}
+
+[sub_resource type="Resource" id="Resource_ctxoq"]
+script = ExtResource("4_mcw5b")
+name = &"Node2D_set_position"
+children = Array[ExtResource("4_mcw5b")]([])
+arguments = {
+"value": SubResource("Resource_ubnbh")
+}
+
+[sub_resource type="Resource" id="Resource_426sh"]
+script = ExtResource("4_mcw5b")
+name = &"define_method"
+children = Array[ExtResource("4_mcw5b")]([SubResource("Resource_wsn2p"), SubResource("Resource_ctxoq")])
+arguments = {
+"method_name": &"reset_player"
+}
+
+[sub_resource type="Resource" id="Resource_h5h7e"]
+script = ExtResource("4_ckbst")
+root = SubResource("Resource_426sh")
+canvas_position = Vector2(375, 0)
+
+[sub_resource type="Resource" id="Resource_hsh3i"]
+script = ExtResource("7_ubegq")
+var_name = "is_playing"
+var_type = 1
+
+[sub_resource type="Resource" id="Resource_ahm1y"]
+script = ExtResource("6_eqqyd")
+script_inherits = "SimpleCharacter"
+block_serialization_trees = Array[ExtResource("4_ckbst")]([SubResource("Resource_d4l5n"), SubResource("Resource_7jcx5"), SubResource("Resource_h5h7e")])
+variables = Array[ExtResource("7_ubegq")]([SubResource("Resource_hsh3i")])
+generated_script = "extends SimpleCharacter
+
+var is_playing: bool
+
+
+func _ready():
+	is_playing = false
+
+func _process(delta):
+	if (Input.is_action_pressed('ui_accept')):
+		is_playing = true
+	if (is_playing):
+		move_with_player_buttons('player_1', 'platformer', delta)
+	if ((((velocity).x) == 0) and (((velocity).y) == 0)):
+		(get_node(\"AnimationPlayer\")).call('be_idle')
+	elif (is_on_floor()):
+		if (((velocity).x) > 0):
+			(get_node(\"AnimationPlayer\")).call('walk_right')
+		elif (((velocity).x) < 0):
+			(get_node(\"AnimationPlayer\")).call('walk_left')
+	else:
+		if (((velocity).y) < 0):
+			(get_node(\"AnimationPlayer\")).call('jump_up')
+		elif (((velocity).y) > 0):
+			(get_node(\"AnimationPlayer\")).call('jump_down')
+
+func reset_player():
+	(get_node(\"AnimationPlayer\")).call('be_hit')
+	position = (Vector2(512, 448))
+
 "
 version = 0
 
@@ -133,14 +1106,25 @@ collision_layer = 3
 collision_mask = 5
 script = ExtResource("1_vu6uw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-unique_name_in_owner = true
-sprite_frames = ExtResource("2_msaml")
-animation = &"walk"
-autoplay = "walk"
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("9_d5cr6")
+hframes = 6
+vframes = 3
+region_enabled = true
+region_rect = Rect2(-11, 0, 889, 448)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_371pm")
+}
+autoplay = "idle"
+
+[node name="BlockCode" type="Node" parent="AnimationPlayer"]
+script = ExtResource("3_x0qit")
+block_script = SubResource("Resource_xi3ry")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 18)
+position = Vector2(0, 7)
 shape = SubResource("CapsuleShape2D_2etyl")
 
 [node name="HitArea" type="Area2D" parent="."]
@@ -148,9 +1132,13 @@ collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
-position = Vector2(0, 54)
+position = Vector2(0, 43)
 shape = SubResource("RectangleShape2D_a8v66")
 
 [node name="BlockCode" type="Node" parent="HitArea"]
 script = ExtResource("3_x0qit")
-block_script = SubResource("Resource_piwq0")
+block_script = SubResource("Resource_du3n1")
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("3_x0qit")
+block_script = SubResource("Resource_ahm1y")

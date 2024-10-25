@@ -1,0 +1,353 @@
+[gd_scene load_steps=33 format=3 uid="uid://fvdldxg5au17"]
+
+[ext_resource type="Texture2D" uid="uid://blq8smrhpgtpj" path="res://game-06/graphics/graphics.png" id="1_og0d8"]
+[ext_resource type="Texture2D" uid="uid://djqy6w0vissy2" path="res://game-06/graphics/glow.png" id="2_p4myk"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_fm8j6"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_xb1ij"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="5_yr5t4"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="6_mye12"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="7_qi5iu"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="8_vi8nk"]
+
+[sub_resource type="Resource" id="Resource_2wbve"]
+script = ExtResource("6_mye12")
+name = &"area2d_on_entered:something"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_54nqn"]
+script = ExtResource("6_mye12")
+name = &"is_node_in_group"
+arguments = {
+"group": "Ship",
+"node": SubResource("Resource_2wbve")
+}
+
+[sub_resource type="Resource" id="Resource_gghg0"]
+script = ExtResource("5_yr5t4")
+name = &"call_method_group"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"group": "Score",
+"method_name": "increase_score"
+}
+
+[sub_resource type="Resource" id="Resource_0lkm3"]
+script = ExtResource("6_mye12")
+name = &"get_node"
+arguments = {
+"path": NodePath("../AnimationPlayer")
+}
+
+[sub_resource type="Resource" id="Resource_88rbs"]
+script = ExtResource("5_yr5t4")
+name = &"call_method_node"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"method_name": "play_taken",
+"node": SubResource("Resource_0lkm3")
+}
+
+[sub_resource type="Resource" id="Resource_4xsc8"]
+script = ExtResource("5_yr5t4")
+name = &"play_sound"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"db": 0.0,
+"name": "Ding",
+"pitch": 1.0
+}
+
+[sub_resource type="Resource" id="Resource_sqbea"]
+script = ExtResource("5_yr5t4")
+name = &"if"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_gghg0"), SubResource("Resource_88rbs"), SubResource("Resource_4xsc8")])
+arguments = {
+"condition": SubResource("Resource_54nqn")
+}
+
+[sub_resource type="Resource" id="Resource_8sciy"]
+script = ExtResource("5_yr5t4")
+name = &"area2d_on_entered"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_sqbea")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_pni3d"]
+script = ExtResource("4_xb1ij")
+root = SubResource("Resource_8sciy")
+canvas_position = Vector2(75, 100)
+
+[sub_resource type="Resource" id="Resource_2vwen"]
+script = ExtResource("5_yr5t4")
+name = &"load_sound"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"file_path": "res://game-06/Sounds/Ding.ogg",
+"name": "Ding"
+}
+
+[sub_resource type="Resource" id="Resource_lhmd8"]
+script = ExtResource("5_yr5t4")
+name = &"ready"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_2vwen")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_s1kdp"]
+script = ExtResource("4_xb1ij")
+root = SubResource("Resource_lhmd8")
+canvas_position = Vector2(350, 625)
+
+[sub_resource type="Resource" id="Resource_1tgsl"]
+script = ExtResource("7_qi5iu")
+script_inherits = "Area2D"
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_pni3d"), SubResource("Resource_s1kdp")])
+variables = Array[ExtResource("8_vi8nk")]([])
+generated_script = "extends Area2D
+
+
+func _init():
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	if ((something).is_in_group('Ship')):
+		get_tree().call_group('Score', 'increase_score')
+		(get_node(\"../AnimationPlayer\")).call('play_taken')
+		var __sound_node_1 = get_node('Ding')
+		__sound_node_1.volume_db = 0
+		__sound_node_1.pitch_scale = 1
+		__sound_node_1.play()
+
+
+func _ready():
+	var __sound_1 = AudioStreamPlayer.new()
+	__sound_1.name = 'Ding'
+	__sound_1.set_stream(load('res://game-06/Sounds/Ding.ogg'))
+	add_child(__sound_1)
+
+
+"
+version = 0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q0gxq"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_4uf1l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.32356, 0.32356)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.343372, 0.343372)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(2, 2, 2, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_w16q0"]
+resource_name = "taken"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(0.32356, 0.32356), Vector2(0.713231, 0.713231)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector2(0.343372, 0.343372), Vector2(0.690571, 0.690571)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.2),
+"transitions": PackedFloat32Array(2, 2, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r185l"]
+_data = {
+"RESET": SubResource("Animation_4uf1l"),
+"taken": SubResource("Animation_w16q0")
+}
+
+[sub_resource type="Resource" id="Resource_gfvmc"]
+script = ExtResource("5_yr5t4")
+name = &"animationplayer_play"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"animation": "taken",
+"direction": "forward",
+"wait_mode": "until done"
+}
+
+[sub_resource type="Resource" id="Resource_va7lt"]
+script = ExtResource("5_yr5t4")
+name = &"print"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"text": "ANIMATION END"
+}
+
+[sub_resource type="Resource" id="Resource_kfpvr"]
+script = ExtResource("6_mye12")
+name = &"get_node"
+arguments = {
+"path": NodePath("..")
+}
+
+[sub_resource type="Resource" id="Resource_jvy7v"]
+script = ExtResource("5_yr5t4")
+name = &"queue_free_node"
+children = Array[ExtResource("5_yr5t4")]([])
+arguments = {
+"node": SubResource("Resource_kfpvr")
+}
+
+[sub_resource type="Resource" id="Resource_15crc"]
+script = ExtResource("5_yr5t4")
+name = &"define_method"
+children = Array[ExtResource("5_yr5t4")]([SubResource("Resource_gfvmc"), SubResource("Resource_va7lt"), SubResource("Resource_jvy7v")])
+arguments = {
+"method_name": &"play_taken"
+}
+
+[sub_resource type="Resource" id="Resource_kfiq8"]
+script = ExtResource("4_xb1ij")
+root = SubResource("Resource_15crc")
+canvas_position = Vector2(125, 125)
+
+[sub_resource type="Resource" id="Resource_18qip"]
+script = ExtResource("7_qi5iu")
+script_inherits = "AnimationPlayer"
+block_serialization_trees = Array[ExtResource("4_xb1ij")]([SubResource("Resource_kfiq8")])
+variables = Array[ExtResource("8_vi8nk")]([])
+generated_script = "extends AnimationPlayer
+
+
+func play_taken():
+	if 'forward' == \"forward\":
+		play('taken')
+	else:
+		play_backwards('taken')
+	if 'until done' == \"until done\":
+		await animation_finished
+
+	print('ANIMATION END')
+	(get_node(\"..\")).queue_free()
+
+"
+version = 0
+
+[node name="Coin" type="RigidBody2D" groups=["coins"]]
+collision_layer = 4
+collision_mask = 0
+gravity_scale = 0.0
+linear_velocity = Vector2(-200, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(34, -2, -2, 21, -35, 2, -24, -16, -5, -23, 14, -22, 24, -16)
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(1.05, 1.05)
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(34, -2, -2, 21, -35, 2, -24, -16, -5, -23, 14, -22, 24, -16)
+
+[node name="BlockCode" type="Node" parent="Area2D"]
+script = ExtResource("3_fm8j6")
+block_script = SubResource("Resource_1tgsl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(2, 2, 2, 1)
+material = SubResource("CanvasItemMaterial_q0gxq")
+position = Vector2(-3, -3)
+scale = Vector2(0.343372, 0.343372)
+texture = ExtResource("2_p4myk")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+scale = Vector2(0.32356, 0.32356)
+texture = ExtResource("1_og0d8")
+region_enabled = true
+region_rect = Rect2(1469.28, 341.455, 226.813, 149.091)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r185l")
+}
+
+[node name="BlockCode" type="Node" parent="AnimationPlayer"]
+script = ExtResource("3_fm8j6")
+block_script = SubResource("Resource_18qip")

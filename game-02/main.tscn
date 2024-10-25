@@ -1,14 +1,13 @@
-[gd_scene load_steps=22 format=3 uid="uid://2i01y1k8udj"]
+[gd_scene load_steps=19 format=3 uid="uid://2i01y1k8udj"]
 
 [ext_resource type="PackedScene" uid="uid://bj20g2u4cy81b" path="res://game-02/level.tscn" id="1_mjccm"]
 [ext_resource type="Texture2D" uid="uid://c6xa1rkfrh2s" path="res://game-02/split.png" id="2_tpbhh"]
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_wu28m"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="3_yyogu"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="4_cur5m"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_m87ua"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_sybr6"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="6_8huaw"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_btg6s"]
 [ext_resource type="Texture2D" uid="uid://bq6eirt5xh8hn" path="res://game-02/player.png" id="7_iyg2e"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="8_b4gre"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_roru3"]
 radius = 61.2046
@@ -366,53 +365,45 @@ _data = {
 "tutorial": SubResource("Animation_j878m")
 }
 
-[sub_resource type="Resource" id="Resource_ii6jq"]
-script = ExtResource("4_cur5m")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"method_name": "the_end"
-}]]
-
-[sub_resource type="Resource" id="Resource_5y54k"]
-script = ExtResource("8_b4gre")
-selected = 0
-items = ["ahead", "backwards"]
-
-[sub_resource type="Resource" id="Resource_yxtqj"]
-script = ExtResource("4_cur5m")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"animation": "the-end",
-"direction": SubResource("Resource_5y54k")
-}]]
-
-[sub_resource type="Resource" id="Resource_whdlx"]
+[sub_resource type="Resource" id="Resource_0iik1"]
 script = ExtResource("3_yyogu")
 name = &"animationplayer_play"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_yxtqj")
+children = Array[ExtResource("3_yyogu")]([])
+arguments = {
+"animation": "the-end",
+"direction": "forward",
+"wait_mode": "until done"
+}
 
-[sub_resource type="Resource" id="Resource_quvdc"]
+[sub_resource type="Resource" id="Resource_v87e2"]
 script = ExtResource("3_yyogu")
 name = &"define_method"
-position = Vector2(100, 150)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_whdlx")]]
-block_serialized_properties = SubResource("Resource_ii6jq")
+children = Array[ExtResource("3_yyogu")]([SubResource("Resource_0iik1")])
+arguments = {
+"method_name": &"the_end"
+}
+
+[sub_resource type="Resource" id="Resource_ewq5d"]
+script = ExtResource("4_m87ua")
+root = SubResource("Resource_v87e2")
+canvas_position = Vector2(425, 100)
 
 [sub_resource type="Resource" id="Resource_kluh1"]
 script = ExtResource("5_sybr6")
 script_inherits = "AnimationPlayer"
-block_trees = Array[ExtResource("3_yyogu")]([SubResource("Resource_quvdc")])
-variables = Array[ExtResource("6_8huaw")]([])
+block_serialization_trees = Array[ExtResource("4_m87ua")]([SubResource("Resource_ewq5d")])
+variables = Array[ExtResource("6_btg6s")]([])
 generated_script = "extends AnimationPlayer
 
 
 func the_end():
-	if \"ahead\" == \"ahead\":
+	if 'forward' == \"forward\":
 		play('the-end')
 	else:
 		play_backwards('the-end')
+	if 'until done' == \"until done\":
+		await animation_finished
+
 
 "
 version = 0

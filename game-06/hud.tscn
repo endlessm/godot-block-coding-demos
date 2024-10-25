@@ -1,0 +1,120 @@
+[gd_scene load_steps=17 format=3 uid="uid://crt1rd7wivci5"]
+
+[ext_resource type="PackedScene" uid="uid://csbi7tcvjhju4" path="res://game-06/game_score.tscn" id="1_sqdyh"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_kjf1e"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="3_yjmq7"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_i4vdi"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_gl83s"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_70vs7"]
+[ext_resource type="FontFile" uid="uid://0a8howkelk56" path="res://game-05/font/Orbitron-Bold.ttf" id="7_7m1de"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vhaqr"]
+font = ExtResource("7_7m1de")
+font_size = 42
+
+[sub_resource type="Gradient" id="Gradient_vsr38"]
+offsets = PackedFloat32Array(0, 0.308594, 0.425781, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.446221, 0.693144, 0.758889, 1, 0.1121, 0.173122, 0.19, 0.988235, 0, 0, 0, 0.984314)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_admu3"]
+gradient = SubResource("Gradient_vsr38")
+fill_from = Vector2(0.705128, 0)
+fill_to = Vector2(0.444444, 0.559829)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ary77"]
+content_margin_left = 60.0
+content_margin_top = 260.0
+content_margin_right = 60.0
+content_margin_bottom = 60.0
+texture = SubResource("GradientTexture2D_admu3")
+
+[sub_resource type="LabelSettings" id="LabelSettings_d6ja6"]
+font = ExtResource("7_7m1de")
+font_size = 40
+
+[sub_resource type="Resource" id="Resource_7f4as"]
+script = ExtResource("4_i4vdi")
+name = &"CanvasItem_set_visible"
+children = Array[ExtResource("4_i4vdi")]([])
+arguments = {
+"value": true
+}
+
+[sub_resource type="Resource" id="Resource_5emim"]
+script = ExtResource("4_i4vdi")
+name = &"define_method"
+children = Array[ExtResource("4_i4vdi")]([SubResource("Resource_7f4as")])
+arguments = {
+"method_name": &"game_over"
+}
+
+[sub_resource type="Resource" id="Resource_krpes"]
+script = ExtResource("3_yjmq7")
+root = SubResource("Resource_5emim")
+canvas_position = Vector2(50, 50)
+
+[sub_resource type="Resource" id="Resource_d5bk8"]
+script = ExtResource("5_gl83s")
+script_inherits = "PanelContainer"
+block_serialization_trees = Array[ExtResource("3_yjmq7")]([SubResource("Resource_krpes")])
+variables = Array[ExtResource("6_70vs7")]([])
+generated_script = "extends PanelContainer
+
+
+func game_over():
+	visible = true
+
+"
+version = 0
+
+[node name="HUD" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InGamePanel" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+
+[node name="GameScore" parent="InGamePanel" instance=ExtResource("1_sqdyh")]
+position = Vector2(140, 3)
+
+[node name="Label" type="Label" parent="InGamePanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Score:
+"
+label_settings = SubResource("LabelSettings_vhaqr")
+
+[node name="GameOverPanel" type="PanelContainer" parent="." groups=["Overlay"]]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ary77")
+
+[node name="Label" type="Label" parent="GameOverPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "You crashed, but you collected..."
+label_settings = SubResource("LabelSettings_d6ja6")
+horizontal_alignment = 1
+
+[node name="GameScore" parent="GameOverPanel" instance=ExtResource("1_sqdyh")]
+position = Vector2(263, 263)
+scale = Vector2(1, 1)
+
+[node name="Label2" type="Label" parent="GameOverPanel"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "gems          "
+label_settings = SubResource("LabelSettings_d6ja6")
+horizontal_alignment = 2
+
+[node name="BlockCode" type="Node" parent="GameOverPanel"]
+script = ExtResource("2_kjf1e")
+block_script = SubResource("Resource_d5bk8")

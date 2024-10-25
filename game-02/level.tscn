@@ -1,11 +1,11 @@
-[gd_scene load_steps=43 format=4 uid="uid://bj20g2u4cy81b"]
+[gd_scene load_steps=29 format=4 uid="uid://bj20g2u4cy81b"]
 
 [ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_dqwyj"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_ccg5p"]
-[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialized_properties.gd" id="5_tfpym"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/option_data.gd" id="6_faaoa"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="5_xx1qu"]
 [ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="7_1dauq"]
-[ext_resource type="Script" path="res://addons/block_code/ui/block_canvas/variable_resource.gd" id="8_hboe4"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="7_rnv25"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="9_irwe2"]
 [ext_resource type="Texture2D" uid="uid://bmkupx658eth0" path="res://game-02/floor-tile.png" id="9_pcnvp"]
 [ext_resource type="Texture2D" uid="uid://dxfr76nbmbvad" path="res://game-02/tiles.png" id="10_5fo76"]
 [ext_resource type="PackedScene" uid="uid://duf85mtqcx2sw" path="res://game-02/player.tscn" id="10_8lga1"]
@@ -483,53 +483,36 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.941248, 0.150602, 0.25095, 1)
 sources/1 = SubResource("TileSetAtlasSource_ut0gn")
 
-[sub_resource type="Resource" id="Resource_nl70e"]
-script = ExtResource("5_tfpym")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_7afc6"]
-script = ExtResource("6_faaoa")
-selected = 0
-items = ["top-down", "platformer", "spaceship"]
-
-[sub_resource type="Resource" id="Resource_48imo"]
-script = ExtResource("6_faaoa")
-selected = 0
-items = ["player_1", "player_2"]
-
-[sub_resource type="Resource" id="Resource_mq3pa"]
-script = ExtResource("5_tfpym")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"kind": SubResource("Resource_7afc6"),
-"player": SubResource("Resource_48imo")
-}]]
-
-[sub_resource type="Resource" id="Resource_p1g27"]
+[sub_resource type="Resource" id="Resource_e3ure"]
 script = ExtResource("4_ccg5p")
 name = &"simplecharacter_move"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_mq3pa")
+children = Array[ExtResource("4_ccg5p")]([])
+arguments = {
+"kind": "top-down",
+"player": "player_1"
+}
 
-[sub_resource type="Resource" id="Resource_l1lpv"]
+[sub_resource type="Resource" id="Resource_7wgjm"]
 script = ExtResource("4_ccg5p")
 name = &"process"
-position = Vector2(75, 75)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_p1g27")]]
-block_serialized_properties = SubResource("Resource_nl70e")
+children = Array[ExtResource("4_ccg5p")]([SubResource("Resource_e3ure")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_g2ije"]
+script = ExtResource("5_xx1qu")
+root = SubResource("Resource_7wgjm")
+canvas_position = Vector2(150, 125)
 
 [sub_resource type="Resource" id="Resource_2wck8"]
 script = ExtResource("7_1dauq")
 script_inherits = "SimpleCharacter"
-block_trees = Array[ExtResource("4_ccg5p")]([SubResource("Resource_l1lpv")])
-variables = Array[ExtResource("8_hboe4")]([])
+block_serialization_trees = Array[ExtResource("5_xx1qu")]([SubResource("Resource_g2ije")])
+variables = Array[ExtResource("7_rnv25")]([])
 generated_script = "extends SimpleCharacter
 
 
 func _process(delta):
-	move_with_player_buttons(\"player_1\", \"top-down\", delta)
+	move_with_player_buttons('player_1', 'top-down', delta)
 
 "
 version = 0
@@ -537,168 +520,96 @@ version = 0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cm312"]
 size = Vector2(126, 130)
 
-[sub_resource type="Resource" id="Resource_ar10s"]
-script = ExtResource("5_tfpym")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
+[sub_resource type="Resource" id="Resource_2jflh"]
+script = ExtResource("9_irwe2")
+name = &"area2d_on_entered:something"
+arguments = {}
 
-[sub_resource type="Resource" id="Resource_xpg0k"]
-script = ExtResource("5_tfpym")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
-"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_thcg4"]
-script = ExtResource("4_ccg5p")
-name = &"parameter_block"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_xpg0k")
-
-[sub_resource type="Resource" id="Resource_gy7rh"]
-script = ExtResource("5_tfpym")
-block_class = &"ControlBlock"
-serialized_props = [["scope", ""], ["param_input_strings_array", [{
-"condition": false
-}]]]
-
-[sub_resource type="Resource" id="Resource_fd185"]
-script = ExtResource("5_tfpym")
-block_class = &"ParameterBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"group": "player2",
-"node": ""
-}]]
-
-[sub_resource type="Resource" id="Resource_ky7nh"]
-script = ExtResource("5_tfpym")
-block_class = &"ParameterBlock"
-serialized_props = [["block_name", &"parameter_block"], ["label", "Param"], ["color", Color(0.294118, 0.482353, 0.92549, 1)], ["block_type", 3], ["position", Vector2(0, 0)], ["scope", "func _on_body_entered(body: Node2D):
-"], ["block_format", "body"], ["statement", "body"], ["defaults", {}], ["variant_type", 24], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_ovpg7"]
-script = ExtResource("4_ccg5p")
-name = &"parameter_block"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_ky7nh")
-
-[sub_resource type="Resource" id="Resource_nbu3r"]
-script = ExtResource("4_ccg5p")
+[sub_resource type="Resource" id="Resource_05q8c"]
+script = ExtResource("9_irwe2")
 name = &"is_node_in_group"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("MarginContainer/HBoxContainer/ParameterInput0/SnapPoint"), SubResource("Resource_ovpg7")]]
-block_serialized_properties = SubResource("Resource_fd185")
+arguments = {
+"group": "player2",
+"node": SubResource("Resource_2jflh")
+}
 
-[sub_resource type="Resource" id="Resource_fotpr"]
-script = ExtResource("5_tfpym")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"text": "FOUND!"
-}]]
-
-[sub_resource type="Resource" id="Resource_4030w"]
-script = ExtResource("5_tfpym")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"group": "animations",
-"method_name": "the_end"
-}]]
-
-[sub_resource type="Resource" id="Resource_twsaq"]
+[sub_resource type="Resource" id="Resource_fm37r"]
 script = ExtResource("4_ccg5p")
 name = &"call_method_group"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_4030w")
+children = Array[ExtResource("4_ccg5p")]([])
+arguments = {
+"group": "animations",
+"method_name": "the_end"
+}
 
-[sub_resource type="Resource" id="Resource_gefe6"]
-script = ExtResource("4_ccg5p")
-name = &"print"
-position = Vector2(20, 0)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_twsaq")]]
-block_serialized_properties = SubResource("Resource_fotpr")
-
-[sub_resource type="Resource" id="Resource_n2xrg"]
+[sub_resource type="Resource" id="Resource_m7jnv"]
 script = ExtResource("4_ccg5p")
 name = &"if"
-position = Vector2(0, 0)
-path_child_pairs = [[NodePath("VBoxContainer/MarginContainer/Rows/Row0/RowHBoxContainer/RowHBox/ParameterInput0/SnapPoint"), SubResource("Resource_nbu3r")], [NodePath("VBoxContainer/MarginContainer/Rows/SnapContainer0/SnapPoint"), SubResource("Resource_gefe6")]]
-block_serialized_properties = SubResource("Resource_gy7rh")
+children = Array[ExtResource("4_ccg5p")]([SubResource("Resource_fm37r")])
+arguments = {
+"condition": SubResource("Resource_05q8c")
+}
 
-[sub_resource type="Resource" id="Resource_xe3h8"]
+[sub_resource type="Resource" id="Resource_okwbo"]
 script = ExtResource("4_ccg5p")
 name = &"area2d_on_entered"
-position = Vector2(175, 175)
-path_child_pairs = [[NodePath("VBoxContainer/TopMarginContainer/MarginContainer/HBoxContainer/ParameterOutput0/SnapPoint"), SubResource("Resource_thcg4")], [NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_n2xrg")]]
-block_serialized_properties = SubResource("Resource_ar10s")
+children = Array[ExtResource("4_ccg5p")]([SubResource("Resource_m7jnv")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_r4von"]
+script = ExtResource("5_xx1qu")
+root = SubResource("Resource_okwbo")
+canvas_position = Vector2(225, 50)
 
 [sub_resource type="Resource" id="Resource_mkew0"]
 script = ExtResource("7_1dauq")
 script_inherits = "Area2D"
-block_trees = Array[ExtResource("4_ccg5p")]([SubResource("Resource_xe3h8")])
-variables = Array[ExtResource("8_hboe4")]([])
+block_serialization_trees = Array[ExtResource("5_xx1qu")]([SubResource("Resource_r4von")])
+variables = Array[ExtResource("7_rnv25")]([])
 generated_script = "extends Area2D
 
 
-func _on_body_entered(body: Node2D):
-
-	if body.is_in_group('player2'):
-		print('FOUND!')
-		get_tree().call_group('animations', 'the_end')
-
 func _init():
 	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	if ((something).is_in_group('player2')):
+		get_tree().call_group('animations', 'the_end')
+
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_e2dbj"]
-script = ExtResource("5_tfpym")
-block_class = &"EntryBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {}]]
-
-[sub_resource type="Resource" id="Resource_8i6h3"]
-script = ExtResource("6_faaoa")
-selected = 0
-items = ["top-down", "platformer", "spaceship"]
-
-[sub_resource type="Resource" id="Resource_5lnsh"]
-script = ExtResource("6_faaoa")
-selected = 1
-items = ["player_1", "player_2"]
-
-[sub_resource type="Resource" id="Resource_b7pye"]
-script = ExtResource("5_tfpym")
-block_class = &"StatementBlock"
-serialized_props = [["scope", ""], ["param_input_strings", {
-"kind": SubResource("Resource_8i6h3"),
-"player": SubResource("Resource_5lnsh")
-}]]
-
-[sub_resource type="Resource" id="Resource_tsw33"]
+[sub_resource type="Resource" id="Resource_sfea4"]
 script = ExtResource("4_ccg5p")
 name = &"simplecharacter_move"
-position = Vector2(0, 0)
-path_child_pairs = []
-block_serialized_properties = SubResource("Resource_b7pye")
+children = Array[ExtResource("4_ccg5p")]([])
+arguments = {
+"kind": "top-down",
+"player": "player_2"
+}
 
-[sub_resource type="Resource" id="Resource_py4j5"]
+[sub_resource type="Resource" id="Resource_odib3"]
 script = ExtResource("4_ccg5p")
 name = &"process"
-position = Vector2(50, 75)
-path_child_pairs = [[NodePath("VBoxContainer/SnapPoint"), SubResource("Resource_tsw33")]]
-block_serialized_properties = SubResource("Resource_e2dbj")
+children = Array[ExtResource("4_ccg5p")]([SubResource("Resource_sfea4")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_cxy5a"]
+script = ExtResource("5_xx1qu")
+root = SubResource("Resource_odib3")
+canvas_position = Vector2(375, 100)
 
 [sub_resource type="Resource" id="Resource_2m4p2"]
 script = ExtResource("7_1dauq")
 script_inherits = "SimpleCharacter"
-block_trees = Array[ExtResource("4_ccg5p")]([SubResource("Resource_py4j5")])
-variables = Array[ExtResource("8_hboe4")]([])
+block_serialization_trees = Array[ExtResource("5_xx1qu")]([SubResource("Resource_cxy5a")])
+variables = Array[ExtResource("7_rnv25")]([])
 generated_script = "extends SimpleCharacter
 
 
 func _process(delta):
-	move_with_player_buttons(\"player_2\", \"top-down\", delta)
+	move_with_player_buttons('player_2', 'top-down', delta)
 
 "
 version = 0

@@ -1,0 +1,99 @@
+[gd_scene load_steps=19 format=3 uid="uid://cmyx2g1new5rm"]
+
+[ext_resource type="Script" path="res://addons/block_code/simple_spawner/simple_spawner.gd" id="1_63puc"]
+[ext_resource type="PackedScene" uid="uid://bhf37etwtrfbe" path="res://game-06/laser_particle.tscn" id="2_aqswo"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="3_ewtfj"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="4_n1j5b"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="5_4y7w8"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="6_g1jce"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="6_jldvy"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="7_nihrv"]
+[ext_resource type="AudioStream" uid="uid://bm178yv4wvqdn" path="res://game-06/Sounds/Pew.ogg" id="8_qms1c"]
+
+[sub_resource type="Resource" id="Resource_lhvrs"]
+script = ExtResource("6_g1jce")
+name = &"is_input_actioned"
+arguments = {
+"action": "just_pressed",
+"action_name": &"player_1_a"
+}
+
+[sub_resource type="Resource" id="Resource_sk11w"]
+script = ExtResource("6_g1jce")
+name = &"get_node"
+arguments = {
+"path": NodePath("PewSound")
+}
+
+[sub_resource type="Resource" id="Resource_o6gwk"]
+script = ExtResource("5_4y7w8")
+name = &"call_method_node"
+children = Array[ExtResource("5_4y7w8")]([])
+arguments = {
+"method_name": "play",
+"node": SubResource("Resource_sk11w")
+}
+
+[sub_resource type="Resource" id="Resource_rdric"]
+script = ExtResource("6_g1jce")
+name = &"get_node"
+arguments = {
+"path": NodePath("SimpleSpawner")
+}
+
+[sub_resource type="Resource" id="Resource_wbw5k"]
+script = ExtResource("5_4y7w8")
+name = &"call_method_node"
+children = Array[ExtResource("5_4y7w8")]([])
+arguments = {
+"method_name": "spawn_once",
+"node": SubResource("Resource_rdric")
+}
+
+[sub_resource type="Resource" id="Resource_hswhu"]
+script = ExtResource("5_4y7w8")
+name = &"if"
+children = Array[ExtResource("5_4y7w8")]([SubResource("Resource_o6gwk"), SubResource("Resource_wbw5k")])
+arguments = {
+"condition": SubResource("Resource_lhvrs")
+}
+
+[sub_resource type="Resource" id="Resource_3bykt"]
+script = ExtResource("5_4y7w8")
+name = &"process"
+children = Array[ExtResource("5_4y7w8")]([SubResource("Resource_hswhu")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_qmj0y"]
+script = ExtResource("4_n1j5b")
+root = SubResource("Resource_3bykt")
+canvas_position = Vector2(50, 75)
+
+[sub_resource type="Resource" id="Resource_1g3pu"]
+script = ExtResource("6_jldvy")
+script_inherits = "Node2D"
+block_serialization_trees = Array[ExtResource("4_n1j5b")]([SubResource("Resource_qmj0y")])
+variables = Array[ExtResource("7_nihrv")]([])
+generated_script = "extends Node2D
+
+
+func _process(delta):
+	if (Input.is_action_just_pressed('player_1_a')):
+		(get_node(\"PewSound\")).call('play')
+		(get_node(\"SimpleSpawner\")).call('spawn_once')
+
+"
+version = 0
+
+[node name="LaserGun" type="Node2D" groups=["lasers"]]
+
+[node name="SimpleSpawner" type="Node2D" parent="."]
+script = ExtResource("1_63puc")
+scenes = Array[PackedScene]([ExtResource("2_aqswo")])
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("3_ewtfj")
+block_script = SubResource("Resource_1g3pu")
+
+[node name="PewSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_qms1c")
