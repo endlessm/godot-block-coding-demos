@@ -11,3 +11,6 @@
 
 # Exclude artwork sources
 /asset-sources            export-ignore
+
+# Substitute project version when publishing
+/project.godot            export-subst
