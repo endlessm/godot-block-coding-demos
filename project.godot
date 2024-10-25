@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="blockcoding minigames"
-run/main_scene="res://game-06/main.tscn"
+run/main_scene="res://main-menu/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
