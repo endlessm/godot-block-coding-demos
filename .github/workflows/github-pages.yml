@@ -65,7 +65,7 @@ jobs:
           godot --headless --verbose --export-release "Web" ./build/web/index.html
 
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           name: web
           path: build/web
