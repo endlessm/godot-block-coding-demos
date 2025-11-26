@@ -1,13 +1,95 @@
-[gd_scene load_steps=2 format=3 uid="uid://ce7ljhwh60jah"]
+[gd_scene load_steps=16 format=3 uid="uid://ce7ljhwh60jah"]
+
+[ext_resource type="Texture2D" uid="uid://ckre7g8q0t1s1" path="res://game-05/ball.png" id="1_2beb5"]
+[ext_resource type="Script" path="res://addons/block_code/block_code_node/block_code.gd" id="2_vjm1i"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization_tree.gd" id="3_2hcpa"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_serialization.gd" id="4_3nx11"]
+[ext_resource type="Script" path="res://addons/block_code/serialization/block_script_serialization.gd" id="5_8actj"]
+[ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_q8mlh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gfue"]
 size = Vector2(30, 30)
 
-[node name="PlayerFire" type="AnimatableBody2D"]
+[sub_resource type="Gradient" id="Gradient_rb0kq"]
+colors = PackedColorArray(0.504726, 0.16483, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_acrod"]
+gradient = SubResource("Gradient_rb0kq")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tuooj"]
+blend_mode = 1
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_eqls8"]
+diffuse_texture = ExtResource("1_2beb5")
+
+[sub_resource type="Resource" id="Resource_npk5d"]
+script = ExtResource("4_3nx11")
+name = &"queue_free"
+children = Array[ExtResource("4_3nx11")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_ym8om"]
+script = ExtResource("4_3nx11")
+name = &"rigidbody2d_on_entered"
+children = Array[ExtResource("4_3nx11")]([SubResource("Resource_npk5d")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_fwpc7"]
+script = ExtResource("3_2hcpa")
+root = SubResource("Resource_ym8om")
+canvas_position = Vector2(50, 100)
+
+[sub_resource type="Resource" id="Resource_todk6"]
+script = ExtResource("5_8actj")
+script_inherits = "RigidBody2D"
+block_serialization_trees = Array[ExtResource("3_2hcpa")]([SubResource("Resource_fwpc7")])
+variables = Array[ExtResource("6_q8mlh")]([])
+generated_script = "extends RigidBody2D
+
+
+func _init():
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(something: Node2D):
+
+	queue_free()
+
+"
+version = 0
+
+[node name="PlayerFire" type="RigidBody2D"]
 disable_mode = 2
 collision_layer = 2
 collision_mask = 4
+gravity_scale = 0.0
+linear_velocity = Vector2(0, -200)
+constant_force = Vector2(0, -1500)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5gfue")
-disabled = true
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(-2, -1)
+energy = 2.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_acrod")
+height = 50.0
+
+[node name="TextureRect" type="TextureRect" parent="PointLight2D3"]
+material = SubResource("CanvasItemMaterial_tuooj")
+offset_left = -17.0
+offset_top = -20.0
+offset_right = 23.0
+offset_bottom = 20.0
+texture = SubResource("CanvasTexture_eqls8")
+stretch_mode = 3
+
+[node name="BlockCode" type="Node" parent="."]
+script = ExtResource("2_vjm1i")
+block_script = SubResource("Resource_todk6")
