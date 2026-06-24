@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://lr7qghwsgq5"]
+[gd_scene load_steps=123 format=3 uid="uid://lr7qghwsgq5"]
 
 [ext_resource type="Script" path="res://addons/block_code/simple_nodes/simple_character/simple_character.gd" id="1_nati8"]
 [ext_resource type="Texture2D" uid="uid://db4ypm23310r8" path="res://game-05/ship-shadow.png" id="2_4wik6"]
@@ -9,9 +9,9 @@
 [ext_resource type="Script" path="res://addons/block_code/serialization/value_block_serialization.gd" id="6_khv7g"]
 [ext_resource type="Script" path="res://addons/block_code/code_generation/variable_definition.gd" id="6_wjrua"]
 [ext_resource type="Texture2D" uid="uid://oolrngcqt3d0" path="res://game-05/ship.png" id="8_jvwhf"]
-[ext_resource type="Texture2D" uid="uid://ckre7g8q0t1s1" path="res://game-05/ball.png" id="9_0vcci"]
 [ext_resource type="Texture2D" uid="uid://cfd4w4dctikv2" path="res://game-05/ship-normal.png" id="10_pgpw6"]
 [ext_resource type="PackedScene" uid="uid://ce7ljhwh60jah" path="res://game-05/player_fire.tscn" id="11_tevd6"]
+[ext_resource type="Script" path="res://addons/block_code/simple_spawner/simple_spawner.gd" id="12_2q6wx"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_kgn3x"]
 diffuse_texture = ExtResource("2_4wik6")
@@ -204,21 +204,21 @@ func toggle_zoom():
 "
 version = 0
 
-[sub_resource type="Resource" id="Resource_ikdpv"]
+[sub_resource type="Resource" id="Resource_2r02k"]
 script = ExtResource("6_khv7g")
 name = &"get_var_health"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_ilq2r"]
+[sub_resource type="Resource" id="Resource_r3gkk"]
 script = ExtResource("6_khv7g")
 name = &"compare"
 arguments = {
-"float1": SubResource("Resource_ikdpv"),
+"float1": SubResource("Resource_2r02k"),
 "float2": 0.0,
 "op": ">"
 }
 
-[sub_resource type="Resource" id="Resource_sxk1l"]
+[sub_resource type="Resource" id="Resource_e7543"]
 script = ExtResource("6_khv7g")
 name = &"is_input_actioned"
 arguments = {
@@ -226,47 +226,47 @@ arguments = {
 "action_name": &"player_1_select"
 }
 
-[sub_resource type="Resource" id="Resource_3uc1y"]
+[sub_resource type="Resource" id="Resource_iq8w8"]
 script = ExtResource("6_khv7g")
 name = &"get_var_high_speed"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_oblrk"]
+[sub_resource type="Resource" id="Resource_12whu"]
 script = ExtResource("3_3fp7o")
 name = &"SimpleCharacter_set_speed"
 children = Array[ExtResource("3_3fp7o")]([])
 arguments = {
-"value": SubResource("Resource_3uc1y")
+"value": SubResource("Resource_iq8w8")
 }
 
-[sub_resource type="Resource" id="Resource_s87gd"]
+[sub_resource type="Resource" id="Resource_rst3y"]
 script = ExtResource("3_3fp7o")
 name = &"if"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_oblrk")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_12whu")])
 arguments = {
-"condition": SubResource("Resource_sxk1l")
+"condition": SubResource("Resource_e7543")
 }
 
-[sub_resource type="Resource" id="Resource_kpvkx"]
+[sub_resource type="Resource" id="Resource_qvlni"]
 script = ExtResource("6_khv7g")
 name = &"get_var_normal_speed"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_8sv71"]
+[sub_resource type="Resource" id="Resource_rxnua"]
 script = ExtResource("3_3fp7o")
 name = &"SimpleCharacter_set_speed"
 children = Array[ExtResource("3_3fp7o")]([])
 arguments = {
-"value": SubResource("Resource_kpvkx")
+"value": SubResource("Resource_qvlni")
 }
 
-[sub_resource type="Resource" id="Resource_giw45"]
+[sub_resource type="Resource" id="Resource_focyr"]
 script = ExtResource("3_3fp7o")
 name = &"else"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_8sv71")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_rxnua")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_yghv4"]
+[sub_resource type="Resource" id="Resource_wff3k"]
 script = ExtResource("3_3fp7o")
 name = &"simplecharacter_move"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -275,12 +275,12 @@ arguments = {
 "player": "player_2"
 }
 
-[sub_resource type="Resource" id="Resource_cw7v6"]
+[sub_resource type="Resource" id="Resource_82jpv"]
 script = ExtResource("6_khv7g")
 name = &"get_var_has_blaster"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_htxt1"]
+[sub_resource type="Resource" id="Resource_6exen"]
 script = ExtResource("6_khv7g")
 name = &"is_input_actioned"
 arguments = {
@@ -288,80 +288,112 @@ arguments = {
 "action_name": &"player_1_a"
 }
 
-[sub_resource type="Resource" id="Resource_4xjfv"]
+[sub_resource type="Resource" id="Resource_mei4e"]
 script = ExtResource("6_khv7g")
 name = &"get_node"
 arguments = {
-"path": NodePath("%BlastAnimation")
+"path": NodePath("SimpleSpawner")
 }
 
-[sub_resource type="Resource" id="Resource_ksj0o"]
+[sub_resource type="Resource" id="Resource_8v6t3"]
 script = ExtResource("3_3fp7o")
 name = &"call_method_node"
 children = Array[ExtResource("3_3fp7o")]([])
 arguments = {
-"method_name": "play_peew",
-"node": SubResource("Resource_4xjfv")
+"method_name": "peew_peew",
+"node": SubResource("Resource_mei4e")
 }
 
-[sub_resource type="Resource" id="Resource_vfo0f"]
-script = ExtResource("3_3fp7o")
-name = &"if"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_ksj0o")])
-arguments = {
-"condition": SubResource("Resource_htxt1")
-}
-
-[sub_resource type="Resource" id="Resource_3krhi"]
+[sub_resource type="Resource" id="Resource_eri2y"]
 script = ExtResource("6_khv7g")
 name = &"get_node"
 arguments = {
-"path": NodePath("%BlastAnimation")
+"path": NodePath("SimpleSpawner2")
 }
 
-[sub_resource type="Resource" id="Resource_4hjml"]
+[sub_resource type="Resource" id="Resource_fp8h7"]
+script = ExtResource("3_3fp7o")
+name = &"call_method_node"
+children = Array[ExtResource("3_3fp7o")]([])
+arguments = {
+"method_name": "peew_peew",
+"node": SubResource("Resource_eri2y")
+}
+
+[sub_resource type="Resource" id="Resource_prlk1"]
+script = ExtResource("3_3fp7o")
+name = &"if"
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_8v6t3"), SubResource("Resource_fp8h7")])
+arguments = {
+"condition": SubResource("Resource_6exen")
+}
+
+[sub_resource type="Resource" id="Resource_owlpc"]
+script = ExtResource("6_khv7g")
+name = &"get_node"
+arguments = {
+"path": NodePath("SimpleSpawner")
+}
+
+[sub_resource type="Resource" id="Resource_jv813"]
 script = ExtResource("3_3fp7o")
 name = &"call_method_node"
 children = Array[ExtResource("3_3fp7o")]([])
 arguments = {
 "method_name": "stop_peew",
-"node": SubResource("Resource_3krhi")
+"node": SubResource("Resource_owlpc")
 }
 
-[sub_resource type="Resource" id="Resource_0wiei"]
+[sub_resource type="Resource" id="Resource_fwj7u"]
+script = ExtResource("6_khv7g")
+name = &"get_node"
+arguments = {
+"path": NodePath("SimpleSpawner2")
+}
+
+[sub_resource type="Resource" id="Resource_uvoky"]
+script = ExtResource("3_3fp7o")
+name = &"call_method_node"
+children = Array[ExtResource("3_3fp7o")]([])
+arguments = {
+"method_name": "stop_peew",
+"node": SubResource("Resource_fwj7u")
+}
+
+[sub_resource type="Resource" id="Resource_1uvis"]
 script = ExtResource("3_3fp7o")
 name = &"else"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_4hjml")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_jv813"), SubResource("Resource_uvoky")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_2a04l"]
+[sub_resource type="Resource" id="Resource_lptrr"]
 script = ExtResource("3_3fp7o")
 name = &"if"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_vfo0f"), SubResource("Resource_0wiei")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_prlk1"), SubResource("Resource_1uvis")])
 arguments = {
-"condition": SubResource("Resource_cw7v6")
+"condition": SubResource("Resource_82jpv")
 }
 
-[sub_resource type="Resource" id="Resource_bfv88"]
+[sub_resource type="Resource" id="Resource_o76d3"]
 script = ExtResource("3_3fp7o")
 name = &"if"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_s87gd"), SubResource("Resource_giw45"), SubResource("Resource_yghv4"), SubResource("Resource_2a04l")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_rst3y"), SubResource("Resource_focyr"), SubResource("Resource_wff3k"), SubResource("Resource_lptrr")])
 arguments = {
-"condition": SubResource("Resource_ilq2r")
+"condition": SubResource("Resource_r3gkk")
 }
 
-[sub_resource type="Resource" id="Resource_pn0s8"]
+[sub_resource type="Resource" id="Resource_r8q7b"]
 script = ExtResource("3_3fp7o")
 name = &"process"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_bfv88")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_o76d3")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_mwk0n"]
+[sub_resource type="Resource" id="Resource_45y1d"]
 script = ExtResource("4_6l5iw")
-root = SubResource("Resource_pn0s8")
+root = SubResource("Resource_r8q7b")
 canvas_position = Vector2(75, 25)
 
-[sub_resource type="Resource" id="Resource_6o4c7"]
+[sub_resource type="Resource" id="Resource_bkffg"]
 script = ExtResource("3_3fp7o")
 name = &"set_var_health"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -369,7 +401,7 @@ arguments = {
 "value": 3
 }
 
-[sub_resource type="Resource" id="Resource_ehns2"]
+[sub_resource type="Resource" id="Resource_v6m1p"]
 script = ExtResource("3_3fp7o")
 name = &"set_var_has_blue_key"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -377,7 +409,7 @@ arguments = {
 "value": false
 }
 
-[sub_resource type="Resource" id="Resource_uqbed"]
+[sub_resource type="Resource" id="Resource_slfe6"]
 script = ExtResource("3_3fp7o")
 name = &"set_var_has_blaster"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -385,7 +417,7 @@ arguments = {
 "value": false
 }
 
-[sub_resource type="Resource" id="Resource_mlhkk"]
+[sub_resource type="Resource" id="Resource_ncve8"]
 script = ExtResource("3_3fp7o")
 name = &"set_var_normal_speed"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -393,7 +425,7 @@ arguments = {
 "value": Vector2(300, 300)
 }
 
-[sub_resource type="Resource" id="Resource_knjab"]
+[sub_resource type="Resource" id="Resource_w8576"]
 script = ExtResource("3_3fp7o")
 name = &"set_var_high_speed"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -401,18 +433,18 @@ arguments = {
 "value": Vector2(200, 800)
 }
 
-[sub_resource type="Resource" id="Resource_dg4vi"]
+[sub_resource type="Resource" id="Resource_xwr8p"]
 script = ExtResource("3_3fp7o")
 name = &"ready"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_6o4c7"), SubResource("Resource_ehns2"), SubResource("Resource_uqbed"), SubResource("Resource_mlhkk"), SubResource("Resource_knjab")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_bkffg"), SubResource("Resource_v6m1p"), SubResource("Resource_slfe6"), SubResource("Resource_ncve8"), SubResource("Resource_w8576")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_warad"]
+[sub_resource type="Resource" id="Resource_6inim"]
 script = ExtResource("4_6l5iw")
-root = SubResource("Resource_dg4vi")
+root = SubResource("Resource_xwr8p")
 canvas_position = Vector2(-350, -125)
 
-[sub_resource type="Resource" id="Resource_7sybr"]
+[sub_resource type="Resource" id="Resource_bsgdr"]
 script = ExtResource("3_3fp7o")
 name = &"set_var_has_blue_key"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -420,121 +452,25 @@ arguments = {
 "value": true
 }
 
-[sub_resource type="Resource" id="Resource_0mpfu"]
+[sub_resource type="Resource" id="Resource_0fbkb"]
 script = ExtResource("3_3fp7o")
 name = &"define_method"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_7sybr")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_bsgdr")])
 arguments = {
 "method_name": &"blue_key_taken"
 }
 
-[sub_resource type="Resource" id="Resource_4q24m"]
+[sub_resource type="Resource" id="Resource_ec8xt"]
 script = ExtResource("4_6l5iw")
-root = SubResource("Resource_0mpfu")
+root = SubResource("Resource_0fbkb")
 canvas_position = Vector2(600, 0)
 
-[sub_resource type="Resource" id="Resource_ni571"]
-script = ExtResource("6_khv7g")
-name = &"get_var_health"
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_1jebj"]
-script = ExtResource("6_khv7g")
-name = &"subtract"
-arguments = {
-"a": SubResource("Resource_ni571"),
-"b": 1.0
-}
-
-[sub_resource type="Resource" id="Resource_8kkit"]
-script = ExtResource("3_3fp7o")
-name = &"set_var_health"
-children = Array[ExtResource("3_3fp7o")]([])
-arguments = {
-"value": SubResource("Resource_1jebj")
-}
-
-[sub_resource type="Resource" id="Resource_shh0l"]
-script = ExtResource("6_khv7g")
-name = &"get_node"
-arguments = {
-"path": NodePath("%HitAnimation")
-}
-
-[sub_resource type="Resource" id="Resource_4rydo"]
-script = ExtResource("3_3fp7o")
-name = &"call_method_node"
-children = Array[ExtResource("3_3fp7o")]([])
-arguments = {
-"method_name": "play_hit_animation",
-"node": SubResource("Resource_shh0l")
-}
-
-[sub_resource type="Resource" id="Resource_7rptc"]
-script = ExtResource("6_khv7g")
-name = &"get_var_health"
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_qwonj"]
-script = ExtResource("6_khv7g")
-name = &"compare"
-arguments = {
-"float1": SubResource("Resource_7rptc"),
-"float2": 0.0,
-"op": "=="
-}
-
-[sub_resource type="Resource" id="Resource_ohb6h"]
-script = ExtResource("3_3fp7o")
-name = &"call_method_group"
-children = Array[ExtResource("3_3fp7o")]([])
-arguments = {
-"group": "tutorial_animations",
-"method_name": "play_game_over"
-}
-
-[sub_resource type="Resource" id="Resource_1cuvf"]
-script = ExtResource("3_3fp7o")
-name = &"if"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_ohb6h")])
-arguments = {
-"condition": SubResource("Resource_qwonj")
-}
-
-[sub_resource type="Resource" id="Resource_ffvqh"]
-script = ExtResource("3_3fp7o")
-name = &"call_method_group"
-children = Array[ExtResource("3_3fp7o")]([])
-arguments = {
-"group": "tutorial_animations",
-"method_name": "play_got_hit"
-}
-
-[sub_resource type="Resource" id="Resource_alo04"]
-script = ExtResource("3_3fp7o")
-name = &"else"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_ffvqh")])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_n78n6"]
-script = ExtResource("3_3fp7o")
-name = &"define_method"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_8kkit"), SubResource("Resource_4rydo"), SubResource("Resource_1cuvf"), SubResource("Resource_alo04")])
-arguments = {
-"method_name": &"get_hit"
-}
-
-[sub_resource type="Resource" id="Resource_46lls"]
-script = ExtResource("4_6l5iw")
-root = SubResource("Resource_n78n6")
-canvas_position = Vector2(150, 1050)
-
-[sub_resource type="Resource" id="Resource_pf7au"]
+[sub_resource type="Resource" id="Resource_k4ile"]
 script = ExtResource("6_khv7g")
 name = &"get_var_has_blue_key"
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_u26ya"]
+[sub_resource type="Resource" id="Resource_2r8gn"]
 script = ExtResource("3_3fp7o")
 name = &"call_method_group"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -543,15 +479,15 @@ arguments = {
 "method_name": "play_open_animation"
 }
 
-[sub_resource type="Resource" id="Resource_31j7v"]
+[sub_resource type="Resource" id="Resource_ormpd"]
 script = ExtResource("3_3fp7o")
 name = &"if"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_u26ya")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_2r8gn")])
 arguments = {
-"condition": SubResource("Resource_pf7au")
+"condition": SubResource("Resource_k4ile")
 }
 
-[sub_resource type="Resource" id="Resource_tk2fj"]
+[sub_resource type="Resource" id="Resource_51bov"]
 script = ExtResource("3_3fp7o")
 name = &"call_method_group"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -560,26 +496,26 @@ arguments = {
 "method_name": "play_blue_key_needed"
 }
 
-[sub_resource type="Resource" id="Resource_h1ce7"]
+[sub_resource type="Resource" id="Resource_n2mym"]
 script = ExtResource("3_3fp7o")
 name = &"else"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_tk2fj")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_51bov")])
 arguments = {}
 
-[sub_resource type="Resource" id="Resource_0jfhv"]
+[sub_resource type="Resource" id="Resource_wiurm"]
 script = ExtResource("3_3fp7o")
 name = &"define_method"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_31j7v"), SubResource("Resource_h1ce7")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_ormpd"), SubResource("Resource_n2mym")])
 arguments = {
 "method_name": &"blue_door_entered"
 }
 
-[sub_resource type="Resource" id="Resource_o65r3"]
+[sub_resource type="Resource" id="Resource_6aqgv"]
 script = ExtResource("4_6l5iw")
-root = SubResource("Resource_0jfhv")
+root = SubResource("Resource_wiurm")
 canvas_position = Vector2(875, 925)
 
-[sub_resource type="Resource" id="Resource_iheae"]
+[sub_resource type="Resource" id="Resource_0pt3y"]
 script = ExtResource("3_3fp7o")
 name = &"set_var_has_blaster"
 children = Array[ExtResource("3_3fp7o")]([])
@@ -587,18 +523,114 @@ arguments = {
 "value": true
 }
 
-[sub_resource type="Resource" id="Resource_j2sp2"]
+[sub_resource type="Resource" id="Resource_hh2cm"]
 script = ExtResource("3_3fp7o")
 name = &"define_method"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_iheae")])
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_0pt3y")])
 arguments = {
 "method_name": &"blaster_item_taken"
 }
 
-[sub_resource type="Resource" id="Resource_nl7ue"]
+[sub_resource type="Resource" id="Resource_0qeud"]
 script = ExtResource("4_6l5iw")
-root = SubResource("Resource_j2sp2")
+root = SubResource("Resource_hh2cm")
 canvas_position = Vector2(775, 200)
+
+[sub_resource type="Resource" id="Resource_a0thn"]
+script = ExtResource("6_khv7g")
+name = &"get_var_health"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_ugjym"]
+script = ExtResource("6_khv7g")
+name = &"subtract"
+arguments = {
+"a": SubResource("Resource_a0thn"),
+"b": 1.0
+}
+
+[sub_resource type="Resource" id="Resource_uy2en"]
+script = ExtResource("3_3fp7o")
+name = &"set_var_health"
+children = Array[ExtResource("3_3fp7o")]([])
+arguments = {
+"value": SubResource("Resource_ugjym")
+}
+
+[sub_resource type="Resource" id="Resource_ik8cu"]
+script = ExtResource("6_khv7g")
+name = &"get_node"
+arguments = {
+"path": NodePath("%HitAnimation")
+}
+
+[sub_resource type="Resource" id="Resource_4r6fo"]
+script = ExtResource("3_3fp7o")
+name = &"call_method_node"
+children = Array[ExtResource("3_3fp7o")]([])
+arguments = {
+"method_name": "play_hit_animation",
+"node": SubResource("Resource_ik8cu")
+}
+
+[sub_resource type="Resource" id="Resource_q1u8w"]
+script = ExtResource("6_khv7g")
+name = &"get_var_health"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_ojgxw"]
+script = ExtResource("6_khv7g")
+name = &"compare"
+arguments = {
+"float1": SubResource("Resource_q1u8w"),
+"float2": 0.0,
+"op": "=="
+}
+
+[sub_resource type="Resource" id="Resource_ydkhq"]
+script = ExtResource("3_3fp7o")
+name = &"call_method_group"
+children = Array[ExtResource("3_3fp7o")]([])
+arguments = {
+"group": "tutorial_animations",
+"method_name": "play_game_over"
+}
+
+[sub_resource type="Resource" id="Resource_81df2"]
+script = ExtResource("3_3fp7o")
+name = &"if"
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_ydkhq")])
+arguments = {
+"condition": SubResource("Resource_ojgxw")
+}
+
+[sub_resource type="Resource" id="Resource_f1ge8"]
+script = ExtResource("3_3fp7o")
+name = &"call_method_group"
+children = Array[ExtResource("3_3fp7o")]([])
+arguments = {
+"group": "tutorial_animations",
+"method_name": "play_got_hit"
+}
+
+[sub_resource type="Resource" id="Resource_a4m5d"]
+script = ExtResource("3_3fp7o")
+name = &"else"
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_f1ge8")])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_h0kky"]
+script = ExtResource("3_3fp7o")
+name = &"define_method"
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_uy2en"), SubResource("Resource_4r6fo"), SubResource("Resource_81df2"), SubResource("Resource_a4m5d")])
+arguments = {
+"method_name": &"get_hit"
+}
+
+[sub_resource type="Resource" id="Resource_gvyma"]
+script = ExtResource("4_6l5iw")
+root = SubResource("Resource_h0kky")
+canvas_position = Vector2(200, 1075)
 
 [sub_resource type="Resource" id="Resource_jbudu"]
 script = ExtResource("6_wjrua")
@@ -628,7 +660,7 @@ var_type = 1
 [sub_resource type="Resource" id="Resource_j6vrg"]
 script = ExtResource("6_05j5p")
 script_inherits = "SimpleCharacter"
-block_serialization_trees = Array[ExtResource("4_6l5iw")]([SubResource("Resource_mwk0n"), SubResource("Resource_warad"), SubResource("Resource_4q24m"), SubResource("Resource_46lls"), SubResource("Resource_o65r3"), SubResource("Resource_nl7ue")])
+block_serialization_trees = Array[ExtResource("4_6l5iw")]([SubResource("Resource_45y1d"), SubResource("Resource_6inim"), SubResource("Resource_ec8xt"), SubResource("Resource_6aqgv"), SubResource("Resource_0qeud"), SubResource("Resource_gvyma")])
 variables = Array[ExtResource("6_wjrua")]([SubResource("Resource_jbudu"), SubResource("Resource_i18ey"), SubResource("Resource_2hd6u"), SubResource("Resource_uamah"), SubResource("Resource_4iugk")])
 generated_script = "extends SimpleCharacter
 
@@ -652,9 +684,11 @@ func _process(delta):
 		move_with_player_buttons('player_2', 'spaceship', delta)
 		if (has_blaster):
 			if (Input.is_action_pressed('player_1_a')):
-				(get_node(\"%BlastAnimation\")).call('play_peew')
+				(get_node(\"SimpleSpawner\")).call('peew_peew')
+				(get_node(\"SimpleSpawner2\")).call('peew_peew')
 			else:
-				(get_node(\"%BlastAnimation\")).call('stop_peew')
+				(get_node(\"SimpleSpawner\")).call('stop_peew')
+				(get_node(\"SimpleSpawner2\")).call('stop_peew')
 
 func _ready():
 	health = 3
@@ -666,14 +700,6 @@ func _ready():
 func blue_key_taken():
 	has_blue_key = true
 
-func get_hit():
-	health = ((health) - 1)
-	(get_node(\"%HitAnimation\")).call('play_hit_animation')
-	if ((health) == 0):
-		get_tree().call_group('tutorial_animations', 'play_game_over')
-	else:
-		get_tree().call_group('tutorial_animations', 'play_got_hit')
-
 func blue_door_entered():
 	if (has_blue_key):
 		get_tree().call_group('blue_door_animation', 'play_open_animation')
@@ -682,6 +708,14 @@ func blue_door_entered():
 
 func blaster_item_taken():
 	has_blaster = true
+
+func get_hit():
+	health = ((health) - 1)
+	(get_node(\"%HitAnimation\")).call('play_hit_animation')
+	if ((health) == 0):
+		get_tree().call_group('tutorial_animations', 'play_game_over')
+	else:
+		get_tree().call_group('tutorial_animations', 'play_got_hit')
 
 "
 version = 0
@@ -702,354 +736,6 @@ metadata/_snap_enabled = true
 [sub_resource type="CanvasTexture" id="CanvasTexture_k2u3a"]
 diffuse_texture = ExtResource("8_jvwhf")
 normal_texture = ExtResource("10_pgpw6")
-
-[sub_resource type="Gradient" id="Gradient_rb0kq"]
-colors = PackedColorArray(0.504726, 0.16483, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ek1xk"]
-gradient = SubResource("Gradient_rb0kq")
-width = 200
-height = 200
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
-metadata/_snap_enabled = true
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_voai5"]
-blend_mode = 1
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_wfonp"]
-diffuse_texture = ExtResource("9_0vcci")
-
-[sub_resource type="Animation" id="Animation_3yh1q"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PointLight2D3:enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PointLight2D4:enabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PointLight2D3:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-64, -53)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PointLight2D4:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(63, -353)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PointLight2D3/TextureRect:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("PointLight2D4/TextureRect2:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerFire/CollisionShape2D:disabled")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerFire/CollisionShape2D:disabled")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerFire:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerFire2:position")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("ShipSprite:modulate")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_gfccs"]
-resource_name = "peew_peew"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PointLight2D3:enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.466667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [false, true, true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PointLight2D4:enabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.466667, 0.5, 0.966667, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [false, false, true, true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PointLight2D3:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 2),
-"update": 0,
-"values": [Vector2(-64, -53), Vector2(-20, -353)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PointLight2D4:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.466667, 0.966667),
-"transitions": PackedFloat32Array(1, 0.5),
-"update": 0,
-"values": [Vector2(63, -53), Vector2(20, -353)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PointLight2D3/TextureRect:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.466667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [false, true, true, false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("PointLight2D4/TextureRect2:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.466667, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [false, false, true, true]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerFire/CollisionShape2D:disabled")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.466667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [true, false, false, true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerFire/CollisionShape2D:disabled")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0.466667, 0.5, 0.966667, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [true, false, false, true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerFire:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0.466667, 0.966667, 1),
-"transitions": PackedFloat32Array(1, 0.5, 0),
-"update": 0,
-"values": [Vector2(63, -53), Vector2(20, -353), Vector2(63, -53)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerFire2:position")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.533333),
-"transitions": PackedFloat32Array(1, 2, 0),
-"update": 0,
-"values": [Vector2(-64, -53), Vector2(-20, -353), Vector2(-64, -53)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_b246p"]
-_data = {
-"RESET": SubResource("Animation_3yh1q"),
-"peew_peew": SubResource("Animation_gfccs")
-}
-
-[sub_resource type="Resource" id="Resource_ivsjg"]
-script = ExtResource("3_3fp7o")
-name = &"animationplayer_play"
-children = Array[ExtResource("3_3fp7o")]([])
-arguments = {
-"animation": "peew_peew",
-"direction": "forward",
-"wait_mode": "in the background"
-}
-
-[sub_resource type="Resource" id="Resource_sxdts"]
-script = ExtResource("3_3fp7o")
-name = &"define_method"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_ivsjg")])
-arguments = {
-"method_name": &"play_peew"
-}
-
-[sub_resource type="Resource" id="Resource_a8gvt"]
-script = ExtResource("4_6l5iw")
-root = SubResource("Resource_sxdts")
-canvas_position = Vector2(50, 50)
-
-[sub_resource type="Resource" id="Resource_20kse"]
-script = ExtResource("3_3fp7o")
-name = &"animationplayer_stop"
-children = Array[ExtResource("3_3fp7o")]([])
-arguments = {}
-
-[sub_resource type="Resource" id="Resource_es1rg"]
-script = ExtResource("3_3fp7o")
-name = &"define_method"
-children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_20kse")])
-arguments = {
-"method_name": &"stop_peew"
-}
-
-[sub_resource type="Resource" id="Resource_1hb27"]
-script = ExtResource("4_6l5iw")
-root = SubResource("Resource_es1rg")
-canvas_position = Vector2(100, 225)
-
-[sub_resource type="Resource" id="Resource_kle2i"]
-script = ExtResource("6_05j5p")
-script_inherits = "AnimationPlayer"
-block_serialization_trees = Array[ExtResource("4_6l5iw")]([SubResource("Resource_a8gvt"), SubResource("Resource_1hb27")])
-variables = Array[ExtResource("6_wjrua")]([])
-generated_script = "extends AnimationPlayer
-
-
-func play_peew():
-	if 'forward' == \"forward\":
-		play('peew_peew')
-	else:
-		play_backwards('peew_peew')
-	if 'in the background' == \"until done\":
-		await animation_finished
-
-
-func stop_peew():
-	stop()
-
-"
-version = 0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wkg60"]
 radius = 78.0
@@ -1135,6 +821,96 @@ func play_hit_animation():
 "
 version = 0
 
+[sub_resource type="Resource" id="Resource_k44mw"]
+script = ExtResource("6_khv7g")
+name = &"simplespawner_is_spawning"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_a4eil"]
+script = ExtResource("6_khv7g")
+name = &"not"
+arguments = {
+"bool": SubResource("Resource_k44mw")
+}
+
+[sub_resource type="Resource" id="Resource_4ph14"]
+script = ExtResource("3_3fp7o")
+name = &"simplespawner_start_spawning"
+children = Array[ExtResource("3_3fp7o")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_fdk0l"]
+script = ExtResource("3_3fp7o")
+name = &"if"
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_4ph14")])
+arguments = {
+"condition": SubResource("Resource_a4eil")
+}
+
+[sub_resource type="Resource" id="Resource_tqe76"]
+script = ExtResource("3_3fp7o")
+name = &"define_method"
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_fdk0l")])
+arguments = {
+"method_name": &"peew_peew"
+}
+
+[sub_resource type="Resource" id="Resource_m8g0p"]
+script = ExtResource("4_6l5iw")
+root = SubResource("Resource_tqe76")
+canvas_position = Vector2(75, 100)
+
+[sub_resource type="Resource" id="Resource_qj5mw"]
+script = ExtResource("6_khv7g")
+name = &"simplespawner_is_spawning"
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_tceqv"]
+script = ExtResource("3_3fp7o")
+name = &"simplespawner_stop_spawning"
+children = Array[ExtResource("3_3fp7o")]([])
+arguments = {}
+
+[sub_resource type="Resource" id="Resource_p7wts"]
+script = ExtResource("3_3fp7o")
+name = &"if"
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_tceqv")])
+arguments = {
+"condition": SubResource("Resource_qj5mw")
+}
+
+[sub_resource type="Resource" id="Resource_hn3cb"]
+script = ExtResource("3_3fp7o")
+name = &"define_method"
+children = Array[ExtResource("3_3fp7o")]([SubResource("Resource_p7wts")])
+arguments = {
+"method_name": &"stop_peew"
+}
+
+[sub_resource type="Resource" id="Resource_6y0qx"]
+script = ExtResource("4_6l5iw")
+root = SubResource("Resource_hn3cb")
+canvas_position = Vector2(125, 375)
+
+[sub_resource type="Resource" id="Resource_g06ok"]
+script = ExtResource("6_05j5p")
+script_inherits = "SimpleSpawner"
+block_serialization_trees = Array[ExtResource("4_6l5iw")]([SubResource("Resource_m8g0p"), SubResource("Resource_6y0qx")])
+variables = Array[ExtResource("6_wjrua")]([])
+generated_script = "extends SimpleSpawner
+
+
+func peew_peew():
+	if (not (is_spawning())):
+		spawn_start()
+
+func stop_peew():
+	if (is_spawning()):
+		spawn_stop()
+
+"
+version = 0
+
 [node name="Ship" type="CharacterBody2D" groups=["Ship", "affected_by_gravity", "player_hit_ani"]]
 motion_mode = 1
 script = ExtResource("1_nati8")
@@ -1183,59 +959,6 @@ height = 100.0
 position = Vector2(-1, -40)
 texture = SubResource("CanvasTexture_k2u3a")
 
-[node name="PlayerFire2" parent="." instance=ExtResource("11_tevd6")]
-
-[node name="CollisionShape2D" parent="PlayerFire2" index="0"]
-disabled = false
-
-[node name="PointLight2D3" type="PointLight2D" parent="."]
-position = Vector2(-64, -53)
-enabled = false
-energy = 2.0
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_ek1xk")
-height = 50.0
-
-[node name="TextureRect" type="TextureRect" parent="PointLight2D3"]
-visible = false
-material = SubResource("CanvasItemMaterial_voai5")
-offset_left = -17.0
-offset_top = -20.0
-offset_right = 23.0
-offset_bottom = 20.0
-texture = SubResource("CanvasTexture_wfonp")
-stretch_mode = 3
-
-[node name="PlayerFire" parent="." instance=ExtResource("11_tevd6")]
-
-[node name="PointLight2D4" type="PointLight2D" parent="."]
-position = Vector2(63, -353)
-enabled = false
-energy = 2.0
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_ek1xk")
-height = 50.0
-
-[node name="TextureRect2" type="TextureRect" parent="PointLight2D4"]
-visible = false
-material = SubResource("CanvasItemMaterial_voai5")
-offset_left = -23.0
-offset_top = -17.0
-offset_right = 17.0
-offset_bottom = 23.0
-texture = SubResource("CanvasTexture_wfonp")
-stretch_mode = 3
-
-[node name="BlastAnimation" type="AnimationPlayer" parent="." groups=["peew_ani"]]
-unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_b246p")
-}
-
-[node name="BlockCode" type="Node" parent="BlastAnimation"]
-script = ExtResource("2_eipgi")
-block_script = SubResource("Resource_kle2i")
-
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wkg60")
 
@@ -1249,5 +972,28 @@ libraries = {
 script = ExtResource("2_eipgi")
 block_script = SubResource("Resource_wtdx6")
 
-[editable path="PlayerFire2"]
-[editable path="PlayerFire"]
+[node name="SimpleSpawner" type="Node2D" parent="."]
+position = Vector2(-59, -48)
+script = ExtResource("12_2q6wx")
+scenes = Array[PackedScene]([ExtResource("11_tevd6")])
+spawn_parent = 1
+spawn_frequency = 0.8
+spawn_limit = 5
+rotate_with_parent = true
+
+[node name="BlockCode" type="Node" parent="SimpleSpawner"]
+script = ExtResource("2_eipgi")
+block_script = SubResource("Resource_g06ok")
+
+[node name="SimpleSpawner2" type="Node2D" parent="."]
+position = Vector2(60, -48)
+script = ExtResource("12_2q6wx")
+scenes = Array[PackedScene]([ExtResource("11_tevd6")])
+spawn_parent = 1
+spawn_frequency = 0.8
+spawn_limit = 5
+rotate_with_parent = true
+
+[node name="BlockCode" type="Node" parent="SimpleSpawner2"]
+script = ExtResource("2_eipgi")
+block_script = SubResource("Resource_g06ok")
